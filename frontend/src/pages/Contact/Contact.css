@@ -1,0 +1,374 @@
+.contact-page {
+    width: 100%;
+    background: #ffffff;
+    color: #333333;
+}
+
+.contact-breadcrumb {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    font-size: 14px;
+    color: #69756e;
+}
+
+.contact-breadcrumb a {
+    color: #21845b;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-breadcrumb a:hover {
+    color: #176b48;
+    text-decoration: underline;
+}
+
+.contact-breadcrumb span {
+    color: #69756e;
+    margin: 0 5px;
+}
+
+.contact-hero {
+    background: #f0faf6;
+    padding: 75px 20px 70px;
+    text-align: center;
+    border-bottom: 1px solid #e2eee8;
+}
+
+.contact-label {
+    display: inline-block;
+    color: #21845b;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.contact-hero h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #202b25;
+    margin: 0 0 16px;
+}
+
+.contact-hero p {
+    font-size: 20px;
+    color: #69766f;
+    margin: 0;
+}
+
+.contact-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 30px 45px;
+
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 70px;
+    align-items: start;
+}
+
+.contact-info h2, .contact-form-box h2 {
+    font-size: 25px;
+    font-weight: 600;
+    color: #252e29;
+    margin: 0 0 18px;
+}
+
+.contact-intro {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #626d66;
+    margin: 0 0 30px;
+}
+
+.contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.contact-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #f0faf6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.contact-info-item h3 {
+    font-size: 16px;
+    color: #252e29;
+    margin: 0 0 5px;
+}
+
+.contact-info-item p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #69756e;
+    margin: 0;
+}
+
+.contact-info-item a {
+    color: #21845b;
+    text-decoration: none;
+}
+
+.contact-info-item a:hover {
+    text-decoration: underline;
+}
+
+.contact-form-box {
+    background: #ffffff;
+    border: 1px solid #e2eee8;
+    border-radius: 12px;
+    padding: 32px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+.contact-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.contact-form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.contact-form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333d37;
+    margin-bottom: 8px;
+}
+
+.contact-form-group input, .contact-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid #dce5df;
+    border-radius: 7px;
+
+    padding: 12px 14px;
+
+    font-family: inherit;
+    font-size: 14px;
+    color: #333333;
+
+    outline: none;
+    transition: 0.3s;
+}
+
+.contact-form-group input {
+    height: 45px;
+}
+
+.contact-form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.contact-form-group input:focus, .contact-form-group textarea:focus {
+    border-color: #21845b;
+}
+
+.contact-form-group input::placeholder, .contact-form-group textarea::placeholder {
+    color: #a0aaa4;
+}
+
+.contact-form-box button {
+    border: none;
+    background: #21845b;
+    color: #ffffff;
+
+    padding: 13px 28px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.contact-form-box button:hover {
+    background: #176b48;
+}
+
+.contact-note {
+    max-width: 1140px;
+    margin: 0 auto 80px;
+
+    padding: 25px 28px;
+
+    background: #f0faf6;
+    border: 1px solid #dcefe4;
+    border-radius: 12px;
+
+    text-align: center;
+}
+
+.contact-note h3 {
+    font-size: 19px;
+    color: #21845b;
+    margin: 0 0 10px;
+}
+
+.contact-note p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #626d66;
+    margin: 0;
+}
+
+@media (max-width: 1050px) {
+
+    .contact-breadcrumb {
+        max-width: 100%;
+        padding: 20px 5%;
+    }
+
+    .contact-layout {
+        max-width: 100%;
+        padding: 50px 5% 45px;
+        gap: 45px;
+    }
+
+    .contact-note {
+        max-width: 90%;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .contact-breadcrumb {
+        padding: 18px 5%;
+        font-size: 13px;
+    }
+
+    .contact-hero {
+        padding: 55px 20px 50px;
+    }
+
+    .contact-label {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        margin-bottom: 15px;
+    }
+
+    .contact-hero h1 {
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .contact-hero p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .contact-layout {
+        display: block;
+        padding: 45px 5% 40px;
+    }
+
+    .contact-info {
+        margin-bottom: 40px;
+    }
+
+    .contact-info h2,
+    .contact-form-box h2 {
+        font-size: 22px;
+        margin-bottom: 14px;
+    }
+
+    .contact-intro {
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 25px;
+    }
+
+    .contact-info-list {
+        gap: 20px;
+    }
+
+    .contact-info-item {
+        gap: 14px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 17px;
+    }
+
+    .contact-info-item h3 {
+        font-size: 15px;
+    }
+
+    .contact-info-item p {
+        font-size: 13px;
+    }
+
+    .contact-form-box {
+        padding: 25px 20px;
+    }
+
+    .contact-form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .contact-form-group {
+        margin-bottom: 18px;
+    }
+
+    .contact-form-group label {
+        font-size: 13px;
+    }
+
+    .contact-form-group input,
+    .contact-form-group textarea {
+        font-size: 13px;
+    }
+
+    .contact-form-box button {
+        width: 100%;
+        padding: 12px 20px;
+    }
+
+    .contact-note {
+        max-width: 90%;
+        margin: 0 auto 60px;
+        padding: 22px 20px;
+    }
+
+    .contact-note h3 {
+        font-size: 18px;
+    }
+
+    .contact-note p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+}

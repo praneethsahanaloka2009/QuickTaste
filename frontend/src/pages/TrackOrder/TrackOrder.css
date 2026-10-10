@@ -1,0 +1,619 @@
+/* Track Order Page */
+.track-order-page {
+    width: 100%;
+    padding: 40px 0 60px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.track-order-header {
+    margin-bottom: 25px;
+}
+
+.track-order-header h2 {
+    margin: 0 0 7px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.track-order-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #777777;
+}
+
+/* Loading */
+.track-loading {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 15px;
+    color: #777777;
+}
+
+/* Card */
+.track-order-card {
+    width: 100%;
+    padding: 25px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+}
+
+/* Top */
+.track-order-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.track-order-top h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.track-order-top p {
+    margin: 0;
+    font-size: 12px;
+    color: #888888;
+}
+
+/* Current Status */
+.current-status {
+    padding: 7px 14px;
+    border-radius: 20px;
+    background: #f0ffef;
+    color: #065d23;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Cancelled Status */
+.current-status.cancelled {
+    background: #fff1f1;
+    color: #b42318;
+}
+
+
+/* =========================================
+   ORDER PROGRESS
+========================================= */
+
+.order-progress {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin: 45px 20px 50px;
+}
+
+
+/* Step */
+
+.progress-step {
+    position: relative;
+    flex: 1;
+    text-align: center;
+}
+
+
+/* Circle */
+
+.progress-circle {
+    width: 34px;
+    height: 34px;
+
+    margin: 0 auto 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eeeeee;
+    color: #888888;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    position: relative;
+    z-index: 2;
+
+    transition:
+        background 0.35s ease,
+        color 0.35s ease,
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+
+/* Step Text */
+
+.progress-step p {
+    margin: 0;
+
+    font-size: 12px;
+    color: #888888;
+
+    transition:
+        color 0.35s ease,
+        font-weight 0.35s ease;
+}
+
+
+/* Completed Steps */
+
+.progress-step.completed .progress-circle {
+    background: #065d23;
+    color: #ffffff;
+}
+
+.progress-step.completed p {
+    color: #262626;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   CURRENT STEP
+========================================= */
+
+.progress-step.current .progress-circle {
+    transform: scale(1.08);
+
+    box-shadow:
+        0 0 0 5px rgba(6, 93, 35, 0.10);
+
+    animation: currentStepPulse 1.8s ease-in-out infinite;
+}
+
+
+@keyframes currentStepPulse {
+
+    0% {
+        box-shadow:
+            0 0 0 0 rgba(6, 93, 35, 0.22);
+    }
+
+    50% {
+        box-shadow:
+            0 0 0 7px rgba(6, 93, 35, 0.05);
+    }
+
+    100% {
+        box-shadow:
+            0 0 0 0 rgba(6, 93, 35, 0);
+    }
+
+}
+
+
+/* =========================================
+   PROGRESS LINE
+========================================= */
+
+.progress-line {
+    position: absolute;
+
+    top: 17px;
+    left: 50%;
+
+    width: 100%;
+    height: 2px;
+
+    background: #eeeeee;
+
+    z-index: 1;
+
+    overflow: hidden;
+}
+
+
+/* Already completed lines */
+
+.progress-line.completed {
+    background: #065d23;
+}
+
+
+/* =========================================
+   CURRENT STEP → NEXT STEP ANIMATION
+========================================= */
+
+/*
+   IMPORTANT:
+   The base line stays gray.
+
+   Only the ::after element becomes green.
+
+   It starts from 0% width and fills to 100%
+   over 30 seconds.
+*/
+
+.progress-line.animate {
+    background: #eeeeee;
+}
+
+
+.progress-line.animate::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0%;
+    height: 100%;
+
+    background: #065d23;
+
+    animation: moveProgressLine 30s linear forwards;
+}
+
+
+@keyframes moveProgressLine {
+
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================
+   CANCELLED ORDER MESSAGE
+========================================= */
+
+.cancelled-order-message {
+    margin: 30px 0;
+    padding: 20px;
+
+    text-align: center;
+
+    border: 1px solid #f1d5d5;
+    border-radius: 6px;
+
+    background: #fffafa;
+
+    animation: cancelledFadeIn 0.5s ease;
+}
+
+
+@keyframes cancelledFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+.cancelled-order-message h3 {
+    margin: 0 0 8px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    color: #b42318;
+}
+
+.cancelled-order-message p {
+    margin: 0;
+
+    font-size: 13px;
+    color: #777777;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   ORDER SECTION
+========================================= */
+
+.track-order-section {
+    padding-top: 20px;
+    border-top: 1px solid #eeeeee;
+}
+
+.track-order-section h4 {
+    margin: 0 0 15px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #333333;
+}
+
+
+/* Items */
+
+.track-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 11px 0;
+
+    border-bottom: 1px solid #f1f1f1;
+
+    font-size: 13px;
+}
+
+.track-item:last-child {
+    border-bottom: none;
+}
+
+.track-item-name {
+    display: flex;
+    gap: 10px;
+}
+
+.track-item-name span:first-child {
+    color: #333333;
+}
+
+.track-item-name span:last-child {
+    color: #777777;
+}
+
+.track-item > span {
+    color: #333333;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   TOTAL
+========================================= */
+
+.track-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 20px;
+    padding-top: 18px;
+
+    border-top: 1px solid #eeeeee;
+}
+
+.track-total span {
+    font-size: 14px;
+    color: #555555;
+}
+
+.track-total strong {
+    font-size: 20px;
+    color: #262626;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-orders-btn {
+    margin-top: 25px;
+
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #065d23;
+    color: #ffffff;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.back-orders-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.track-error {
+    text-align: center;
+    padding: 60px 20px;
+
+    border: 1px solid #eeeeee;
+    border-radius: 8px;
+}
+
+.track-error h2 {
+    margin: 0 0 8px;
+
+    font-size: 22px;
+    color: #262626;
+}
+
+.track-error p {
+    margin: 0 0 20px;
+
+    color: #777777;
+    font-size: 14px;
+}
+
+.track-error button {
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #065d23;
+    color: #ffffff;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   1050px
+========================================= */
+
+@media (max-width: 1050px) {
+
+    .track-order-page {
+        padding: 30px 0 50px;
+    }
+
+    .track-order-header h2 {
+        font-size: 25px;
+    }
+
+    .track-order-card {
+        padding: 22px;
+    }
+
+    .order-progress {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+}
+
+
+/* =========================================
+   750px
+========================================= */
+
+@media (max-width: 750px) {
+
+    .track-order-page {
+        padding: 25px 0 40px;
+    }
+
+    .track-order-header h2 {
+        font-size: 23px;
+    }
+
+    .track-order-header p {
+        font-size: 13px;
+    }
+
+    .track-order-card {
+        padding: 18px;
+    }
+
+    .track-order-top {
+        align-items: flex-start;
+    }
+
+    .current-status {
+        font-size: 11px;
+        padding: 6px 11px;
+    }
+
+    .order-progress {
+        margin: 35px 0 40px;
+    }
+
+}
+
+
+/* =========================================
+   500px
+========================================= */
+
+@media (max-width: 500px) {
+
+    .track-order-page {
+        padding: 20px 0 35px;
+    }
+
+    .track-order-header h2 {
+        font-size: 21px;
+    }
+
+    .track-order-header p {
+        font-size: 12px;
+    }
+
+    .track-order-card {
+        padding: 15px;
+    }
+
+    .track-order-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .order-progress {
+        margin: 30px 0 35px;
+    }
+
+    .progress-circle {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+
+    .progress-line {
+        top: 15px;
+    }
+
+    .progress-step p {
+        font-size: 10px;
+        line-height: 1.3;
+    }
+
+    .progress-step.completed .progress-circle {
+        background: #065d23;
+        color: #ffffff;
+    }
+
+    .track-item {
+        font-size: 12px;
+    }
+
+    .track-total strong {
+        font-size: 18px;
+    }
+
+    .cancelled-order-message {
+        margin: 25px 0;
+        padding: 16px;
+    }
+
+    .cancelled-order-message h3 {
+        font-size: 14px;
+    }
+
+    .cancelled-order-message p {
+        font-size: 12px;
+    }
+
+}

@@ -1,0 +1,529 @@
+/* Promo Codes Page */
+
+.promo-codes-page {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Header */
+
+.promo-codes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.promo-codes-header h2 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.promo-codes-header p {
+    margin: 0;
+    font-size: 14px;
+    color: #777;
+}
+
+/* Add Promo Button */
+
+.add-promo-btn {
+    border: none;
+    outline: none;
+    background: #21845b;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.add-promo-btn:hover {
+    background: #0c402a;
+}
+
+/* Content */
+
+.promo-codes-content {
+    width: 100%;
+}
+
+/* Loading */
+
+.promo-loading {
+    text-align: center;
+    padding: 50px 20px;
+    color: #777;
+    font-size: 14px;
+}
+
+/* Empty State */
+
+.no-promos {
+    background: white;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.no-promos h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.no-promos p {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+}
+
+/* Table */
+
+.promo-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: white;
+    border: 1px solid #e7e7e7;
+    border-radius: 8px;
+}
+
+.promo-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 900px;
+}
+
+.promo-table th {
+    padding: 15px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    background: #f8f8f8;
+    border-bottom: 1px solid #e5e5e5;
+    white-space: nowrap;
+}
+
+.promo-table td {
+    padding: 15px 16px;
+    font-size: 13px;
+    color: #555;
+    border-bottom: 1px solid #eeeeee;
+    white-space: nowrap;
+}
+
+.promo-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.promo-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.promo-table td strong {
+    color: #222;
+    font-weight: 600;
+}
+
+/* Status */
+
+.promo-active,
+.promo-inactive {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.promo-active {
+    background: #e8f7ed;
+    color: #16803c;
+}
+
+.promo-inactive {
+    background: #f1f1f1;
+    color: #777;
+}
+
+/* Actions */
+
+.promo-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.promo-actions button {
+    border: none;
+    outline: none;
+    padding: 7px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.edit-promo-btn {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.edit-promo-btn:hover {
+    background: #e5e5e5;
+}
+
+.delete-promo-btn {
+    background: #fff0f0;
+    color: #d93025;
+}
+
+.promo-delete-modal .promo-form-buttons .promo-cancel-btn,
+.promo-delete-modal .promo-form-buttons .delete-promo-btn {
+    min-width: 90px;
+    height: 38px;
+    padding: 10px 17px;
+    box-sizing: border-box;
+}
+
+.delete-promo-btn:hover {
+    background: #ffe1e1;
+}
+
+/* Promo Modal */
+.promo-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.promo-modal {
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Modal Header */
+.promo-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+.promo-modal-header h3 {
+    margin: 0 0 5px;
+    font-size: 22px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.promo-modal-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+}
+
+.promo-close-btn {
+    border: none;
+    background: transparent;
+    color: #777;
+    font-size: 28px;
+    line-height: 20px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.promo-close-btn:hover {
+    color: #222;
+}
+
+/* Form */
+.promo-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.promo-form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
+.promo-form-group input,
+.promo-form-group select {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    font-size: 13px;
+    color: #333;
+    box-sizing: border-box;
+    background: white;
+}
+
+.promo-form-group input:focus,
+.promo-form-group select:focus {
+    border-color: #00a63c;
+}
+
+.promo-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Offer Bar Option */
+
+.promo-offer-bar-option {
+    margin-top: 18px;
+    margin-bottom: 5px;
+}
+
+.promo-offer-bar-option label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #444;
+    cursor: pointer;
+}
+
+.promo-offer-bar-option input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.promo-offer-bar-option span {
+    display: inline-block;
+}
+
+/* Form Buttons */
+
+.promo-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 18px;
+    border-top: 1px solid #eee;
+}
+
+.promo-cancel-btn,
+.promo-save-btn,
+.delete-promo-btn {
+    border: none;
+    outline: none;
+    padding: 10px 17px;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.promo-cancel-btn {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.promo-cancel-btn:hover {
+    background: #e5e5e5;
+}
+
+.promo-save-btn {
+    background: #00a63c;
+    color: white;
+}
+
+.promo-save-btn:hover {
+    background: #008f34;
+}
+
+/* Delete Confirmation Modal */
+
+.promo-delete-modal {
+    width: 420px;
+    max-width: 90%;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.promo-delete-icon {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #fff1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.promo-delete-modal h3 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #262626;
+}
+
+.promo-delete-modal p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.promo-delete-warning {
+    margin-bottom: 22px !important;
+    font-size: 13px !important;
+}
+
+.promo-delete-modal .promo-form-buttons {
+    margin-top: 20px;
+}
+
+/* Modal Responsive */
+
+@media (max-width: 750px) {
+
+    .promo-modal {
+        padding: 20px;
+    }
+
+    .promo-form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .promo-modal-overlay {
+        padding: 12px;
+    }
+
+    .promo-modal {
+        padding: 18px;
+        border-radius: 8px;
+    }
+
+    .promo-modal-header h3 {
+        font-size: 20px;
+    }
+
+    .promo-form-buttons {
+        flex-direction: column-reverse;
+    }
+
+    .promo-cancel-btn,
+    .promo-save-btn {
+        width: 100%;
+    }
+
+}
+
+/* 1050px */
+
+@media (max-width: 1050px) {
+
+    .promo-codes-page {
+        padding: 25px;
+    }
+
+    .promo-codes-header h2 {
+        font-size: 25px;
+    }
+
+    .promo-table {
+        min-width: 850px;
+    }
+
+}
+
+/* 750px */
+
+@media (max-width: 750px) {
+
+    .promo-codes-page {
+        padding: 20px 15px;
+    }
+
+    .promo-codes-header {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .promo-codes-header h2 {
+        font-size: 22px;
+    }
+
+    .promo-codes-header p {
+        font-size: 13px;
+    }
+
+    .add-promo-btn {
+        padding: 9px 13px;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .promo-table th,
+    .promo-table td {
+        padding: 12px;
+    }
+
+}
+
+/* 500px */
+
+@media (max-width: 500px) {
+
+    .promo-codes-page {
+        padding: 18px 10px;
+    }
+
+    .promo-codes-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .add-promo-btn {
+        width: 100%;
+    }
+
+    .no-promos {
+        padding: 45px 15px;
+    }
+
+}

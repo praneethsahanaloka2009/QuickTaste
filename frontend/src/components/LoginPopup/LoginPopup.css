@@ -1,0 +1,153 @@
+.login-popup {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #00000090;
+    display: grid;
+}
+
+.popup-login-container {
+    place-self: center;
+    width: max(23vw, 330px);
+    color: #808080;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    padding: 25px 30px;
+    border-radius: 8px;
+    font-size: 14px;
+    animation: fadeIn 0.5s;
+}
+
+.login-popup-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+}
+
+.login-popup-title img {
+    width: 16px;
+    cursor: pointer;
+}
+
+.login-popup-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.login-popup-inputs input {
+    outline: none;
+    border: 1px solid #c9c9c9;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* Main Login / Sign Up Button */
+
+.popup-login-container > button {
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    color: white;
+    background-color: #065d23;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* Google & Apple */
+
+.login-popup-social {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.login-popup-social button {
+    width: 100%;
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid #d9d9d9;
+    background: #ffffff;
+    color: #333333;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.login-popup-social button:hover {
+    background: #f7f7f7;
+}
+
+.login-popup-social button span {
+    display: block;
+}
+
+/* Google */
+
+.google-login {
+    color: #333333;
+}
+
+/* Apple */
+.apple-login {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border-color: #000000 !important;
+}
+
+.apple-login:hover {
+    background-color: #222222 !important;
+}
+
+/* Social Icons */
+.social-icon {
+    position: absolute;
+    left: 15px;
+    font-size: 20px;
+}
+
+/* Terms & Privacy */
+.login-popup-condition {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: -15px;
+}
+
+.login-popup-condition input {
+    margin-top: 5px;
+}
+
+.login-popup-condition p {
+    margin: 0;
+}
+
+.login-popup-condition a {
+    color: #065d23;
+    text-decoration: none;
+}
+
+.login-popup-condition a:hover {
+    text-decoration: underline;
+}
+
+/* Login / Sign Up Switch */
+
+.login-popup p span {
+    color: #065d23;
+    font-weight: 500;
+    cursor: pointer;
+}

@@ -1,0 +1,451 @@
+.messages {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.messages-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.messages-header h1 {
+    font-size: 28px;
+    color: #202b25;
+    margin: 0 0 7px;
+}
+
+.messages-header p {
+    font-size: 14px;
+    color: #69756e;
+    margin: 0;
+}
+
+/* Message Count */
+.messages-count {
+    min-width: 90px;
+    padding: 12px 18px;
+    background: #f0faf6;
+    border: 1px solid #dcefe4;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.messages-count span {
+    display: block;
+    font-size: 20px;
+    font-weight: 600;
+    color: #21845b;
+}
+
+.messages-count p {
+    font-size: 12px;
+    color: #69756e;
+    margin-top: 3px;
+}
+
+/* Message List */
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+/* No Messages */
+.no-messages {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 45px 20px;
+    background: #ffffff;
+    border: 1px solid #e2eee8;
+    border-radius: 12px;
+    text-align: center;
+    color: #69756e;
+    font-size: 14px;
+}
+
+/* Message Card */
+.message-card {
+    width: 100%;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e2eee8;
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Top */
+.message-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #edf2ef;
+}
+
+.message-user {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.message-avatar {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    background: #f0faf6;
+    color: #21845b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.message-user h3 {
+    font-size: 16px;
+    color: #252e29;
+    margin: 0 0 4px;
+}
+
+.message-user p {
+    font-size: 13px;
+    color: #69756e;
+    margin: 0;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.message-date {
+    font-size: 12px;
+    color: #89938d;
+    white-space: nowrap;
+}
+
+/* Body */
+.message-body {
+    padding: 20px 0;
+}
+
+.message-body h4 {
+    font-size: 15px;
+    color: #333d37;
+    margin: 0 0 8px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.message-body p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #626d66;
+    margin: 0;
+    max-width: 850px;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* Actions */
+.message-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 5px;
+}
+
+.message-actions button {
+    border: none;
+    padding: 9px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.reply-button {
+    background: #21845b;
+    color: #ffffff;
+}
+
+.reply-button:hover {
+    background: #176b48;
+}
+
+.delete-button {
+    background: #f5f5f5;
+    color: #555555;
+}
+
+.delete-button:hover {
+    background: #eeeeee;
+}
+
+/* ==================== Reply Modal ==================== */
+
+.reply-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.reply-modal {
+    width: 100%;
+    max-width: 600px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+}
+
+/* Reply Modal Header */
+
+.reply-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px;
+    border-bottom: 1px solid #edf2ef;
+}
+
+.reply-modal-header h2 {
+    margin: 0 0 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #202b25;
+}
+
+.reply-modal-header p {
+    margin: 0;
+    font-size: 13px;
+    color: #69756e;
+}
+
+
+/* Close Button */
+
+.reply-close-button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 6px;
+    background: #f5f5f5;
+    color: #555555;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.reply-close-button:hover {
+    background: #eeeeee;
+}
+
+
+/* Reply Form */
+
+.reply-modal form {
+    padding: 22px;
+}
+
+.reply-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.reply-form-group label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #333d37;
+}
+
+.reply-form-group input,
+.reply-form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px 12px;
+    border: 1px solid #dce5df;
+    border-radius: 6px;
+    background: #ffffff;
+    font-family: inherit;
+    font-size: 14px;
+    color: #333d37;
+    outline: none;
+    transition: 0.3s;
+}
+
+.reply-form-group input:focus,
+.reply-form-group textarea:focus {
+    border-color: #21845b;
+}
+
+
+/* Customer Email */
+.reply-form-group input[readonly] {
+    background: #f7f9f8;
+    color: #69756e;
+    cursor: not-allowed;
+}
+
+/* Message Textarea */
+.reply-form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+}
+
+
+/* Reply Modal Buttons */
+.reply-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 5px;
+}
+
+.reply-modal-actions button {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+/* Cancel Button */
+
+.reply-cancel-button {
+    background: #f5f5f5;
+    color: #555555;
+}
+
+.reply-cancel-button:hover {
+    background: #eeeeee;
+}
+
+.reply-send-button {
+    background: #21845b;
+    color: #ffffff;
+}
+
+.reply-send-button:hover {
+    background: #176b48;
+}
+
+.reply-send-button:disabled {
+    background: #9bbbad;
+    cursor: not-allowed;
+}
+
+@media (max-width: 1050px) {
+
+    .messages {
+        padding: 25px;
+    }
+
+}
+
+@media (max-width: 750px) {
+
+    .messages {
+        padding: 20px;
+    }
+
+    .messages-header {
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+    .messages-header h1 {
+        font-size: 24px;
+    }
+
+    .messages-header p {
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+    .messages-count {
+        min-width: 70px;
+
+        padding: 10px 12px;
+    }
+
+    .message-card {
+        padding: 18px;
+    }
+
+    .message-top {
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    .message-date {
+        margin-left: 55px;
+    }
+
+    .message-body p {
+        font-size: 13px;
+    }
+
+    .message-actions button {
+        flex: 1;
+    }
+
+
+    /* Reply Modal */
+    .reply-overlay {
+        padding: 15px;
+    }
+
+    .reply-modal {
+        max-width: 100%;
+    }
+
+    .reply-modal-header {
+        padding: 18px;
+    }
+
+    .reply-modal form {
+        padding: 18px;
+    }
+
+    .reply-modal-header h2 {
+        font-size: 18px;
+    }
+
+    .reply-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .reply-modal-actions button {
+        width: 100%;
+    }
+
+}

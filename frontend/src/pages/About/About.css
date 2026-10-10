@@ -1,0 +1,250 @@
+.about-page {
+    width: 100%;
+    min-height: 100vh;
+    background: #ffffff;
+    padding: 0 8% 70px;
+}
+
+
+/* =========================
+   Breadcrumb
+========================= */
+
+.about-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 25px;
+    font-size: 14px;
+    color: #69756e;
+}
+
+.about-breadcrumb a {
+    color: #21845b;
+    text-decoration: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.about-breadcrumb a:hover {
+    color: #176b48;
+    text-decoration: underline;
+}
+
+.about-breadcrumb span {
+    color: #69756e;
+    margin: 0 5px;
+}
+
+.breadcrumb-slash {
+    color: #69756e;
+}
+
+
+/* =========================
+   Hero Section
+========================= */
+
+.about-hero {
+    text-align: center;
+    padding: 55px 20px 45px;
+}
+
+.about-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #065d23;
+}
+
+.about-hero h1 {
+    font-size: 44px;
+    margin: 12px 0 15px;
+    color: #202b25;
+}
+
+.about-hero p {
+    max-width: 700px;
+    margin: auto;
+    color: #676767;
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   About Cards
+========================= */
+
+.about-cards {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.about-card {
+    padding: 30px;
+    border: 1px solid #e8e8e8;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+    transition: 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.about-card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #252e29;
+}
+
+.about-card p {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 12px;
+}
+
+.about-card ul {
+    padding-left: 20px;
+    color: #555;
+}
+
+.about-card li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.about-card li::marker {
+    color: #269568;
+}
+
+
+/* =========================
+   Closing Note
+========================= */
+
+.about-note {
+    max-width: 1050px;
+    margin: 35px auto 0;
+    padding: 30px;
+    border-radius: 14px;
+    background: #f0faf6;
+    border: 1px solid #dcefe4;
+    text-align: center;
+}
+
+.about-note h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #21845b;
+}
+
+.about-note p {
+    color: #676767;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   1050px
+========================= */
+
+@media (max-width: 1050px) {
+
+    .about-page {
+        padding: 0 5% 60px;
+    }
+
+    .about-cards {
+        max-width: 100%;
+        gap: 20px;
+    }
+
+    .about-note {
+        max-width: 100%;
+    }
+
+}
+
+
+/* =========================
+   750px
+========================= */
+
+@media (max-width: 750px) {
+
+    .about-page {
+        padding: 0 5% 50px;
+    }
+
+    .about-breadcrumb {
+        padding-top: 20px;
+        font-size: 13px;
+    }
+
+    .about-hero {
+        padding: 45px 10px 40px;
+    }
+
+    .about-label {
+        font-size: 11px;
+        letter-spacing: 1.2px;
+    }
+
+    .about-hero h1 {
+        font-size: 36px;
+        margin: 10px 0 12px;
+    }
+
+    .about-hero p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .about-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .about-card {
+        padding: 25px;
+    }
+
+    .about-card h2 {
+        font-size: 22px;
+        margin-bottom: 13px;
+    }
+
+    .about-card p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .about-card li {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .about-note {
+        margin-top: 25px;
+        padding: 25px 20px;
+    }
+
+    .about-note h3 {
+        font-size: 20px;
+    }
+
+    .about-note p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+}

@@ -1,0 +1,192 @@
+.mobile-app-page {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 70px 8%;
+    box-sizing: border-box;
+}
+
+.mobile-app-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 80px;
+}
+
+.mobile-app-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.mobile-app-subtitle {
+    color: #065d23;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.mobile-app-content h1 {
+    color: #262626;
+    font-size: 48px;
+    line-height: 1.15;
+    font-weight: 600;
+    margin: 0 0 22px;
+}
+
+.mobile-app-description {
+    color: #676767;
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 30px;
+    max-width: 550px;
+}
+
+.mobile-app-platforms {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.mobile-app-platforms img {
+    width: 180px;
+    max-width: 100%;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.mobile-app-platforms img:hover {
+    transform: translateY(-3px);
+}
+
+.mobile-app-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mobile-app-image video {
+    width: 100%;
+    max-width: 450px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+
+/* =========================
+   1050px
+========================= */
+
+@media (max-width: 1050px) {
+
+    .mobile-app-page {
+        padding: 60px 6%;
+    }
+
+    .mobile-app-container {
+        gap: 50px;
+    }
+
+    .mobile-app-content h1 {
+        font-size: 42px;
+    }
+
+    .mobile-app-description {
+        font-size: 15px;
+    }
+
+    .mobile-app-platforms img {
+        width: 165px;
+    }
+
+    .mobile-app-image video {
+        max-width: 400px;
+    }
+}
+
+
+/* =========================
+   900px
+========================= */
+
+@media (max-width: 900px) {
+
+    .mobile-app-page {
+        padding: 55px 5%;
+    }
+
+    .mobile-app-container {
+        gap: 35px;
+    }
+
+    .mobile-app-content h1 {
+        font-size: 36px;
+    }
+
+    .mobile-app-description {
+        font-size: 14px;
+    }
+
+    .mobile-app-platforms {
+        gap: 12px;
+    }
+
+    .mobile-app-platforms img {
+        width: 150px;
+    }
+
+    .mobile-app-image video {
+        max-width: 350px;
+    }
+}
+
+
+/* =========================
+   750px
+========================= */
+
+@media (max-width: 750px) {
+
+    .mobile-app-page {
+        padding: 45px 5%;
+    }
+
+    .mobile-app-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 45px;
+    }
+
+    .mobile-app-content {
+        max-width: 650px;
+    }
+
+    .mobile-app-content h1 {
+        font-size: 34px;
+    }
+
+    .mobile-app-description {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 14px;
+    }
+
+    .mobile-app-platforms {
+        justify-content: center;
+    }
+
+    .mobile-app-image {
+        width: 100%;
+    }
+
+    .mobile-app-image video {
+        max-width: 330px;
+    }
+}
