@@ -5,6 +5,7 @@ import { assets } from '../../assets/assets.js'
 import { FcGoogle } from "react-icons/fc";
 import { GoogleLogin } from '@react-oauth/google';
 import { toast } from 'react-toastify';
+import { API_URL } from "../../config/api";
 
 const Auth = ({setShowAuth, setIsLoggedIn}) => {
 
@@ -31,7 +32,7 @@ const Auth = ({setShowAuth, setIsLoggedIn}) => {
 
         try {
             
-            const endpoint = currentState === "Login" ? "http://localhost:4911/api/admin/login" : "http://localhost:4911/api/admin/register"
+            const endpoint = currentState === "Login" ? `${API_URL}/api/admin/login` : `${API_URL}/api/admin/register`;
             const body = currentState === "Login" ? { email, password } : { name, email, password }
             const response = await fetch(endpoint, {
                 method : "POST",
@@ -76,7 +77,7 @@ const Auth = ({setShowAuth, setIsLoggedIn}) => {
 
         try {
             
-            const endpoint = currentState === "Login" ? "http://localhost:4911/api/admin/google-login" : "http://localhost:4911/api/admin/google-register"
+            const endpoint = currentState === "Login" ? `${API_URL}/api/admin/google-login` : `${API_URL}/api/admin/google-register`;
 
             const response = await fetch(endpoint, {
                 method : "POST",

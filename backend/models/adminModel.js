@@ -12,15 +12,21 @@ const adminSchema = new mongoose.Schema({
         required : true,
         unique : true
     },
-    
+
     password : {
         type : String,
         required : false
+    },
+
+    avatar : {
+        type : String,
+        default : ""
     }
+
 },{
     minimize : false
-})
+});
 
-const adminModel = mongoose.models.admin || mongoose.model("admin",adminSchema);
+const adminModel = mongoose.models.admin || mongoose.model("admin", adminSchema);
 
 export default adminModel;

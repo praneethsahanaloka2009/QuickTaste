@@ -1,11 +1,15 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:4911").replace(/\/$/, "");
+
 export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
 
     const [cartItems, setCartItems] = useState({});
+    const [customizedCartItems, setCustomizedCartItems] = useState([]);
+    const [customizedCartLoading, setCustomizedCartLoading] = useState(false);
     const [token, setToken] = useState(() => localStorage.getItem("token") || "");
     const [food_list, setFoodList] = useState([]);
 
@@ -30,7 +34,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/food/list"
+                `${API_URL}/api/food/list`
             );
 
             const data = await response.json();
@@ -47,13 +51,54 @@ const StoreContextProvider = (props) => {
 
     };
 
+    // Fetch Customized Cart From Backend
+    const loadCustomizedCartData = async (userToken) => {
+        
+        if(!userToken){
+            setCustomizedCartItems([]);
+            return false;
+        }
+
+        try {
+            setCustomizedCartLoading(true);
+
+            const response = await fetch(
+                `${API_URL}/api/user/custom-cart`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+            if(response.ok && data.success){
+                setCustomizedCartItems(Array.isArray(data.items) ? data.items : []);
+                return true;
+            }
+
+            console.error("Load Customized Cart Failed:", data.message);
+
+            return false;
+
+        } catch (error) {
+            console.error("Load Customized Cart Error:", error);
+            return false;
+        } finally {
+            setCustomizedCartLoading(false);
+        }
+
+    };
+
     // Fetch Cart From Backend
     const loadCartData = async (userToken) => {
 
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/user/cart",
+                `${API_URL}/api/user/cart`,
                 {
                     method : "GET",
                     headers : {
@@ -82,7 +127,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/user/profile",
+                `${API_URL}/api/user/profile`,
                 {
                     method : "GET",
                     headers : {
@@ -104,7 +149,11 @@ const StoreContextProvider = (props) => {
                     JSON.stringify(data.user)
                 );
 
-                loadCartData(userToken);
+                // Load normal and customized carts
+                await Promise.all([
+                    loadCartData(userToken),
+                    loadCustomizedCartData(userToken)
+                ]);
 
             } else {
 
@@ -115,6 +164,7 @@ const StoreContextProvider = (props) => {
                 setToken("");
                 setUser(null);
                 setCartItems({});
+                setCustomizedCartItems([]);
 
                 console.log(
                     "User not found. Logged out automatically."
@@ -133,66 +183,138 @@ const StoreContextProvider = (props) => {
         const savedToken = localStorage.getItem("token");
 
         if(savedToken){
-
             setToken(savedToken);
-
             fetchUserProfile(savedToken);
-
         }
 
         fetchFoodList();
 
     }, []);
 
-    // Add Item To Cart
-    const addToCart = async (itemId) => {
+    // Clear customized cart state after logout
+    useEffect(() => {
+        if(!token){
+            setCustomizedCartItems([]);
+        }
+    }, [token]);
 
+    // Add Item(s) To Cart
+    const addToCart = async (itemId, quantity = 1) => {
+        
         if(!token){
             toast.error("Please login to add items to your cart.");
-            return;
+            return false;
+        }
+
+        if(!Number.isInteger(quantity) || quantity < 1 || quantity > 20){
+            toast.error("Please select a valid quantity.");
+            return false;
         }
 
         try {
-
             const response = await fetch(
-                "http://localhost:4911/api/user/cart/add",
+                `${API_URL}/api/user/cart/add`,
                 {
-                    method : "POST",
-
-                    headers : {
-                        "Content-Type" : "application/json",
-                        "Authorization" : `Bearer ${token}`
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
                     },
-
-                    body : JSON.stringify({
-                        itemId : itemId
+                    body: JSON.stringify({
+                        itemId,
+                        quantity
                     })
                 }
             );
 
             const data = await response.json();
 
-            if(data.success){
-
+            if(response.ok && data.success){
+                
                 setCartItems(data.cartData);
 
-            } else {
-
-                toast.error(
-                    data.message ||
-                    "Failed to add item to cart."
+                // Display only ONE success notification
+                toast.success(
+                    data.message || "Item added to cart!",
+                    {
+                        position: "top-right",
+                        autoClose: 2000
+                    }
                 );
 
+                return true;
+
+            } else {
+                toast.error(data.message || "Failed to add item to cart.");
+                return false;
             }
-
         } catch (error) {
+            console.error("Add To Cart Error:", error);
+            toast.error("Something went wrong while adding items.")
 
-            console.log("Add To Cart Error:", error);
+            return false;
+        }
 
-            toast.error(
-                "Something went wrong while adding item."
+    }
+
+    // Add food with selected size / add-ons
+    const addCustomizedToCart = async (foodId, quantity = 1, selections = []) => {
+        
+        if(!token){
+            toast.error("Please login to add items to your cart.");
+            return false;
+        }
+
+        if(!Number.isInteger(quantity) || quantity < 1 || quantity > 20){
+            toast.error("Quantity must be between 1 and 20.");
+            return false;
+        }
+
+        if(!Array.isArray(selections)){
+            toast.error("Invalid customization selections.");
+            return false;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_URL}/api/user/custom-cart/add`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        foodId,
+                        quantity,
+                        selections
+                    })
+                }
             );
 
+            const data = await response.json();
+
+            if(!response.ok || !data.success){
+                toast.error(data.message || "Failed to add customized food.");
+                return false;
+            }
+
+            // Reload detailed customized cart
+            const reloaded = await loadCustomizedCartData(token);
+
+            if(!reloaded){
+                toast.error("Food was saved, but the cart could not be refreshed.");
+                return true;
+            }
+
+            toast.success(data.message || "Customized food added to cart!");
+
+            return true;
+
+        } catch (error) {
+            console.error("Add Customized Cart Error:", error);
+            toast.error("Something went wrong while adding customized food.");
+            return false;
         }
 
     };
@@ -206,9 +328,8 @@ const StoreContextProvider = (props) => {
         }
 
         try {
-
             const response = await fetch(
-                "http://localhost:4911/api/user/cart/remove",
+                `${API_URL}/api/user/cart/remove`,
                 {
                     method : "POST",
 
@@ -226,23 +347,19 @@ const StoreContextProvider = (props) => {
             const data = await response.json();
 
             if(data.success){
-
                 setCartItems(data.cartData);
-
+                toast.success(data.message || "Food Item removed from cart!", {
+                    position: "top-right",
+                    autoClose: 2000
+                });
             } else {
-
-                toast.error(
-                    data.message ||
-                    "Failed to remove item from cart."
-                );
-
+                toast.error(data.message || "Failed to remove item from cart.");
             }
 
         } catch (error) {
 
             console.log(
-                "Remove From Cart Error:",
-                error
+                "Remove From Cart Error:", error
             );
 
             toast.error(
@@ -252,6 +369,63 @@ const StoreContextProvider = (props) => {
         }
 
     };
+
+    // Remove one quantity or all quantities of a customized variant
+    const removeCustomizedFromCart = async (variantKey, removeAll = false) => {
+        
+        if(!token){
+            toast.error("Please login first.");
+            return false;
+        }
+
+        if(typeof variantKey !== "string" || !variantKey.trim()){
+            toast.error("Invalid customized cart item.");
+            return false;
+        }
+
+        try {
+            const response = await fetch(
+                `${API_URL}/api/user/custom-cart/remove`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        variantKey,
+                        removeAll
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if(!response.ok || !data.success){
+                toast.error(data.message || "Failed to remove customized item.");
+                return false;
+            }
+
+            const reloaded = await loadCustomizedCartData(token);
+
+            if(!reloaded){
+                toast.error("Cart was updated, but the latest items could not be loaded.");
+                return true;
+            }
+
+            toast.success(data.message || "Customized cart updated!");
+
+            return true;
+
+        } catch (error) {
+            console.error("Remove Customized Cart Error:", error);
+
+            toast.error("Something went wrong while updating your cart.");
+
+            return false;
+        }
+
+    }
 
     // Get Total Cart Amount
     const getTotalCartAmount = () => {
@@ -291,7 +465,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                `http://localhost:4911/api/rating/user/${foodId}`,
+                `${API_URL}/api/rating/user/${foodId}`,
                 {
                     method : "GET",
 
@@ -337,7 +511,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/rating/add",
+                `${API_URL}/api/rating/add`,
                 {
                     method : "POST",
 
@@ -406,7 +580,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                `http://localhost:4911/api/rating/remove/${foodId}`,
+                `${API_URL}/api/rating/remove/${foodId}`,
                 {
                     method : "DELETE",
 
@@ -454,6 +628,21 @@ const StoreContextProvider = (props) => {
 
     };
 
+    // Total of available customized cart items
+    const getCustomizedCartTotal = () => {
+        const totalCents = customizedCartItems.reduce((total, item) => {
+            
+            if(item.available !== true || !Number.isFinite(Number(item.lineTotal))){
+                return total;
+            }
+
+            return total + Math.round(Number(item.lineTotal) * 100);
+
+        }, 0);
+
+        return totalCents / 100;
+    }
+
     const contextValue = {
 
         food_list,
@@ -462,8 +651,15 @@ const StoreContextProvider = (props) => {
 
         addToCart,
         removeFromCart,
-
         getTotalCartAmount,
+
+        // Customized Cart
+        customizedCartItems,
+        customizedCartLoading,
+        loadCustomizedCartData,
+        addCustomizedToCart,
+        removeCustomizedFromCart,
+        getCustomizedCartTotal,
 
         token,
         setToken,

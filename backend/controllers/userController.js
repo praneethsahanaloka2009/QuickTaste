@@ -5,6 +5,7 @@ import validator from "validator";
 import { OAuth2Client } from "google-auth-library";
 import fs from "fs";
 import path from "path";
+import mongoose from "mongoose";
 
 // Google OAuth Client
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -278,6 +279,80 @@ const getUserProfile = async (req,res) => {
 
 }
 
+// Update Customer Personal Information
+const updateUserProfile = async (req, res) => {
+    try {
+        const { name, phone } = req.body || {};
+
+        if(typeof name !== "string"){
+            return res.status(400).json({
+                success: false,
+                message: "Please enter your full name."
+            });
+        }
+
+        const cleanName = name.trim();
+
+        if(cleanName.length < 2 || cleanName.length > 80){
+            return res.status(400).json({
+                success: false,
+                message: "Full name must contain 2 to 80 characters."
+            });
+        }
+
+        if(phone !== undefined && typeof phone !== "string"){
+            return res.status(400).json({
+                success: false,
+                message: "Invalid phone number."
+            });
+        }
+
+        const cleanPhone = (phone || "").trim();
+
+        if(cleanPhone && !/^\+?[0-9][0-9\s()-]{6,19}$/.test(cleanPhone)){
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid phone number."
+            });
+        }
+
+        const user = await userModel.findByIdAndUpdate(
+            req.userId,
+            {
+                $set: {
+                    name: cleanName,
+                    phone: cleanPhone
+                }
+            },
+            {
+                returnDocument: "after",
+                runValidators: true
+            }
+        ).select("-password");
+
+        if(!user){
+            return res.status(404).json({
+                success: false,
+                message: "User not found."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully!",
+            user
+        });
+        
+    } catch (error) {
+        console.error("Update User Profile Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to update profile."
+        });
+    }
+};
+
 // Update User Profile Picture
 const updateProfilePicture = async (req,res) => {
 
@@ -369,17 +444,24 @@ const removeProfilePicture = async (req, res) => {
 
 }
 
-// Add Item to Cart
+// Add Item(s) to Cart
 const addToCart = async (req, res) => {
-
     try {
-        
-        const { itemId } = req.body;
+        const { itemId, quantity = 1 } = req.body;
 
-        if(!itemId){
+        // Validate item ID
+        if(!itemId || !mongoose.isValidObjectId(itemId)){
             return res.status(400).json({
-                success : false,
-                message : "Item ID is required!"
+                success: false,
+                message: "Valid Item ID is required!"
+            });
+        }
+
+        // Validate quantity
+        if(!Number.isInteger(quantity) || quantity < 1 || quantity > 20){
+            return res.status(400).json({
+                success: false,
+                message: "Quantity must be between 1 and 20."
             });
         }
 
@@ -387,8 +469,8 @@ const addToCart = async (req, res) => {
 
         if(!user){
             return res.status(404).json({
-                success : false,
-                message : "User not found!"
+                success: false,
+                message: "User not found!"
             });
         }
 
@@ -396,36 +478,32 @@ const addToCart = async (req, res) => {
             user.cartData = {};
         }
 
-        if(!user.cartData[itemId]){
-            user.cartData[itemId] = 1;
-        } else {
-            user.cartData[itemId] += 1;
-        }
+        // Add selected quantity
+        const currentQuantity = Number(user.cartData[itemId] || 0);
+
+        user.cartData[itemId] = currentQuantity + quantity;
 
         user.markModified("cartData");
 
         await user.save();
 
-        res.status(200).json({
-            success : true,
-            message : "Item added to cart!",
-            cartData : user.cartData
+        return res.status(200).json({
+            success: true,
+            message: quantity === 1 ? "Item added to cart!" : `${quantity} items added to cart!`,
+            cartData: user.cartData
         });
 
     } catch (error) {
-        
-        console.log("Add To Cart Error:", error);
+        console.error("Add To Cart Error:", error);
 
-        res.status(500).json({
-            success : false,
-            message : "Error adding item to cart"
+        return res.status(500).json({
+            success: false,
+            message: "Error adding item to cart"
         });
-
     }
-
 }
 
-// Remove Item From Cart
+// Remove Item(s) From Cart
 const removeFromCart = async (req, res) => {
 
     try {
@@ -463,7 +541,7 @@ const removeFromCart = async (req, res) => {
 
         res.status(200).json({
             success : true,
-            message : "Item removed from cart!",
+            message : "Food Item removed from cart!",
             cartData : user.cartData
         });
 
@@ -512,4 +590,4 @@ const getCart = async (req, res) => {
 
 }
 
-export {loginUser, registerUser, googleLogin, googleRegister, getUserProfile, updateProfilePicture, removeProfilePicture, addToCart, removeFromCart, getCart};
+export {loginUser, registerUser, googleLogin, googleRegister, getUserProfile, updateUserProfile, updateProfilePicture, removeProfilePicture, addToCart, removeFromCart, getCart};

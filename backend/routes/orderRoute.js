@@ -1,14 +1,11 @@
 import express from "express";
 
-import {createOrder, getUserOrders, getOrderById, getAllOrders, cancelOrder, updateOrderStatus} from "../controllers/orderController.js";
+import {getUserOrders, getOrderById, getAllOrders, cancelOrder, updateOrderStatus} from "../controllers/orderController.js";
 
 import authMiddleware from "../middleware/auth.js";
 import adminAuth from "../middleware/adminAuth.js";
 
 const orderRouter = express.Router();
-
-// Create Order
-orderRouter.post("/create", authMiddleware, createOrder);
 
 // Get Logged-in User Orders
 orderRouter.get("/my-orders", authMiddleware, getUserOrders);

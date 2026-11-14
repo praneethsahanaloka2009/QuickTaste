@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import './Messages.css'
+import { API_URL } from "../../config/api";
 
 const Messages = () => {
+
+  const getAdminHeaders = () => ({
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${localStorage.getItem("adminToken")}`
+  });
   
   const [messages, setMessages] = useState([])
 
@@ -18,7 +24,7 @@ const Messages = () => {
   const fetchMessages = async () => {
 
     try {
-      const response = await fetch("http://localhost:4911/api/message/list")
+      const response = await fetch(`${API_URL}/api/message/list`, {headers: getAdminHeaders()});
 
       const data = await response.json()
 
@@ -37,12 +43,10 @@ const Messages = () => {
   const handleDelete = async (messageId) => {
 
     try {
-      const response = await fetch("http://localhost:4911/api/message/remove",
+      const response = await fetch(`${API_URL}/api/message/remove`,
         {
           method : "POST",
-          headers : {
-            "Content-Type" : "application/json"
-          },
+          headers : getAdminHeaders(),
           body : JSON.stringify({
             id : messageId
           })
@@ -91,12 +95,10 @@ const Messages = () => {
     try {
       setSendingReply(true)
 
-      const response = await fetch("http://localhost:4911/api/message/reply",
+      const response = await fetch(`${API_URL}/api/message/reply`,
         {
           method : "POST",
-          headers : {
-            "Content-Type" : "application/json"
-          },
+          headers : getAdminHeaders(),
           body : JSON.stringify({
             email : selectedMessage.email,
             subject : replySubject,
@@ -108,7 +110,7 @@ const Messages = () => {
       const data = await response.json()
 
       if(data.success){
-        toast.success("Reply send successfully!")
+        toast.success("Reply sent successfully!")
         handleCloseReply()
       } else {
         alert(data.message)
@@ -117,7 +119,7 @@ const Messages = () => {
     } catch (error) {
 
       console.log("Reply Error:", error)
-      toast.success("Failed to send reply")
+      toast.error("Failed to send reply")
 
     } finally {
       setSendingReply(false)

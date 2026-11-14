@@ -1,0 +1,680 @@
+/* My Addresses Page */
+.qt-address-page {
+    min-height: 80vh;
+    padding: 48px 20px 90px;
+    background: #f7faf8;
+    color: #24352b;
+}
+
+.qt-address-container {
+    max-width: 1160px;
+    margin: 0 auto;
+}
+
+.qt-address-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 38px;
+}
+
+.qt-address-eyebrow {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    color: #087c31;
+}
+
+.qt-address-top h1 {
+    margin: 0 0 10px;
+    color: #1d3024;
+    font-size: 36px;
+    font-weight: 800;
+}
+
+.qt-address-top p, .qt-address-toolbar p, .qt-address-section-header p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #748178;
+}
+
+.qt-address-back {
+    color: #087c31;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    padding-top: 14px;
+}
+
+.qt-address-back:hover {
+    text-decoration: underline;
+}
+
+.qt-address-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.qt-address-toolbar h2 {
+    margin: 0 0 5px;
+    color: #26372b;
+    font-size: 21px;
+    font-weight: 750;
+}
+
+.qt-address-btn-primary, .qt-address-btn-outline {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 43px;
+    padding: 11px 19px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-decoration: none;
+}
+
+.qt-address-btn-primary {
+    border: 1px solid #087c31;
+    background: #087c31;
+    color: #fff;
+}
+
+.qt-address-btn-primary:hover:not(:disabled) {
+    background: #066528;
+}
+
+.qt-address-btn-outline {
+    border: 1px solid #d3e0d7;
+    background: #fff;
+    color: #31523a;
+}
+
+.qt-address-btn-outline:hover:not(:disabled) {
+    border-color: #087c31;
+    color: #087c31;
+}
+
+.qt-address-btn-primary:disabled, .qt-address-btn-outline:disabled, .qt-address-action:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Address cards */
+.qt-address-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.qt-address-card {
+    min-width: 0;
+    padding: 25px;
+    border: 1px solid #e2e9e4;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(12, 50, 26, 0.03);
+}
+
+.qt-address-card.default {
+    border-color: #8fcba3;
+    background: #fcfffd;
+    box-shadow: 0 6px 22px rgba(8, 124, 49, 0.05);
+}
+
+.qt-address-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 19px;
+}
+
+.qt-address-card-label {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.qt-address-type-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 39px;
+    height: 39px;
+    border-radius: 10px;
+    background: #eaf6ee;
+    color: #087c31;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.qt-address-card-label h3 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 750;
+    color: #26362a;
+}
+
+.qt-address-badge {
+    border-radius: 30px;
+    padding: 7px 12px;
+    background: #e2f5e8;
+    color: #087c31;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+}
+
+.qt-address-street {
+    margin: 0 0 8px;
+    color: #253529;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.qt-address-city {
+    margin: 0;
+    font-size: 13px;
+    color: #758078;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.qt-address-gps {
+    margin: 19px 0;
+    font-size: 12px;
+    font-weight: 650;
+    color: #087c31;
+}
+
+.qt-address-card-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0ee;
+}
+
+.qt-address-action {
+    border: none;
+    padding: 4px 0;
+    background: transparent;
+    color: #087c31;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+.qt-address-action:hover {
+    text-decoration: underline;
+}
+
+.qt-address-action.danger {
+    color: #c74646;
+}
+
+/* Empty state */
+.qt-address-empty {
+    padding: 70px 24px;
+    border: 1px dashed #cddfd3;
+    border-radius: 15px;
+    background: #fff;
+    text-align: center;
+    color: #68776d;
+}
+
+.qt-address-empty-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #ebf7ee;
+    color: #087c31;
+    font-size: 39px;
+}
+
+.qt-address-empty h3 {
+    margin: 0 0 9px;
+    color: #29372e;
+    font-size: 20px;
+}
+
+.qt-address-empty p {
+    margin: 0 auto 22px;
+    max-width: 420px;
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* Address form */
+.qt-address-form-card {
+    padding: 30px;
+    margin-bottom: 28px;
+    border: 1px solid #dce8df;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 7px 28px rgba(18, 60, 31, 0.04);
+}
+
+.qt-address-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 27px;
+}
+
+.qt-address-section-header h2 {
+    margin: 0 0 7px;
+    font-size: 22px;
+    color: #24382a;
+}
+
+.qt-address-close {
+    border: none;
+    background: #f1f5f2;
+    border-radius: 8px;
+    width: 35px;
+    height: 35px;
+    color: #4b5b4d;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.qt-address-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.qt-address-field label, .qt-address-field > label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #38493d;
+}
+
+.qt-address-field input {
+    width: 100%;
+    height: 46px;
+    padding: 11px 14px;
+    border: 1px solid #dce5df;
+    border-radius: 9px;
+    background: #fff;
+    color: #26352a;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: 0.2s ease;
+}
+
+.qt-address-field input:focus {
+    border-color: #087c31;
+    box-shadow: 0 0 0 3px rgba(8, 124, 49, 0.09);
+}
+
+.qt-address-fields-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+    margin-bottom: 29px;
+}
+
+.qt-address-fields-grid .full {
+    grid-column: 1 / -1;
+}
+
+/* Home Work Other selector */
+.qt-address-label-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.qt-address-label-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 100px;
+    justify-content: center;
+    padding: 12px 18px;
+    border: 1px solid #dae6dd;
+    border-radius: 10px;
+    background: #fff;
+    color: #526256;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.qt-address-label-option span {
+    font-size: 19px;
+}
+
+.qt-address-label-option.selected {
+    border-color: #087c31;
+    background: #eef9f1;
+    color: #087c31;
+}
+
+/* Delivery map */
+.qt-address-map-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 15px;
+}
+
+.qt-address-map-title h3 {
+    margin: 0 0 6px;
+    font-size: 17px;
+    color: #26372b;
+}
+
+.qt-address-map-title p {
+    margin: 0;
+    font-size: 13px;
+    color: #7a867d;
+}
+
+.qt-address-map-wrapper {
+    overflow: hidden;
+    border: 1px solid #d9e3dc;
+    border-radius: 12px;
+}
+
+.qt-address-map {
+    width: 100%;
+    height: 330px;
+    z-index: 0;
+}
+
+.qt-address-map-hint {
+    margin: 0;
+    padding: 12px 15px;
+    background: #f4f8f5;
+    color: #65776b;
+    font-size: 12px;
+}
+
+.qt-address-coordinates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    padding: 15px 0 22px;
+    color: #68766c;
+    font-size: 12px;
+}
+
+.qt-address-coordinates strong {
+    color: #294d35;
+}
+
+.qt-address-default-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 0;
+    color: #324637;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.qt-address-default-option input {
+    width: 17px;
+    height: 17px;
+    accent-color: #087c31;
+}
+
+.qt-address-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+/* Bottom note */
+.qt-address-bottom-note {
+    margin-top: 28px;
+    padding: 20px 22px;
+    border: 1px solid #dcebe1;
+    border-radius: 12px;
+    background: #eef8f1;
+}
+
+.qt-address-bottom-note strong {
+    display: block;
+    color: #087c31;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.qt-address-bottom-note p {
+    margin: 5px 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #56705d;
+}
+
+
+/* Delete Address Confirmation Modal */
+.qt-address-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(14, 28, 18, 0.58);
+    backdrop-filter: blur(4px);
+}
+
+.qt-address-modal {
+    width: 100%;
+    max-width: 420px;
+    padding: 32px 28px;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 20px 65px rgba(0, 0, 0, 0.18);
+    text-align: center;
+    animation: qtAddressModalIn 0.2s ease-out;
+}
+
+.qt-address-modal-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 66px;
+    height: 66px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #fff0f0;
+    color: #d63a3a;
+}
+
+.qt-address-modal h2 {
+    margin: 0 0 12px;
+    color: #24352b;
+    font-size: 23px;
+    font-weight: 750;
+}
+
+.qt-address-modal p {
+    margin: 0 0 27px;
+    color: #748078;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.qt-address-modal p strong {
+    color: #25392b;
+}
+
+.qt-address-modal-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.qt-address-modal-cancel, .qt-address-modal-delete {
+    flex: 1;
+    min-height: 45px;
+    border-radius: 9px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.qt-address-modal-cancel {
+    border: 1px solid #d8e2da;
+    background: #ffffff;
+    color: #425348;
+}
+
+.qt-address-modal-cancel:hover:not(:disabled) {
+    background: #f3f7f4;
+}
+
+.qt-address-modal-delete {
+    border: 1px solid #d63a3a;
+    background: #d63a3a;
+    color: #ffffff;
+}
+
+.qt-address-modal-delete:hover:not(:disabled) {
+    background: #b72e2e;
+}
+
+.qt-address-modal-cancel:disabled, .qt-address-modal-delete:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+
+/* Profile Action Buttons */
+.customer-profile-action-buttons {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.customer-profile-action-buttons .customer-primary-btn, .customer-profile-action-buttons .customer-outline-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin: 0;
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
+@keyframes qtAddressModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 800px) {
+    .qt-address-card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .qt-address-top h1 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .qt-address-page {
+        padding: 28px 14px 65px;
+    }
+
+    .qt-address-top, .qt-address-toolbar, .qt-address-map-title {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .qt-address-toolbar .qt-address-btn-primary {
+        width: 100%;
+    }
+
+    .qt-address-form-card {
+        padding: 20px 15px;
+    }
+
+    .qt-address-fields-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .qt-address-label-option {
+        flex: 1;
+        min-width: 0;
+        padding: 10px;
+    }
+
+    .qt-address-map {
+        height: 290px;
+    }
+
+    .qt-address-form-actions {
+        flex-direction: column;
+    }
+
+    .qt-address-form-actions button {
+        width: 100%;
+    }
+
+    .qt-address-card {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qt-address-modal {
+        padding: 26px 20px;
+    }
+
+    .qt-address-modal-actions {
+        flex-direction: column;
+    }
+
+    .customer-profile-action-buttons {
+        gap: 10px;
+    }
+}

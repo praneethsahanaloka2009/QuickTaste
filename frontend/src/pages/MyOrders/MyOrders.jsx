@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from '../../context/StoreContext'
 import { toast } from "react-toastify";
 import "./MyOrders.css";
+import { API_URL } from "../../config/api";
 
 const MyOrders = () => {
 
@@ -26,7 +27,7 @@ const MyOrders = () => {
     const fetchOrders = async () => {
         
         try {
-            const response = await fetch("http://localhost:4911/api/order/my-orders",
+            const response = await fetch(`${API_URL}/api/order/my-orders`,
                 {
                     method : "GET",
                     headers : {
@@ -57,13 +58,21 @@ const MyOrders = () => {
 
     };
 
-    // Load Orders
+    // Load orders and automatically refresh their statuses
     useEffect(() => {
-        if(token){
-            fetchOrders();
-        } else {
+        if(!token){
             setLoading(false);
+            return;
         }
+
+        fetchOrders();
+
+        // Refresh orders every 10 seconds
+        const interval = setInterval(() => {
+            fetchOrders();
+        }, 10000);
+
+        return () => clearInterval(interval);
     }, [token]);
 
     // Open Cancel Popup
@@ -113,7 +122,7 @@ const MyOrders = () => {
         try {
             setCancelling(true);
 
-            const response = await fetch(`http://localhost:4911/api/order/cancel/${selectedOrder._id}`,{
+            const response = await fetch(`${API_URL}/api/order/cancel/${selectedOrder._id}`,{
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -131,7 +140,11 @@ const MyOrders = () => {
                 // Update order in the current list
                 setOrders((prevOrders) => prevOrders.map((order) => order._id === selectedOrder._id ? data.order : order));
                 toast.success("Order cancelled successfully.");
-                closeCancelPopup();
+                
+                setShowCancelPopup(false);
+                setSelectedOrder(null);
+                setCancelReason("");
+                setCustomReason("");
 
             } else {
                 
@@ -295,16 +308,23 @@ const MyOrders = () => {
 
                                 <div className="order-actions">
                                     {/* Track Order */}
-                                    <button className='track-order-button' onClick={() => navigate(`/track-order/${order._id}`)}>
+                                    <button className="track-order-button" onClick={() => navigate(`/track-order/${order._id}`)}>
                                         TRACK ORDER
                                     </button>
 
-                                    {/* Cancel Order */}
-                                    {(order.orderStatus === "Pending" || order.orderStatus === "Processing") && (
+                                    {/* Delivery Verification */}
+                                    {order.orderStatus === "Out for Delivery" && (
+                                        <button className="verify-delivery-button" onClick={() => navigate(`/delivery-verification/${order._id}`)}>
+                                            VERIFY DELIVERY
+                                        </button>
+                                    )}
+
+                                     {/* Cancel Order */}
+                                     {(order.orderStatus === "Pending" || order.orderStatus === "Processing") && (
                                         <button className="cancel-order-button" onClick={() => openCancelPopup(order)}>
                                             CANCEL ORDER
                                         </button>
-                                    )}
+                                     )}
                                 </div>
 
                             </div>

@@ -3,8 +3,9 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "./PaymentSuccess.css";
 import { StoreContext } from "../../context/StoreContext";
+import { API_URL as BASE_API_URL } from "../../config/api";
 
-const API_URL = "http://localhost:4911/api/payment";
+const API_URL = `${BASE_API_URL}/api/payment`;
 
 const PaymentSuccess = () => {
 

@@ -45,6 +45,12 @@
     border-color: #065d23;
 }
 
+.sidebar-option svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
 @media(max-width:900px){
 
     .sidebar-option p {

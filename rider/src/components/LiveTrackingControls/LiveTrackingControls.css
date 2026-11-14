@@ -1,0 +1,302 @@
+/* QuickTaste Live Rider Tracking */
+.live-tracking {
+    width: 100%;
+    padding: 22px;
+    box-sizing: border-box;
+    background: #f7fbf8;
+    border: 1px solid #dcece1;
+    border-radius: 14px;
+}
+
+/* Header */
+.live-tracking-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.live-tracking-icon {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #087637;
+    background: #e3f4e8;
+    border-radius: 12px;
+}
+
+.live-tracking-heading {
+    flex: 1;
+    min-width: 0;
+}
+
+.live-tracking-heading h3 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #203a2c;
+}
+
+.live-tracking-heading p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #718277;
+}
+
+.live-tracking-connection {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 10px;
+}
+
+.live-tracking-connection.online {
+    color: #008d40;
+    background: #e2f5e9;
+}
+
+.live-tracking-connection.offline {
+    color: #89968c;
+    background: #edf1ee;
+}
+
+/* Tracking Status */
+.live-tracking-status {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 16px;
+    margin-bottom: 15px;
+    background: #ffffff;
+    border: 1px solid #e3ece5;
+    border-radius: 11px;
+}
+
+.live-tracking-dot {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    background: #a0a9a3;
+    border-radius: 50%;
+}
+
+.live-tracking-dot.active {
+    background: #00a651;
+    box-shadow: 0 0 0 5px rgba(0, 166, 81, 0.12);
+    animation: tracking-pulse 2s ease-in-out infinite;
+}
+
+.live-tracking-dot.connecting {
+    background: #e8a317;
+    box-shadow: 0 0 0 4px rgba(232, 163, 23, 0.12);
+    animation: tracking-pulse 1.5s ease-in-out infinite;
+}
+
+.live-tracking-status-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.live-tracking-status-info strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #253e2d;
+}
+
+.live-tracking-status-info p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #617267;
+}
+
+/* Last GPS Update */
+.live-tracking-last-update {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 13px;
+    margin-bottom: 15px;
+    color: #237246;
+    background: #e9f7ee;
+    border: 1px solid #d9ecdf;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.live-tracking-last-update svg {
+    flex-shrink: 0;
+}
+
+/* Buttons */
+.live-tracking-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.live-tracking-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 49px;
+    padding: 13px 18px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.live-tracking-button.start {
+    background: #008d40;
+    color: #ffffff;
+}
+
+.live-tracking-button.start:hover:not(:disabled) {
+    background: #007533;
+    box-shadow: 0 5px 15px rgba(0, 141, 64, 0.18);
+}
+
+.live-tracking-button.stop {
+    background: #b42318;
+    color: #ffffff;
+}
+
+.live-tracking-button.stop:hover:not(:disabled) {
+    background: #911c13;
+    box-shadow: 0 5px 15px rgba(180, 35, 24, 0.18);
+}
+
+.live-tracking-button:active:not(:disabled) {
+    transform: scale(0.99);
+}
+
+.live-tracking-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.live-tracking-button:focus-visible {
+    outline: 3px solid #83cba2;
+    outline-offset: 3px;
+}
+
+.live-tracking-starting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px;
+    color: #647366;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Privacy Notice */
+.live-tracking-privacy {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 17px;
+    padding-top: 15px;
+    border-top: 1px solid #e0eae3;
+}
+
+.live-tracking-privacy svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #609471;
+}
+
+.live-tracking-privacy p {
+    margin: 0;
+    color: #708074;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* Animations */
+@keyframes tracking-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.45;
+    }
+}
+
+@keyframes tracking-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.live-tracking-spinner {
+    animation: tracking-spin 1s linear infinite;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .live-tracking {
+        padding: 16px;
+        border-radius: 12px;
+    }
+
+    .live-tracking-header {
+        gap: 10px;
+    }
+
+    .live-tracking-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .live-tracking-heading h3 {
+        font-size: 15px;
+    }
+
+    .live-tracking-status {
+        padding: 13px;
+    }
+
+    .live-tracking-button {
+        min-height: 46px;
+        font-size: 13px;
+    }
+
+    .live-tracking-privacy p {
+        font-size: 11px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .live-tracking-dot, .live-tracking-spinner {
+        animation: none;
+    }
+
+    .live-tracking-button {
+        transition: none;
+    }
+}

@@ -1,227 +1,276 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
-import './Navbar.css'
-import { assets } from '../../assets/assets'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
-import { StoreContext } from '../../context/StoreContext'
-import { toast } from 'react-toastify'
+import React, { useState, useEffect, useContext, useRef } from "react";
+import "./Navbar.css";
+import { assets } from "../../assets/assets";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { StoreContext } from "../../context/StoreContext";
+import { toast } from "react-toastify";
 
-const Navbar = ({setShowLogin, isLoggedIn}) => {
+// Backend API Configuration
+import { API_URL, getImageUrl } from "../../config/api";
 
-    const [menu, setMenu] = useState("home")
-    const [showMenu, setShowMenu] = useState(false)
+const Navbar = ({ setShowLogin, isLoggedIn }) => {
 
-    const fileInputRef = useRef(null)
+    const [menu, setMenu] = useState("home");
+    const [showMenu, setShowMenu] = useState(false);
 
-    const { getTotalCartAmount, token, setToken, user, setUser } = useContext(StoreContext);
+    const profileMenuRef = useRef(null);
 
-    const navigate = useNavigate()
-    const location = useLocation()
+    const {getTotalCartAmount, customizedCartItems, token, setToken, user, setUser} = useContext(StoreContext);
 
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Normal cart items
+    const hasRegularItems = getTotalCartAmount() > 0;
+
+    // Customized cart items
+    const hasCustomizedItems = Array.isArray(customizedCartItems) && customizedCartItems.some((item) => Number(item.quantity) > 0);
+
+    // Either cart contains items
+    const hasCartItems = hasRegularItems || hasCustomizedItems;
+
+    // Close profile menu on outside click / Escape
+    useEffect(() => {
+
+        if(!showMenu){
+            return;
+        }
+
+        const handleOutsideClick = (event) => {
+
+            if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)){
+                setShowMenu(false);
+            }
+        };
+
+        const handleEscapeKey = (event) => {
+
+            if(event.key === "Escape"){
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener("pointerdown", handleOutsideClick);
+        document.addEventListener("keydown", handleEscapeKey);
+
+        return () => {
+            document.removeEventListener("pointerdown", handleOutsideClick);
+            document.removeEventListener("keydown", handleEscapeKey);
+        };
+
+    }, [showMenu]);
+
+    // Active menu based on route and scroll
     useEffect(() => {
 
         if (location.pathname === "/") {
 
             const handleScroll = () => {
 
-                const exploreMenu = document.getElementById("explore-menu")
+                const exploreMenu = document.getElementById("explore-menu");
 
-                if (!exploreMenu) {
-                    setMenu("home")
-                    return
+                if(!exploreMenu){
+                    setMenu("home");
+                    return;
                 }
 
-                const menuTop = exploreMenu.getBoundingClientRect().top
+                const menuTop =
+                    exploreMenu.getBoundingClientRect().top;
 
-                if (menuTop <= 150) {
-                    setMenu("menu")
+                if(menuTop <= 150){
+                    setMenu("menu");
                 } else {
-                    setMenu("home")
+                    setMenu("home");
                 }
-            }
+            };
 
-            handleScroll()
+            handleScroll();
 
-            window.addEventListener("scroll", handleScroll)
+            window.addEventListener(
+                "scroll",
+                handleScroll
+            );
 
             return () => {
-                window.removeEventListener("scroll", handleScroll)
-            }
-
+                window.removeEventListener(
+                    "scroll",
+                    handleScroll
+                );
+            };
         }
 
-        else if (location.pathname === "/mobile-app") {
-            setMenu("mobile-app")
+        else if(location.pathname === "/mobile-app"){
+            setMenu("mobile-app");
         }
 
-        else if (location.pathname === "/contact") {
-            setMenu("contact-us")
+        else if(location.pathname === "/contact"){
+            setMenu("contact-us");
         }
 
         else {
-            setMenu("")
+            setMenu("");
         }
 
-    }, [location.pathname])
+    }, [location.pathname]);
 
-
+    // Home Navigation
     const handleHome = () => {
 
-        setMenu("home")
-        navigate("/")
+        setMenu("home");
+        navigate("/");
 
         setTimeout(() => {
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth"
-            })
-        }, 100)
+            window.scrollTo({top: 0, left: 0, behavior: "smooth"});
+        }, 100);
+    };
 
-    }
-
-
+    // Explore Menu Navigation
     const handleMenu = () => {
 
-        setMenu("menu")
-        navigate("/")
+        setMenu("menu");
+        navigate("/");
 
         setTimeout(() => {
-            document.getElementById("explore-menu")?.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            })
-        }, 100)
-
-    }
+            document.getElementById("explore-menu") ?.scrollIntoView({behavior: "smooth", block: "start"});
+        }, 100);
+    };
 
     const handleMobileApp = () => {
-        setMenu("mobile-app")
-        navigate("/mobile-app")
-    }
-
+        setMenu("mobile-app");
+        navigate("/mobile-app");
+    };
 
     const handleContact = () => {
-        setMenu("contact-us")
-        navigate("/contact")
-    }
+        setMenu("contact-us");
+        navigate("/contact");
+    };
 
     const handleSignIn = () => {
-        setShowLogin(true)
-    }
+        setShowLogin(true);
+    };
 
-    // Open file selector
-    const handleUploadClick = () => {
-        fileInputRef.current?.click()
-    }
-
-    // Upload profile picture
+    // Upload Profile Picture
     const handleProfilePicture = async (event) => {
 
-        const file = event.target.files[0]
+        const file = event.target.files?.[0];
 
-        if(!file){
-            return
+        if (!file) {
+            return;
         }
 
-        // Check image type
         if(!file.type.startsWith("image/")){
-            toast.error("Please select an image file.")
-            return
+            toast.error("Please select an image file.");
+            event.target.value = "";
+            return;
         }
 
-        // Check image size maximum 5MB
         if(file.size > 5 * 1024 * 1024){
-            toast.error("Image size must be less than 5MB.")
-            return
+            toast.error("Image size must be less than 5MB.");
+            event.target.value = "";
+            return;
         }
 
         try {
-            
-            const token = localStorage.getItem("token")
 
-            if(!token){
-                toast.error("Please login first.")
-                return
+            const userToken = localStorage.getItem("token");
+
+            if(!userToken){
+                toast.error("Please login first.");
+                return;
             }
 
-            const formData = new FormData()
+            const formData = new FormData();
+            formData.append("avatar", file);
 
-            formData.append("avatar", file)
+            const response = await fetch(
+                `${API_URL}/api/user/profile-picture`,
+                {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    },
+                    body: formData
+                }
+            );
 
-            const response = await fetch("http://localhost:4911/api/user/profile-picture", {
-                method : "POST",
-                headers : {
-                    "Authorization" : `Bearer ${token}`
-                },
-                body : formData
-            })
-
-            const data = await response.json()
+            const data = await response.json();
 
             if(data.success){
-                setUser(data.user)
-                localStorage.setItem("user", JSON.stringify(data.user))
-                toast.success("Profile picture updated successfully!")
-            } else{
-                toast.error(data.message || "Failed to upload profile picture.")
+
+                setUser(data.user);
+
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(data.user)
+                );
+
+                toast.success("Profile picture updated successfully!");
+
+            } else {
+                toast.error(data.message || "Failed to upload profile picture.");
             }
 
         } catch (error) {
-            console.log("Profile Picture Upload Error:", error)
-            toast.error("Something went wrong while uploading.")
+            console.log("Profile Picture Upload Error:", error);
+            toast.error("Something went wrong while uploading.");
+        } finally {
+            event.target.value = "";
         }
+    };
 
-        // Reset file input
-        event.target.value = ""
-
-    }
-
-    // Remove profile picture
+    // Remove Profile Picture
     const handleRemoveProfilePicture = async () => {
 
         try {
-            
-            const token = localStorage.getItem("token")
 
-            if(!token){
-                toast.error("Please login first.")
-                return
+            const userToken = localStorage.getItem("token");
+
+            if(!userToken){
+                toast.error("Please login first.");
+                return;
             }
 
-            const response = await fetch("http://localhost:4911/api/user/profile-picture",{
-                method : "DELETE",
-                headers : {
-                    "Authorization" : `Bearer ${token}`
+            const response = await fetch(
+                `${API_URL}/api/user/profile-picture`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${userToken}`
+                    }
                 }
-            })
+            );
 
-            const data = await response.json()
+            const data = await response.json();
 
             if(data.success){
-                setUser(data.user)
-                localStorage.setItem("user", JSON.stringify(data.user))
-                toast.success("Profile picture removed successfully!")
-                setShowMenu(false)
+                setUser(data.user);
+                localStorage.setItem("user", JSON.stringify(data.user));
+                toast.success("Profile picture removed successfully!");
+                setShowMenu(false);
             } else {
-                toast.error(data.message || "Failed to remove profile picture.")
+                toast.error(data.message || "Failed to remove profile picture.");
             }
 
         } catch (error) {
-            console.log("Remove Profile Picture Error:", error)
-            toast.error("Something went wrong while removing.")
+
+            console.log("Remove Profile Picture Error:", error);
+            toast.error("Something went wrong while removing.");
         }
+    };
 
-    }
-
+    // Logout
     const handleLogout = () => {
-        localStorage.removeItem("token")
-        localStorage.removeItem("user")
-        setToken("")
-        setUser(null)
-        setShowMenu(false)
-    }
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        setToken("");
+        setUser(null);
+        setShowMenu(false);
+    };
 
     return (
+
         <div className="navbar">
 
             <Link to="/">
@@ -229,65 +278,86 @@ const Navbar = ({setShowLogin, isLoggedIn}) => {
             </Link>
 
             <ul className="navbar-menu">
-                <li className={menu === "home" ? "active" : ""} onClick={handleHome}>home</li>
-                <li className={menu === "menu" ? "active" : ""} onClick={handleMenu}>menu</li>
-                <li className={menu === "mobile-app" ? "active" : ""} onClick={handleMobileApp}>mobile-app</li>
-                <li className={menu === "contact-us" ? "active" : ""} onClick={handleContact}>contact-us</li>
+
+                <li className={menu === "home" ? "active" : ""} onClick={handleHome}>
+                    home
+                </li>
+
+                <li className={menu === "menu" ? "active" : ""} onClick={handleMenu}>
+                    menu
+                </li>
+
+                <li className={menu === "mobile-app" ? "active" : ""} onClick={handleMobileApp}>
+                    mobile-app
+                </li>
+
+                <li className={menu === "contact-us" ? "active" : ""} onClick={handleContact}>
+                    contact-us
+                </li>
+
             </ul>
 
             <div className="navbar-right">
 
                 <img src={assets.search_icon} alt=""/>
+
                 <div className="navbar-search-icon">
 
-                    <Link to='/cart' onClick={(e) => {
+                    <Link to="/cart" onClick={(event) => {
                         if(!isLoggedIn){
-                            e.preventDefault()
-                            toast.error("Please login to access your cart.")
-                            setShowLogin(true)
+                            event.preventDefault();
+                            toast.error("Please login to access your cart.");
+                            setShowLogin(true);
                         }
                     }}>
                         <img src={assets.basket_icon} alt=""/>
                     </Link>
-                    
-                    <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+
+                    {isLoggedIn && hasCartItems && (
+                        <div className="dot"></div>
+                    )}
+
                 </div>
-                
+
                 {!isLoggedIn ? (
+
                     <button onClick={handleSignIn}>
                         Sign In
                     </button>
-                ):(
-                    <div className='profile-container'>
-                        
+
+                ) : (
+
+                    <div className="profile-container" ref={profileMenuRef}>
+
                         {user ? (
+
                             user.avatar ? (
-                                <img src={`http://localhost:4911/images/${user.avatar}`} className='profile' alt="Profile" onClick={() => setShowMenu(!showMenu)}/>
+
+                                <img src={getImageUrl(user.avatar)} className="profile" alt="Profile" onClick={() => setShowMenu(!showMenu)}/>
+
                             ) : (
-                                <div className='profile profile-letter' onClick={() => setShowMenu(!showMenu)}>
-                                    {user.name?.charAt(0)?.toUpperCase() || ""}
+
+                                <div className="profile profile-letter" onClick={() => setShowMenu(!showMenu)}>
+                                    {user.name ?.charAt(0) ?.toUpperCase() || ""}
                                 </div>
+
                             )
+
                         ) : (
-                            <div className='profile profile-letter'></div>
+
+                            <div className="profile profile-letter"></div>
+
                         )}
 
-                        <input type="file" accept='image/*' ref={fileInputRef} onChange={handleProfilePicture} style={{ display : 'none' }}/>
-
                         {showMenu && user && (
-                            <div className='profile-menu'>
 
-                                {user.avatar ? (
-                                    <button onClick={handleRemoveProfilePicture}>
-                                        Remove Profile Picture
-                                    </button>
-                                ) : (
-                                    <button onClick={handleUploadClick}>
-                                        Upload Profile Picture
-                                    </button>
-                                )}
+                            <div className="profile-menu">
 
-                                <button onClick={() => {navigate("/my-orders"); setShowMenu(false)}}>
+                                <button onClick={() => {navigate("/profile"); setShowMenu(false);}}>
+                                    My Profile
+                                </button>
+
+                                <button onClick={() => {navigate("/my-orders"); setShowMenu(false);}}>
                                     My Orders
                                 </button>
 
@@ -296,15 +366,17 @@ const Navbar = ({setShowLogin, isLoggedIn}) => {
                                 </button>
 
                             </div>
+
                         )}
 
                     </div>
+
                 )}
 
             </div>
 
         </div>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;

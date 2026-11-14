@@ -1,8 +1,6 @@
 import messageModel from "../models/messageModel.js";
 import nodemailer from 'nodemailer';
 
-console.log("EMAIL PASS:", process.env.EMAIL_PASS ? "Loaded" : "Missing")
-
 // Email Transporter
 const transporter = nodemailer.createTransport({
 

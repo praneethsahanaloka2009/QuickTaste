@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+/* Global Style */
 * {
   padding: 0;
   margin: 0;
@@ -8,9 +9,7 @@
   scroll-behavior: smooth;
 }
 
-html,
-body,
-#root {
+html, body, #root {
   min-height: 100%;
 }
 
@@ -39,7 +38,66 @@ a {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
+  }
+}
+
+/* QuickTaste Customer Toast Notifications */
+/* Toast Container */
+.Toastify__toast-container .Toastify__toast {
+  min-height: 88px !important;
+  padding: 16px 18px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box;
+}
+
+/* Toast Body */
+.Toastify__toast-container .Toastify__toast-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 6px 0;
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  line-height: 1.9 !important;
+}
+
+/* Toast Message Text */
+.Toastify__toast-container .Toastify__toast-body > div:last-child {
+  line-height: 1.9 !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Toast Icon */
+.Toastify__toast-container .Toastify__toast-icon {
+  flex-shrink: 0;
+  margin-inline-end: 14px !important;
+}
+
+/* Close Button */
+.Toastify__toast-container .Toastify__close-button {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .Toastify__toast-container .Toastify__toast {
+    min-height: 76px !important;
+    padding: 14px 16px !important;
+  }
+
+  .Toastify__toast-container .Toastify__toast-body {
+    display: flex;
+    align-items: center;
+    gap: 0 !important;
+  }
+
+  .Toastify__toast-container .Toastify__toast-body > div:last-child {
+    line-height: 1.75 !important;
   }
 }

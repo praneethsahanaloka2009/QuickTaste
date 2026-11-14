@@ -1,19 +1,18 @@
 import express from "express"
+import {createPromoCode, getAllPromoCodes, getPromoCodeById, updatePromoCode, deletePromoCode, validatePromoCode, getPublicOffers} from "../controllers/promoController.js"
+import adminAuth from "../middleware/adminAuth.js";
 
-import {createPromoCode, getAllPromoCodes, getPromoCodeById, updatePromoCode, deletePromoCode, validatePromoCode} from "../controllers/promoController.js"
+const promoRouter = express.Router();
 
-const promoRouter = express.Router()
+// Public Route - Customer Promo Validation
+promoRouter.post("/validate", validatePromoCode);
+promoRouter.get("/public-offers", getPublicOffers);
 
-// Admin routes
-promoRouter.post("/create", createPromoCode)
-promoRouter.get("/list", getAllPromoCodes)
+// Protected Routes - Admin Only
+promoRouter.post("/create", adminAuth, createPromoCode);
+promoRouter.get("/list", adminAuth, getAllPromoCodes);
+promoRouter.get("/:id", adminAuth, getPromoCodeById);
+promoRouter.put("/:id", adminAuth, updatePromoCode);
+promoRouter.delete("/:id", adminAuth, deletePromoCode);
 
-// Customer route
-promoRouter.post("/validate", validatePromoCode)
-
-// Single promo
-promoRouter.get("/:id", getPromoCodeById)
-promoRouter.put("/:id", updatePromoCode)
-promoRouter.delete("/:id", deletePromoCode)
-
-export default promoRouter
+export default promoRouter;

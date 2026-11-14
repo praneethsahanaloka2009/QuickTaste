@@ -1,0 +1,259 @@
+
+/* QuickTaste Customer Live Rider Map */
+
+.live-rider-map {
+    margin: 25px 0;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid #e0e9e3;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.live-rider-map-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.live-rider-map-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.live-rider-map-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #e8f6ed;
+    color: #087637;
+    border-radius: 11px;
+}
+
+.live-rider-map-heading h3 {
+    margin: 0 0 5px;
+    color: #26392b;
+    font-size: 17px;
+    font-weight: 650;
+}
+
+.live-rider-map-heading p {
+    margin: 0;
+    color: #758176;
+    font-size: 12px;
+}
+
+.live-rider-map-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.live-rider-map-badge.active {
+    color: #087637;
+    background: #e6f5eb;
+}
+
+.live-rider-map-badge.waiting {
+    color: #9b6b17;
+    background: #fff5df;
+}
+
+/* Tracking status */
+
+.live-rider-map-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 15px;
+    margin-bottom: 16px;
+    background: #f6faf7;
+    border: 1px solid #e5eee8;
+    border-radius: 9px;
+}
+
+.live-rider-map-status p {
+    margin: 0;
+    font-size: 13px;
+    color: #586b5e;
+    line-height: 1.5;
+}
+
+.live-rider-map-dot {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #d5a142;
+}
+
+.live-rider-map-dot.active {
+    background: #00a651;
+    box-shadow: 0 0 0 4px rgba(0, 166, 81, 0.13);
+    animation: live-rider-pulse 2s infinite;
+}
+
+/* Map */
+
+.live-rider-map-container {
+    position: relative;
+    width: 100%;
+    height: 360px;
+    background: #f0f4f1;
+    border: 1px solid #e4e9e5;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.live-rider-map-canvas {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.live-rider-map-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 22px;
+    text-align: center;
+    color: #6c806f;
+}
+
+.live-rider-map-placeholder svg {
+    color: #087637;
+}
+
+.live-rider-map-placeholder h4 {
+    margin: 0;
+    font-size: 16px;
+    color: #294633;
+}
+
+.live-rider-map-placeholder p {
+    margin: 0;
+    max-width: 290px;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Footer */
+
+.live-rider-map-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.live-rider-map-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.live-rider-map-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #5e6c61;
+    font-size: 12px;
+}
+
+.live-rider-map-rider-dot,
+.live-rider-map-destination-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.live-rider-map-rider-dot {
+    background: #008d40;
+}
+
+.live-rider-map-destination-dot {
+    background: #ffffff;
+    border: 2px solid #b42318;
+}
+
+.live-rider-map-updated {
+    color: #7a867c;
+    font-size: 12px;
+}
+
+/* Animations */
+
+@keyframes live-rider-pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Responsive */
+
+@media (max-width: 750px) {
+    .live-rider-map {
+        padding: 16px;
+    }
+
+    .live-rider-map-container {
+        height: 310px;
+    }
+}
+
+@media (max-width: 500px) {
+    .live-rider-map {
+        padding: 13px;
+        margin: 20px 0;
+    }
+
+    .live-rider-map-header {
+        align-items: flex-start;
+    }
+
+    .live-rider-map-heading h3 {
+        font-size: 15px;
+    }
+
+    .live-rider-map-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .live-rider-map-container {
+        height: 260px;
+    }
+
+    .live-rider-map-badge {
+        font-size: 11px;
+        padding: 6px 9px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .live-rider-map-dot {
+        animation: none;
+    }
+}

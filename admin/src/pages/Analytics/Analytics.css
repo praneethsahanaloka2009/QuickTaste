@@ -1,0 +1,808 @@
+/* Page */
+.analytics-page {
+    --analytics-primary: #065d23;
+    --analytics-primary-dark: #04471b;
+    --analytics-primary-light: #eaf5ed;
+    --analytics-text: #262626;
+    --analytics-muted: #777777;
+    --analytics-border: #e5e7eb;
+
+    flex: 1;
+    min-width: 0;
+    min-height: calc(100vh - 80px);
+    padding: 30px;
+    background: #ffffff;
+    color: var(--analytics-text);
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+/* Header */
+.analytics-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 26px;
+}
+
+.analytics-topbar h1 {
+    margin: 0 0 7px;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--analytics-text);
+}
+
+.analytics-topbar p {
+    margin: 0;
+    color: var(--analytics-muted);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Refresh Button */
+.analytics-refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 17px;
+    border: 1px solid #d8e3dc;
+    border-radius: 9px;
+    background: #ffffff;
+    color: var(--analytics-primary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.analytics-refresh:hover:not(:disabled) {
+    background: var(--analytics-primary-light);
+    border-color: var(--analytics-primary);
+}
+
+.analytics-refresh:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.analytics-refresh svg {
+    flex-shrink: 0;
+}
+
+/* Reporting Period */
+.analytics-filters {
+    padding: 20px;
+    margin-bottom: 24px;
+    background: #ffffff;
+    border: 1px solid var(--analytics-border);
+    border-radius: 12px;
+}
+
+.analytics-filter-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.analytics-filter-heading span {
+    color: var(--analytics-text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.analytics-filter-heading small {
+    color: #888888;
+    font-size: 12px;
+}
+
+.analytics-period-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.analytics-period-buttons button {
+    padding: 10px 16px;
+    background: #ffffff;
+    border: 1px solid var(--analytics-border);
+    border-radius: 8px;
+    color: #555555;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.analytics-period-buttons button:hover, .analytics-period-buttons button.active {
+    background: var(--analytics-primary-light);
+    color: var(--analytics-primary);
+    border-color: var(--analytics-primary);
+}
+
+/* Custom Date Filter */
+.analytics-custom-dates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 18px;
+}
+
+.analytics-custom-dates label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    color: #555555;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.analytics-custom-dates input {
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--analytics-text);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.analytics-custom-dates input:focus {
+    border-color: var(--analytics-primary);
+    box-shadow: 0 0 0 3px rgba(6, 93, 35, 0.08);
+}
+
+/* Summary Grid */
+.analytics-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+/* Summary Cards */
+.analytics-stat-card {
+    min-width: 0;
+    padding: 21px;
+    background: #ffffff;
+    border: 1px solid var(--analytics-border);
+    border-radius: 12px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.analytics-stat-card:hover {
+    border-color: #c4dfcd;
+    box-shadow: 0 5px 18px rgba(6, 93, 35, 0.05);
+    transform: translateY(-2px);
+}
+
+.analytics-stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.analytics-stat-top span {
+    color: #666666;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.analytics-stat-card h2 {
+    margin: 0;
+    color: var(--analytics-text);
+    font-size: 27px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
+
+/* Summary Card Icons */
+.analytics-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.analytics-stat-icon.green, .analytics-stat-icon.blue, .analytics-stat-icon.purple {
+    color: var(--analytics-primary);
+    background: var(--analytics-primary-light);
+}
+
+.analytics-stat-icon.orange {
+    color: #b45309;
+    background: #fff4e5;
+}
+
+/* Chart Grid */
+.analytics-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* Chart Cards */
+.analytics-chart-card {
+    min-width: 0;
+    padding: 22px;
+    background: #ffffff;
+    border: 1px solid var(--analytics-border);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.analytics-chart-header {
+    margin-bottom: 24px;
+}
+
+.analytics-chart-header h2 {
+    margin: 0 0 6px;
+    color: var(--analytics-text);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.analytics-chart-header p {
+    margin: 0;
+    color: #888888;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Chart Area */
+.analytics-chart-area {
+    width: 100%;
+    height: 310px;
+    min-width: 0;
+}
+
+.analytics-chart-area .recharts-cartesian-axis-tick-value {
+    fill: #777777;
+    font-size: 11px;
+}
+
+.analytics-chart-area .recharts-legend-item-text {
+    color: #555555 !important;
+    font-size: 12px;
+}
+
+.analytics-chart-area .recharts-tooltip-wrapper {
+    outline: none;
+}
+
+/* Chart Empty State */
+.analytics-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 310px;
+    padding: 20px;
+    border: 1px dashed var(--analytics-border);
+    border-radius: 10px;
+    color: #888888;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Chart Focus */
+.analytics-chart-area .recharts-wrapper:focus, .analytics-chart-area .recharts-surface:focus, .analytics-chart-area .recharts-sector:focus, .analytics-chart-area svg:focus {
+    outline: none;
+}
+
+.analytics-chart-area .recharts-wrapper:focus-visible {
+    outline: 2px solid var(--analytics-primary);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* Bar Chart Hover */
+.analytics-chart-area .recharts-bar-rectangle path {
+    transition: transform 0.25s ease, filter 0.25s ease;
+    transform-box: fill-box;
+    transform-origin: center bottom;
+}
+
+.analytics-chart-area .recharts-bar-rectangle:hover path {
+    transform: translateY(-5px);
+    filter: drop-shadow(0 5px 6px rgba(6, 93, 35, 0.22));
+}
+
+/* Line Chart Hover */
+.analytics-chart-area .recharts-line-dot, .analytics-chart-area .recharts-line-dots circle, .analytics-chart-area .recharts-active-dot, .analytics-chart-area .recharts-active-dot circle {
+    transition: transform 0.2s ease, filter 0.2s ease;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.analytics-chart-area .recharts-line-dot:hover {
+    transform: scale(1.4);
+    filter: drop-shadow(0 2px 4px rgba(6, 93, 35, 0.25));
+}
+
+.analytics-chart-area .recharts-active-dot {
+    transform: scale(1.08);
+}
+
+.analytics-chart-area .recharts-active-dot circle {
+    filter: drop-shadow(0 3px 5px rgba(6, 93, 35, 0.3));
+}
+
+/* Doughnut Chart Hover */
+.analytics-chart-area .recharts-pie-sector {
+    transition: transform 0.25s ease, filter 0.25s ease;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.analytics-chart-area .recharts-pie-sector:hover {
+    transform: scale(1.045);
+    filter: drop-shadow(0 4px 6px rgba(6, 93, 35, 0.18));
+}
+
+/* Order Performance */
+.analytics-performance {
+    padding-top: 10px;
+}
+
+.analytics-performance-item {
+    margin-bottom: 27px;
+}
+
+.analytics-performance-item > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 11px;
+}
+
+.analytics-performance-item span {
+    color: #666666;
+    font-size: 13px;
+}
+
+.analytics-performance-item strong {
+    color: var(--analytics-text);
+    font-size: 17px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Performance Progress Bard */
+.analytics-progress-track {
+    width: 100%;
+    height: 9px;
+    background: #e9efeb;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.analytics-progress-fill {
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.3s ease;
+}
+
+.analytics-progress-fill.success {
+    background: var(--analytics-primary);
+}
+
+.analytics-progress-fill.danger {
+    background: #dc2626;
+}
+
+/* Performance Statistics */
+.analytics-performance-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    margin-top: 34px;
+}
+
+.analytics-performance-stats > div {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+    padding: 15px;
+    background: #f7faf8;
+    border: 1px solid #e5eee8;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.analytics-performance-stats span {
+    color: #666666;
+    font-size: 12px;
+}
+
+.analytics-performance-stats strong {
+    color: var(--analytics-primary);
+    font-size: 21px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Food Analytic */
+/* Food Section */
+.analytics-food-section {
+    min-width: 0;
+    margin-top: 35px;
+}
+
+.analytics-food-heading {
+    margin-bottom: 22px;
+}
+
+.analytics-food-heading h2 {
+    margin: 0 0 8px;
+    color: var(--analytics-text);
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.analytics-food-heading p {
+    margin: 0;
+    color: var(--analytics-muted);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Food Summary Grid */
+.analytics-food-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+/* Food Table Card */
+.analytics-food-table-card {
+    margin-top: 24px;
+}
+
+.analytics-food-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Food Table */
+.analytics-food-table {
+    width: 100%;
+    min-width: 690px;
+    border-collapse: collapse;
+}
+
+.analytics-food-table th {
+    padding: 15px;
+    background: #f0f7f2;
+    color: var(--analytics-primary);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.analytics-food-table td {
+    padding: 15px;
+    border-bottom: 1px solid #e5eee8;
+    color: #334155;
+    font-size: 13px;
+}
+
+.analytics-food-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.analytics-food-table tbody tr:hover {
+    background: #f5faf6;
+}
+
+.analytics-food-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Food Product */
+.analytics-food-product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+}
+
+.analytics-food-product img {
+    width: 48px;
+    height: 48px;
+    border-radius: 9px;
+    object-fit: cover;
+    background: #f0f7f2;
+    flex-shrink: 0;
+}
+
+.analytics-food-product span {
+    color: var(--analytics-text);
+    font-weight: 600;
+}
+
+.analytics-food-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 9px;
+    background: var(--analytics-primary-light);
+    color: var(--analytics-primary);
+    flex-shrink: 0;
+}
+
+/* Category Badge */
+.analytics-category-badge {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: var(--analytics-primary-light);
+    color: var(--analytics-primary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Food Sales */
+.analytics-food-sales {
+    color: var(--analytics-primary) !important;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Food Chart Hover */
+.analytics-food-section .recharts-bar-rectangle path {
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.analytics-food-section .recharts-bar-rectangle:hover path {
+    filter: drop-shadow(0 4px 5px rgba(6, 93, 35, 0.22));
+}
+
+/* Shared Status */
+/* Loading and Error */
+.analytics-state {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    min-height: 300px;
+    padding: 25px;
+    background: #ffffff;
+    border: 1px solid var(--analytics-border);
+    border-radius: 12px;
+    color: #666666;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.analytics-state h3, .analytics-state p {
+    margin: 0;
+}
+
+.analytics-state h3 {
+    color: var(--analytics-text);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.analytics-state p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.analytics-state button {
+    padding: 11px 20px;
+    border: 1px solid var(--analytics-primary);
+    border-radius: 8px;
+    background: var(--analytics-primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.analytics-state button:hover {
+    background: var(--analytics-primary-dark);
+}
+
+.analytics-error, .analytics-error h3 {
+    color: #b91c1c;
+}
+
+/* Loading Spinner */
+.analytics-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #dcefe2;
+    border-top-color: var(--analytics-primary);
+    border-radius: 50%;
+    animation: analytics-spin 0.8s linear infinite;
+}
+
+@keyframes analytics-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Footer Note */
+.analytics-footer-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: #f7faf8;
+    border: 1px solid #e5eee8;
+    border-radius: 9px;
+    color: #666666;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.analytics-footer-note svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: var(--analytics-primary);
+}
+
+/* Keyboard Focus */
+.analytics-period-buttons button:focus-visible, .analytics-refresh:focus-visible, .analytics-state button:focus-visible {
+    outline: 2px solid var(--analytics-primary);
+    outline-offset: 3px;
+}
+
+/* Advanced Analytics Refresh Animation */
+/* Refresh Icon */
+.analytics-refresh svg {
+    flex-shrink: 0;
+    transform-origin: center;
+}
+
+/* Refresh Spinning */
+.analytics-refresh-spinning {
+    animation: analytics-refresh-rotate 0.8s linear infinite;
+}
+
+/* Rotation */
+@keyframes analytics-refresh-rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Button while refreshing */
+.analytics-refresh:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .analytics-refresh-spinning {
+        animation: none;
+    }
+}
+
+/* Responsive Design */
+/* Tablet */
+@media(max-width: 1100px){
+
+    .analytics-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .analytics-charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-food-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+/* Mobile */
+@media (max-width: 650px) {
+
+    .analytics-page {
+        padding: 18px;
+    }
+
+    .analytics-topbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .analytics-topbar h1 {
+        font-size: 24px;
+    }
+
+    .analytics-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analytics-chart-card {
+        padding: 16px;
+    }
+
+    .analytics-stat-card h2 {
+        font-size: 24px;
+    }
+
+    .analytics-chart-area {
+        height: 280px;
+    }
+
+    .analytics-filters {
+        padding: 16px;
+    }
+
+    .analytics-filter-heading {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .analytics-custom-dates {
+        flex-direction: column;
+    }
+
+    .analytics-custom-dates label, .analytics-custom-dates input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .analytics-food-section {
+        margin-top: 26px;
+    }
+
+    .analytics-food-heading h2 {
+        font-size: 20px;
+    }
+
+    .analytics-food-summary-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .analytics-food-table-card {
+        padding: 16px;
+    }
+
+}
+
+/* Reduce Motion */
+@media(prefers-reduced-motion: reduce){
+
+    .analytics-stat-card, .analytics-refresh, .analytics-period-buttons button, .analytics-progress-fill, .analytics-state button, .analytics-chart-area .recharts-bar-rectangle path, .analytics-chart-area .recharts-line-dot, .analytics-chart-area .recharts-active-dot, .analytics-chart-area .recharts-pie-sector {
+        transition: none;
+    }
+
+    .analytics-spinner {
+        animation: none;
+    }
+
+}

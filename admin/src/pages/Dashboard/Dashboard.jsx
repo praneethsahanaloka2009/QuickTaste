@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../../config/api";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -14,7 +15,7 @@ const Dashboard = () => {
             const token = localStorage.getItem("adminToken");
 
             const response = await fetch(
-                "http://localhost:4911/api/dashboard",
+                `${API_URL}/api/dashboard`,
                 {
                     method: "GET",
                     headers: {
@@ -50,25 +51,24 @@ const Dashboard = () => {
         const fetchActiveOffers = async () => {
             
             try {
-                
-                const response = await fetch("http://localhost:4911/api/promo/list");
+                const token = localStorage.getItem("adminToken");
+
+                const response = await fetch(`${API_URL}/api/promo/list`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
                 const data = await response.json();
 
                 if(data.success){
-                    
                     const now = new Date();
-
                     const active = data.promos.filter((promo) => promo.isActive === true && new Date(promo.expiryDate) >= now);
-
                     setActiveOffers(active);
-
                 }
-
             } catch (error) {
-                
                 console.log("Offers Fetch Error:", error);
-
             }
 
         };
@@ -285,6 +285,67 @@ const Dashboard = () => {
 
             </div>
 
+            {/* Financial Overview */}
+
+            <div className="dashboard-section financial-section">
+                
+                <div className="section-header">
+                    <h2>Financial Overview</h2>
+                </div>
+
+                <div className="financial-cards">
+                    
+                    <div className="financial-card">
+                        <div className="financial-card-icon">💰</div>
+
+                        <p>Total Revenue</p>
+
+                        <h3>
+                            ${Number(dashboardData.totalRevenue || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Total paid order value</span>
+                    </div>
+
+                    <div className="financial-card">
+                        <div className="financial-card-icon">🛵</div>
+
+                        <p>Rider Earnings</p>
+
+                        <h3>
+                            ${Number(dashboardData.totalRiderEarnings || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Recorded delivery earnings</span>
+                    </div>
+
+                    <div className="financial-card">
+                        <div className="financial-card-icon">📈</div>
+
+                        <p>After Rider Cost</p>
+
+                        <h3>
+                            ${Number(dashboardData.revenueAfterRiderCost || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Revenue minus rider earnings</span>
+                    </div>
+
+                    <div className="financial-card">
+                        <div className="financial-card-icon">💵</div>
+
+                        <p>COD Cash Collected</p>
+
+                        <h3>
+                            ${Number(dashboardData.totalCodCashCollected || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Confirmed cash collections</span>
+                    </div>
+
+                </div>
+
+            </div>
 
             {/* Recent Orders */}
 
@@ -319,10 +380,7 @@ const Dashboard = () => {
 
                         dashboardData.recentOrders.map((order) => (
 
-                            <div
-                                className="recent-order-row"
-                                key={order._id}
-                            >
+                            <div className="recent-order-row" key={order._id}>
 
                                 <span>
                                     #{order._id.slice(-6)}
@@ -333,20 +391,13 @@ const Dashboard = () => {
                                 </span>
 
                                 <span>
-                                    ${Number(order.amount).toFixed(2)}
+                                    ${(Number(order.amount || 0) + Number(order.deliveryFee || 0)).toFixed(2)}
                                 </span>
 
                                 <span>
-
-                                    <span
-                                        className={`order-status ${order.orderStatus
-                                            .toLowerCase()
-                                            .replace(/\s+/g, "-")
-                                            }`}
-                                    >
+                                    <span className={`order-status ${order.orderStatus.toLowerCase().replace(/\s+/g, "-")}`}>
                                         {order.orderStatus}
                                     </span>
-
                                 </span>
 
                             </div>
@@ -389,12 +440,10 @@ const Dashboard = () => {
                                         {promo.code}
                                     </div>
 
-                                    <h3>{promo.discountType === "percentage" ? `${promo.discountValue}% OFF` : `$${Number(promo.discountValue).toFixed(2)} OFF`}</h3>
+                                    <h3>{promo.discountType === "freeDelivery" ? "Free Delivery" : promo.discountType === "percentage" ? `${promo.discountValue}% OFF` : `$${Number(promo.discountValue).toFixed(2)} OFF`}</h3>
 
                                     {promo.offerText && (
-                                        
                                         <p>{promo.offerText}</p>
-
                                     )}
 
                                 </div>
@@ -406,11 +455,9 @@ const Dashboard = () => {
                                     <span>Expires:{" "}{new Date(promo.expiryDate).toLocaleDateString()}</span>
 
                                     {promo.showOnOfferBar && (
-                                        
                                         <span className="offer-bar-active">
                                             Showing on Offer Bar
                                         </span>
-
                                     )}
 
                                 </div>

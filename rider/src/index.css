@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* Global Style */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App {
+  width: 80%;
+  margin: auto;
+  flex: 1;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+/* QuickTaste Rider Toast Notifications */
+.Toastify__toast-container .Toastify__toast {
+  min-height: 88px;
+  padding: 16px 18px;
+  border-radius: 12px;
+  box-sizing: border-box;
+}
+
+/* Toast Icon and Message Alignment */
+.Toastify__toast-container .Toastify__toast-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 6px 0;
+  font-family: "Outfit", sans-serif;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+/* Toast Message Text */
+.Toastify__toast-container .Toastify__toast-body > div:last-child {
+  line-height: 1.9;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Success / Error / Warning Icons */
+.Toastify__toast-container .Toastify__toast-icon {
+  flex-shrink: 0;
+  margin-inline-end: 0;
+}
+
+/* Close Button */
+.Toastify__toast-container .Toastify__close-button {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* Rider Toast - Icon & Text Spacing */
+
+.Toastify__toast-container .Toastify__toast-body {
+  display: flex;
+  align-items: center;
+  gap: 0 !important;
+}
+
+.Toastify__toast-container .Toastify__toast-icon {
+  flex-shrink: 0 !important;
+  margin-inline-end: 14px !important;
+}
+
+.Toastify__toast-container .Toastify__toast-body > div:last-child {
+  line-height: 1.9 !important;
+  overflow-wrap: anywhere;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px){
+  .Toastify__toast-container .Toastify__toast {
+    min-height: 76px;
+    padding: 14px 16px;
+  }
+
+  .Toastify__toast-container .Toastify__toast-body {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .Toastify__toast-container .Toastify__toast-body > div:last-child {
+    line-height: 1.75;
+  }
+}

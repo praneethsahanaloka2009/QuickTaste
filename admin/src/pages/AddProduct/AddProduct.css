@@ -1,109 +1,364 @@
+/* QuickTaste Admin - Add Product Page */
 .add {
     width: 70%;
+    max-width: 1000px;
     margin-left: max(5vw, 25px);
     margin-top: 50px;
-    color: #6d6d6d;
-    font-size: 16px;
+    margin-bottom: 60px;
+    color: #555;
+    font-size: 15px;
+    box-sizing: border-box;
 }
 
+.add *, .add *::before, .add *::after {
+    box-sizing: border-box;
+}
+
+/* Add Product Form */
 .add-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
 }
 
-.add-image-upload img {
-    width: 120px;
+.add-form p {
+    margin: 0 0 9px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Image Upload Area */
+.add-image-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+/* Original Rectangle Upload Area */
+.add-image-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 220px;
+    height: 130px;
+    max-width: 100%;
+    background: #f8f8f8;
+    border: 1px dashed #cfd8d1;
+    border-radius: 8px;
+    overflow: hidden;
     cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.add-image-label:hover {
+    border-color: #065d23;
+    box-shadow: 0 3px 12px rgba(6, 93, 35, 0.08);
+}
+
+/* Default Upload Placeholder Image */
+.add-image-label img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Selected Food Image Preview */
+.add-image-label img.upload-preview {
     object-fit: cover;
 }
 
+/* Product Name and Description  */
 .add-product-name, .add-product-description {
-    width: max(40%, 280px);
+    width: min(100%, 460px);
 }
 
 .add-product-name input, .add-product-description textarea {
+    display: block;
     width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
+    padding: 11px 13px;
+    border: 1px solid #d5ddd7;
+    border-radius: 7px;
+    outline: none;
+    font: inherit;
+    color: #333;
+    background: #fff;
+    transition: border-color 0.2s ease;
 }
 
+.add-product-description textarea {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+/* Category, Price and Preparation Time */
 .add-category-price {
     display: flex;
-    align-items: flex-start;
     flex-wrap: wrap;
-    gap: 30px;
-}
-
-.add-category-price .add-category select {
-    width: 180px;
-    max-width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font: inherit;
-}
-
-.add-category-price .add-price input {
-    width: 145px;
-    max-width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font: inherit;
+    align-items: flex-start;
+    gap: 22px;
+    width: 100%;
 }
 
 .add-category, .add-price, .add-preparation-time {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0;
+}
+
+.add-category select {
+    width: 180px;
+}
+
+.add-price input {
+    width: 145px;
 }
 
 .add-preparation-time select {
-    width: 190px;
-    max-width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    font: inherit;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
+    width: 195px;
 }
 
-.add-btn {
-    max-width: 120px;
+.add-category-price select, .add-category-price input {
+    max-width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d5ddd7;
+    border-radius: 7px;
+    outline: none;
+    font: inherit;
+    color: #333;
+    background: #fff;
+}
+
+/* Input Focus */
+.add-form input:focus, .add-form textarea:focus, .add-form select:focus {
+    border-color: #08783e;
+}
+
+/* Food Ingredients Section */
+.add-ingredients-section {
+    width: 100%;
+    max-width: 690px;
+    padding: 24px;
+    border: 1px solid #e1ebe4;
+    border-radius: 14px;
+    background: #fafcfb;
+}
+
+/* Ingredients Header */
+.add-ingredients-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.add-ingredients-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #086633;
+}
+
+.add-ingredients-title h3 {
+    margin: 0;
+    color: #26382b;
+    font-size: 17px;
+    font-weight: 650;
+}
+
+/* Ingredients Counter */
+.add-ingredients-count {
+    padding: 5px 10px;
+    color: #086633;
+    background: #e9f5ec;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Ingredients Description */
+.add-ingredients-description {
+    margin: 0 0 18px !important;
+    color: #7d8980;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.6;
+}
+
+/* Ingredient Input Row */
+
+.add-ingredient-input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+}
+
+.add-ingredient-input-row input {
+    flex: 1;
+    min-width: 0;
+    min-height: 44px;
+    padding: 11px 13px;
+    color: #333;
+    background: #fff;
+    border: 1px solid #d5ddd7;
+    border-radius: 8px;
+    outline: none;
+    font: inherit;
+}
+
+.add-ingredient-input-row input:focus {
+    border-color: #08783e;
+}
+
+.add-ingredient-input-row input::placeholder {
+    color: #a0aaa3;
+}
+
+/* Add Ingredient Button */
+.add-ingredient-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 10px 15px;
+    color: #fff;
+    background: #065d23;
     border: none;
-    border-radius: 4px;
-    padding: 10px 25px;
-    background-color: #065d23;
-    color: white;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
     cursor: pointer;
-    font-size: 15px;
     transition: background-color 0.2s ease;
 }
 
+.add-ingredient-btn:hover:not(:disabled) {
+    background: #08783e;
+}
+
+.add-ingredient-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Added Ingredients */
+.add-ingredients-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.add-ingredient-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+    padding: 7px 8px 7px 13px;
+    color: #17653b;
+    background: #eaf6ed;
+    border: 1px solid #d2e9d8;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.add-ingredient-chip span {
+    overflow-wrap: anywhere;
+}
+
+/* Remove Ingredient Button */
+.add-ingredient-chip button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    color: #26774b;
+    background: #d7ebdd;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.add-ingredient-chip button:hover:not(:disabled) {
+    color: #fff;
+    background: #c23d3d;
+}
+
+.add-ingredient-chip button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Empty Ingredients */
+.add-ingredients-empty {
+    margin-top: 17px;
+    padding: 18px;
+    text-align: center;
+    color: #98a49b;
+    background: #fff;
+    border: 1px dashed #d9e3dc;
+    border-radius: 9px;
+    font-size: 13px;
+}
+
+.add-ingredients-hint {
+    margin: 16px 0 0 !important;
+    color: #909c93;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    line-height: 1.6;
+}
+
+/* Add Product Button */
 .add-btn {
-    background-color: #044719;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 145px;
+    min-height: 44px;
+    padding: 12px 22px;
+    color: #fff;
+    background: #065d23;
+    border: none;
+    border-radius: 7px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
-.add-btn:hover {
-    background-color: #044719;
+.add-btn:hover:not(:disabled) {
+    background: #044719;
 }
 
-.add-product-name input, .add-product-description textarea, .add-category-price select, .add-category-price input, .add-preparation-time select {
-    outline: none;
-    box-shadow: none;
+.add-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
 }
 
-.add-product-name input, .add-product-description textarea, .add-category-price select, .add-category-price input, .add-preparation-time select {
-    border-color: none;
+/* Accessibility */
+.add-form button:focus-visible, .add-form input:focus-visible, .add-form select:focus-visible, .add-form textarea:focus-visible, .add-image-label:focus-visible {
+    outline: 2px solid #08783e;
+    outline-offset: 2px;
 }
 
-.add-product-description textarea {
-    min-height: 100px;
-    resize: vertical;
-}
+/* Tablet Responsive */
+@media (max-width: 900px) {
 
-@media(max-width: 900px){
     .add {
         width: 85%;
     }
@@ -111,9 +366,12 @@
     .add-category-price {
         gap: 20px;
     }
+
 }
 
-@media(max-width: 600px){
+/* Mobile Responsive */
+@media (max-width: 600px) {
+
     .add {
         width: calc(100% - 30px);
         margin: 30px 15px;
@@ -129,14 +387,59 @@
         gap: 18px;
     }
 
-    .add-category-price select, .add-category-price input, .add-preparation-time select {
+    .add-category, .add-price, .add-preparation-time {
         width: 100%;
-        max-width: 280px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+    }
+
+    .add-category-price select, .add-category-price input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .add-ingredients-section {
+        padding: 18px 14px;
+        border-radius: 11px;
+    }
+
+    .add-ingredients-title h3 {
+        font-size: 15px;
+    }
+
+    .add-ingredient-input-row {
+        flex-direction: column;
+    }
+
+    .add-ingredient-input-row input {
+        width: 100%;
+        flex: none;
+    }
+
+    .add-ingredient-btn {
+        width: 100%;
     }
 
     .add-btn {
-        width: 120px;
+        min-width: 145px;
     }
+
+}
+
+/* Small Mobile Upload Image */
+@media (max-width: 480px) {
+
+    .add-image-label {
+        width: 240px;
+        height: 145px;
+    }
+
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .add *, .add *::before, .add *::after {
+        transition: none;
+        animation: none;
+    }
+
 }

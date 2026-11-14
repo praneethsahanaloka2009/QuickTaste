@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { StoreContext } from '../../context/StoreContext'
 import './TrackOrder.css'
+import LiveRiderMap from "../../components/LiveRiderMap/LiveRiderMap.jsx";
+import { API_URL } from "../../config/api";
 
 const TrackOrder = () => {
     const { token } = useContext(StoreContext)
@@ -95,7 +97,7 @@ const TrackOrder = () => {
 
         try {
             
-            const response = await fetch(`http://localhost:4911/api/order/${id}`,
+            const response = await fetch(`${API_URL}/api/order/${id}`,
                 {
                     method : "GET",
                     headers : {
@@ -365,6 +367,11 @@ const TrackOrder = () => {
 
                     </div>
 
+                    {/* Live Rider Tracking Map */}
+                    {order.orderStatus === "Out for Delivery" && !order.riderDeliveryConfirmedAt && (
+                        <LiveRiderMap key={order._id} orderId={order._id} token={token} deliveryLocation={order.deliveryLocation}/>
+                    )}
+
                     {/* Order Items */}
                     <div className="track-order-section">
                         
@@ -446,6 +453,11 @@ const TrackOrder = () => {
                     <span className='current-status'>{order.orderStatus}</span>
 
                 </div>
+
+                {/* Live Rider Tracking Map */}
+                {order.orderStatus === "Out for Delivery" && !order.riderDeliveryConfirmedAt && (
+                    <LiveRiderMap key={order._id} orderId={order._id} token={token} deliveryLocation={order.deliveryLocation}/>
+                )}
 
                 {/* Order progress */}
                 <div className="order-progress">
