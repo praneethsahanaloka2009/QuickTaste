@@ -57,13 +57,21 @@ const MyOrders = () => {
 
     };
 
-    // Load Orders
+    // Load orders and automatically refresh their statuses
     useEffect(() => {
-        if(token){
-            fetchOrders();
-        } else {
+        if(!token){
             setLoading(false);
+            return;
         }
+
+        fetchOrders();
+
+        // Refresh orders every 10 seconds
+        const interval = setInterval(() => {
+            fetchOrders();
+        }, 10000);
+
+        return () => clearInterval(interval);
     }, [token]);
 
     // Open Cancel Popup
@@ -295,16 +303,23 @@ const MyOrders = () => {
 
                                 <div className="order-actions">
                                     {/* Track Order */}
-                                    <button className='track-order-button' onClick={() => navigate(`/track-order/${order._id}`)}>
+                                    <button className="track-order-button" onClick={() => navigate(`/track-order/${order._id}`)}>
                                         TRACK ORDER
                                     </button>
 
-                                    {/* Cancel Order */}
-                                    {(order.orderStatus === "Pending" || order.orderStatus === "Processing") && (
+                                    {/* Delivery Verification */}
+                                    {order.orderStatus === "Out for Delivery" && (
+                                        <button className="verify-delivery-button" onClick={() => navigate(`/delivery-verification/${order._id}`)}>
+                                            VERIFY DELIVERY
+                                        </button>
+                                    )}
+
+                                     {/* Cancel Order */}
+                                     {(order.orderStatus === "Pending" || order.orderStatus === "Processing") && (
                                         <button className="cancel-order-button" onClick={() => openCancelPopup(order)}>
                                             CANCEL ORDER
                                         </button>
-                                    )}
+                                     )}
                                 </div>
 
                             </div>

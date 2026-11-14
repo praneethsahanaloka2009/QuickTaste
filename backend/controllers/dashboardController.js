@@ -5,7 +5,7 @@ import foodModel from "../models/foodModel.js";
 const getDashboardData = async (req, res) => {
     
     try {
-        
+
         // Total Orders
         const totalOrders = await orderModel.countDocuments();
 
@@ -21,9 +21,16 @@ const getDashboardData = async (req, res) => {
         });
 
         // Calculate Total Revenue
-        const totalRevenue = paidOrders.reduce(
-            (total, order) => total + Number(order.amount), 0
-        );
+        const totalRevenue = paidOrders.reduce((total, order) => total + Number(order.amount || 0) + Number(order.deliveryFee || 0), 0);
+
+        // Calculate Rider Earnings for delivered orders
+        const totalRiderEarnings = paidOrders.filter((order) => order.orderStatus === "Delivered").reduce((total, order) => total + Number(order.riderEarning || 0), 0);
+
+        // Revenue remaining after rider earnings
+        const revenueAfterRiderCost = totalRevenue - totalRiderEarnings;
+
+        // Calculate confirmed COD cash collections
+        const totalCodCashCollected = paidOrders.filter((order) => order.paymentMethod === "Cash on Delivery" && order.riderCashCollected === true).reduce((total, order) => total + Number(order.riderCashCollectedAmount || 0), 0);
 
         // Order Status Count
         const pending = await orderModel.countDocuments({
@@ -47,7 +54,7 @@ const getDashboardData = async (req, res) => {
         });
 
         // Recent Orders
-        const recentOrders = await orderModel .find({}) .populate("userId", "name email") .sort({ createdAt: -1 }) .limit(5);
+        const recentOrders = await orderModel.find({}).populate("userId", "name email").sort({ createdAt: -1 }).limit(5);
 
         res.status(200).json({
             success: true,
@@ -55,7 +62,11 @@ const getDashboardData = async (req, res) => {
                 totalOrders,
                 totalCustomers,
                 totalFoodItems,
+
                 totalRevenue,
+                totalRiderEarnings,
+                revenueAfterRiderCost,
+                totalCodCashCollected,
 
                 orderStatus: {
                     pending,
@@ -64,21 +75,20 @@ const getDashboardData = async (req, res) => {
                     delivered,
                     cancelled
                 },
-                
+
                 recentOrders
             }
         });
-
+        
     } catch (error) {
-
         console.log("Dashboard Error:", error);
+
         res.status(500).json({
             success: false,
             message: "Failed to load dashboard data."
         });
-
     }
 
-}
+};
 
 export { getDashboardData };

@@ -1,6 +1,20 @@
+# Dependencies
 node_modules/
+
+# Environment Variables
 .env
 .env.*
 !.env.example
+
+# Build Files
 dist/
+
+# macOS Files
 .DS_Store
+
+# Stripe Files
+stripe-price-ids.txt
+renewal-event.json
+
+# User Uploaded Files
+/backend/uploads/

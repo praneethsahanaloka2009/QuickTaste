@@ -9,13 +9,55 @@ const Navbar = ({setShowLogin, isLoggedIn}) => {
 
     const [menu, setMenu] = useState("home")
     const [showMenu, setShowMenu] = useState(false)
+    const profileMenuRef = useRef(null)
 
-    const fileInputRef = useRef(null)
-
-    const { getTotalCartAmount, token, setToken, user, setUser } = useContext(StoreContext);
+    const { getTotalCartAmount, customizedCartItems, token, setToken, user, setUser } = useContext(StoreContext);
 
     const navigate = useNavigate()
     const location = useLocation()
+
+    // Normal cart items
+    const hasRegularItems = getTotalCartAmount() > 0;
+
+    // Customized cart items
+    const hasCustomizedItems = Array.isArray(customizedCartItems) && customizedCartItems.some((item) => Number(item.quantity) > 0);
+
+    // Either cart contains items
+    const hasCartItems = hasRegularItems || hasCustomizedItems;
+
+    useEffect(() => {
+        
+        if(!showMenu){
+            return;
+        }
+
+        // Close dropdown when clicking outside
+        const handleOutsideClick = (event) => {
+            
+            if(profileMenuRef.current && !profileMenuRef.current.contains(event.target)){
+                setShowMenu(false);
+            }
+
+        };
+
+        // Close dropdown when Escape key is pressed
+        const handleEscapeKey = (event) => {
+            
+            if(event.key === "Escape"){
+                setShowMenu(false);
+            }
+
+        };
+
+        document.addEventListener("pointerdown", handleOutsideClick);
+        document.addEventListener("keydown", handleEscapeKey);
+
+        return () => {
+            document.removeEventListener("pointerdown", handleOutsideClick);
+            document.removeEventListener("keydown", handleEscapeKey);
+        };
+
+    }, [showMenu]);
 
     useEffect(() => {
 
@@ -250,7 +292,9 @@ const Navbar = ({setShowLogin, isLoggedIn}) => {
                         <img src={assets.basket_icon} alt=""/>
                     </Link>
                     
-                    <div className={getTotalCartAmount() === 0 ? "" : "dot"}></div>
+                    {isLoggedIn && hasCartItems && (
+                        <div className="dot"></div>
+                    )}
                 </div>
                 
                 {!isLoggedIn ? (
@@ -258,7 +302,7 @@ const Navbar = ({setShowLogin, isLoggedIn}) => {
                         Sign In
                     </button>
                 ):(
-                    <div className='profile-container'>
+                    <div className='profile-container' ref={profileMenuRef}>
                         
                         {user ? (
                             user.avatar ? (
@@ -272,20 +316,12 @@ const Navbar = ({setShowLogin, isLoggedIn}) => {
                             <div className='profile profile-letter'></div>
                         )}
 
-                        <input type="file" accept='image/*' ref={fileInputRef} onChange={handleProfilePicture} style={{ display : 'none' }}/>
-
                         {showMenu && user && (
                             <div className='profile-menu'>
 
-                                {user.avatar ? (
-                                    <button onClick={handleRemoveProfilePicture}>
-                                        Remove Profile Picture
-                                    </button>
-                                ) : (
-                                    <button onClick={handleUploadClick}>
-                                        Upload Profile Picture
-                                    </button>
-                                )}
+                                <button onClick={() => {navigate("/profile"); setShowMenu(false)}}>
+                                    My Profile
+                                </button>
 
                                 <button onClick={() => {navigate("/my-orders"); setShowMenu(false)}}>
                                     My Orders

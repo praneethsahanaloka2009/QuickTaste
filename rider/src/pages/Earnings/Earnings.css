@@ -1,0 +1,447 @@
+.rider-earnings-page {
+    min-height: calc(100vh - 85px);
+    background: #f7f9f8;
+    padding: 38px 38px 70px;
+    box-sizing: border-box;
+    color: #202822;
+}
+
+.rider-earnings-container {
+    max-width: 1450px;
+    margin: 0 auto;
+}
+
+.rider-earnings-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.rider-earnings-eyebrow {
+    color: #009b45;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    margin: 0 0 10px;
+}
+
+.rider-earnings-header h1 {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0 0 10px;
+    letter-spacing: -1px;
+}
+
+.rider-earnings-subtitle {
+    color: #7c8580;
+    font-size: 15px;
+    margin: 0;
+}
+
+.rider-earnings-refresh {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: none;
+    background: #009e49;
+    color: white;
+    padding: 14px 21px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.rider-earnings-refresh:hover {
+    background: #065d23;
+}
+
+.rider-earnings-refresh:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.rider-earnings-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    margin-bottom: 24px;
+}
+
+.rider-earnings-stat-card {
+    background: #fff;
+    border: 1px solid #edf0ed;
+    border-radius: 24px;
+    padding: 28px;
+    min-width: 0;
+}
+
+.rider-earnings-stat-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.rider-earnings-stat-icon {
+    width: 49px;
+    height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    flex-shrink: 0;
+}
+
+.rider-earnings-stat-icon.total {
+    background: #e5f7ec;
+    color: #009e49;
+}
+
+.rider-earnings-stat-icon.available {
+    background: #e6f5ee;
+    color: #065d23;
+}
+
+.rider-earnings-stat-icon.pending {
+    background: #fff0df;
+    color: #ef8c24;
+}
+
+.rider-earnings-stat-icon.paid {
+    background: #edf7d9;
+    color: #75a620;
+}
+
+.rider-earnings-stat-card h2 {
+    font-size: 33px;
+    font-weight: 800;
+    margin: 20px 0 10px;
+    letter-spacing: -1px;
+}
+
+.rider-earnings-stat-card p {
+    font-size: 12px;
+    color: #89928c;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.rider-earnings-overview {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: #fff;
+    border: 1px solid #edf0ed;
+    border-radius: 20px;
+    padding: 23px 28px;
+    margin-bottom: 26px;
+}
+
+.rider-earnings-overview-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e5f7ec;
+    color: #009e49;
+}
+
+.rider-earnings-overview > div:not(.rider-earnings-overview-icon):not(.rider-earnings-overview-divider) {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.rider-earnings-overview span {
+    font-size: 13px;
+    color: #89928c;
+}
+
+.rider-earnings-overview strong {
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.rider-earnings-overview-divider {
+    width: 1px;
+    height: 42px;
+    background: #e9eeea;
+    margin: 0 12px;
+}
+
+.rider-earnings-panel {
+    background: #fff;
+    border: 1px solid #edf0ed;
+    border-radius: 24px;
+    padding: 26px;
+    margin-bottom: 24px;
+}
+
+.rider-earnings-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid #edf0ed;
+}
+
+.rider-earnings-panel-header h2 {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 7px;
+}
+
+.rider-earnings-panel-header p {
+    color: #89928c;
+    font-size: 13px;
+    margin: 0;
+}
+
+.rider-earnings-panel-header > svg {
+    color: #009e49;
+}
+
+.rider-earnings-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.rider-earnings-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    min-width: 690px;
+}
+
+.rider-earnings-table th {
+    padding: 22px 14px;
+    font-size: 12px;
+    color: #89928c;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.rider-earnings-table td {
+    padding: 18px 14px;
+    font-size: 13px;
+    border-top: 1px solid #f0f2f0;
+    color: #424a44;
+}
+
+.rider-earnings-right {
+    text-align: right;
+}
+
+.rider-earnings-amount {
+    color: #065d23 !important;
+    font-size: 15px !important;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.rider-earnings-order-id {
+    display: inline-block;
+    padding: 9px 11px;
+    border: 1px solid #e7ebe7;
+    border-radius: 9px;
+    font-weight: 700;
+    color: #303a32;
+}
+
+.rider-earnings-cell-icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+.rider-earnings-cell-icon svg {
+    color: #849089;
+}
+
+.rider-earnings-status {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.rider-earnings-status.available,
+.rider-earnings-status.paid {
+    background: #e5f7eb;
+    color: #078d42;
+}
+
+.rider-earnings-status.pending {
+    background: #fff1df;
+    color: #ba751a;
+}
+
+.rider-earnings-status.batched {
+    background: #eaf0ff;
+    color: #4669b4;
+}
+
+.rider-earnings-branch {
+    font-weight: 700;
+}
+
+.rider-earnings-branch small {
+    display: block;
+    font-size: 11px;
+    font-weight: 400;
+    color: #89928c;
+    margin-top: 5px;
+}
+
+.rider-earnings-empty,
+.rider-earnings-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 55px 20px;
+    color: #89928c;
+}
+
+.rider-earnings-empty svg {
+    color: #009e49;
+    margin-bottom: 12px;
+}
+
+.rider-earnings-empty h3 {
+    color: #303a32;
+    margin: 0 0 8px;
+}
+
+.rider-earnings-empty p {
+    font-size: 13px;
+    margin: 0;
+}
+
+.rider-earnings-loading {
+    min-height: 250px;
+    gap: 15px;
+}
+
+.rider-earnings-error {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff0ef;
+    border: 1px solid #ffd7d4;
+    color: #b33930;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.rider-earnings-error button {
+    margin-left: auto;
+    background: #b33930;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.rider-earnings-footnote {
+    color: #89928c;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 12px 0;
+}
+
+.rider-earnings-spin {
+    animation: rider-earnings-rotate 1s linear infinite;
+}
+
+@keyframes rider-earnings-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 1100px) {
+    .rider-earnings-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .rider-earnings-page {
+        padding: 25px 16px 50px;
+    }
+
+    .rider-earnings-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .rider-earnings-header h1 {
+        font-size: 28px;
+    }
+
+    .rider-earnings-stats {
+        gap: 12px;
+    }
+
+    .rider-earnings-stat-card {
+        padding: 18px;
+        border-radius: 17px;
+    }
+
+    .rider-earnings-stat-card h2 {
+        font-size: 25px;
+    }
+
+    .rider-earnings-stat-top {
+        font-size: 12px;
+    }
+
+    .rider-earnings-stat-icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .rider-earnings-overview {
+        flex-wrap: wrap;
+        padding: 18px;
+        gap: 15px;
+    }
+
+    .rider-earnings-overview-divider {
+        display: none;
+    }
+
+    .rider-earnings-panel {
+        padding: 18px;
+        border-radius: 18px;
+    }
+
+    .rider-earnings-panel-header h2 {
+        font-size: 19px;
+    }
+}
+
+@media (max-width: 420px) {
+    .rider-earnings-stats {
+        grid-template-columns: 1fr;
+    }
+}

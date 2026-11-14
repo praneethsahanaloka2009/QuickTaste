@@ -293,7 +293,6 @@
 }
 
 /* Cancel Order Popup */
-
 /* Popup Overlay */
 .cancel-popup-overlay {
     position: fixed;
@@ -483,6 +482,30 @@
     opacity: 0.6;
 }
 
+/* Delivery Verification Button */
+.verify-delivery-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #065d23;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.verify-delivery-button:hover {
+    background: #044719;
+}
+
+.verify-delivery-button:active {
+    transform: scale(0.98);
+}
 
 /* 1050px */
 @media (max-width: 1050px) {
@@ -499,6 +522,14 @@
         font-size: 27px;
     }
 
+}
+
+@media (max-width: 600px) {
+
+    .verify-delivery-button {
+        width: 100%;
+    }
+    
 }
 
 /* 750px */

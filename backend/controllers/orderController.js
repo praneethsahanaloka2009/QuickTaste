@@ -1,6 +1,8 @@
 import orderModel from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 import foodModel from "../models/foodModel.js";
+import riderEarningsSettingsModel from "../models/riderEarningsSettingsModel.js";
+import { recordMembershipSavings } from "../utils/membershipSavings.js";
 
 // Create Paid Order
 const createOrder = async (req, res) => {
@@ -172,7 +174,6 @@ const createOrder = async (req, res) => {
     }
 };
 
-
 // Get User Orders
 const getUserOrders = async (req, res) => {
     try {
@@ -195,7 +196,6 @@ const getUserOrders = async (req, res) => {
         });
     }
 };
-
 
 // Get Single Order
 const getOrderById = async (req, res) => {
@@ -230,11 +230,10 @@ const getOrderById = async (req, res) => {
     }
 };
 
-
 // Get All Orders For Admin
 const getAllOrders = async (req, res) => {
     try {
-        const orders = await orderModel.find({}).populate("userId", "name email").sort({ createdAt: -1 });
+        const orders = await orderModel.find({}).populate("userId", "name email").populate("branchId", "name code city deliveryRadiusKm").populate("assignedRider", "name email").sort({ createdAt: -1 });
 
         res.status(200).json({
             success: true,
@@ -242,7 +241,6 @@ const getAllOrders = async (req, res) => {
         });
 
     } catch (error) {
-
         console.log("Get All Orders Error:", error);
 
         res.status(500).json({
@@ -250,7 +248,7 @@ const getAllOrders = async (req, res) => {
             message: "Error getting all orders"
         });
     }
-};
+}
 
 // Cancel Order - Customer
 const cancelOrder = async (req, res) => {
@@ -341,7 +339,7 @@ const updateOrderStatus = async (req, res) => {
         const { id } = req.params;
         const { status } = req.body;
 
-        const order = await orderModel.findById(id);
+        const order = await orderModel.findById(id).populate("userId", "name email").populate("branchId", "name code city deliveryRadiusKm");
 
         if(!order){
             return res.status(404).json({
@@ -414,15 +412,128 @@ const updateOrderStatus = async (req, res) => {
             });
         }
 
-        // Mark delivered only after dispatch
+        // Mark delivered only after rider confirmation
         if(order.orderStatus === "Out for Delivery" && status === "Delivered"){
-            order.orderStatus = "Delivered";
-            await order.save();
+            // Ensure a rider is assigned
+            if(!order.assignedRider){
+                return res.status(400).json({
+                    success: false,
+                    message: "Assign a rider before completing this order."
+                });
+            }
+
+            // Rider must confirm delivery first
+            if(!order.riderDeliveryConfirmedAt){
+                return res.status(400).json({
+                    success: false,
+                    message: "Rider has not confirmed delivery yet."
+                });
+            }
+
+            // COD cash collection must be confirmed
+            if(order.paymentMethod === "Cash on Delivery"){
+                if(!order.riderCashCollected){
+                    return res.status(400).json({
+                        success: false,
+                        message: "Rider has not confirmed COD cash collection."
+                    });
+                }
+            } else if(order.paymentStatus !== "Paid") {
+                return res.status(400).json({
+                    success: false,
+                    message: "Payment has not been confirmed."
+                });
+            }
+
+            // Require customer OTP verification
+            if(!order.deliveryOtpVerifiedAt){
+                return res.status(400).json({
+                    success: false,
+                    message: "Customer delivery OTP has not been verified."
+                });
+            }
+
+            // Read the current admin-controlled earning
+            const settings = await riderEarningsSettingsModel.findOne({ key: "global" });
+
+            const defaultEarning = settings?.defaultEarning ?? 2;
+
+            const earning = Number(defaultEarning);
+
+            if(!Number.isFinite(earning) || earning < 0){
+                return res.status(500).json({
+                    success: false,
+                    message: "Invalid rider earnings configuration."
+                });
+            }
+
+            const completedAt = new Date();
+
+            // Atomic update prevents duplicate earnings and rechecks delivery/payment conditions.
+            const updatedOrder = await orderModel.findOneAndUpdate(
+                {
+                    _id: order._id,
+                    orderStatus: "Out for Delivery",
+                    assignedRider: order.assignedRider,
+
+                    riderDeliveryConfirmedAt: {
+                        $type: "date"
+                    },
+
+                    deliveryOtpVerifiedAt: {
+                        $type: "date"
+                    },
+
+                    riderEarningCalculatedAt: null,
+
+                    ...(order.paymentMethod === "Cash on Delivery"
+                        ? {
+                            paymentMethod: "Cash on Delivery",
+                            riderCashCollected: true
+                        } : {
+                            paymentMethod: order.paymentMethod,
+                            paymentStatus: "Paid"
+                        })
+                },
+                {
+                    $set: {
+                        orderStatus: "Delivered",
+                        deliveredAt: completedAt,
+                        riderEarning: earning,
+                        riderEarningCalculatedAt: completedAt
+                    }
+                },
+                {
+                    returnDocument: "after",
+                    runValidators: true
+                }
+            );
+
+            if(!updatedOrder){
+                return res.status(409).json({
+                    success: false,
+                    message: "Order was already completed or its delivery details changed."
+                });
+            }
+
+            // Record COD membership savings after confirmed delivery.
+            // Do not undo a successfully completed delivery if tracking fails.
+            if(updatedOrder.paymentMethod === "Cash on Delivery" && updatedOrder.membershipId){
+                try {
+                    const savingsResult = await recordMembershipSavings(updatedOrder._id);
+
+                    if(savingsResult.counted){
+                        console.log(`COD membership savings recorded: $${savingsResult.savings.toFixed(2)}`);
+                    }
+                } catch (error) {
+                    console.error("COD membership savings tracking error:", error.message);
+                }
+            }
 
             return res.status(200).json({
                 success: true,
-                message: "Order delivered successfully.",
-                order
+                message: "Order delivered and rider earnings recorded successfully.",
+                order: updatedOrder
             });
         }
 

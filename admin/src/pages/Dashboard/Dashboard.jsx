@@ -285,6 +285,67 @@ const Dashboard = () => {
 
             </div>
 
+            {/* Financial Overview */}
+
+            <div className="dashboard-section financial-section">
+                
+                <div className="section-header">
+                    <h2>Financial Overview</h2>
+                </div>
+
+                <div className="financial-cards">
+                    
+                    <div className="financial-card">
+                        <div className="financial-card-icon">💰</div>
+
+                        <p>Total Revenue</p>
+
+                        <h3>
+                            ${Number(dashboardData.totalRevenue || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Total paid order value</span>
+                    </div>
+
+                    <div className="financial-card">
+                        <div className="financial-card-icon">🛵</div>
+
+                        <p>Rider Earnings</p>
+
+                        <h3>
+                            ${Number(dashboardData.totalRiderEarnings || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Recorded delivery earnings</span>
+                    </div>
+
+                    <div className="financial-card">
+                        <div className="financial-card-icon">📈</div>
+
+                        <p>After Rider Cost</p>
+
+                        <h3>
+                            ${Number(dashboardData.revenueAfterRiderCost || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Revenue minus rider earnings</span>
+                    </div>
+
+                    <div className="financial-card">
+                        <div className="financial-card-icon">💵</div>
+
+                        <p>COD Cash Collected</p>
+
+                        <h3>
+                            ${Number(dashboardData.totalCodCashCollected || 0).toFixed(2)}
+                        </h3>
+
+                        <span>Confirmed cash collections</span>
+                    </div>
+
+                </div>
+
+            </div>
 
             {/* Recent Orders */}
 
@@ -333,7 +394,7 @@ const Dashboard = () => {
                                 </span>
 
                                 <span>
-                                    ${Number(order.amount).toFixed(2)}
+                                    ${(Number(order.amount || 0) + Number(order.deliveryFee || 0)).toFixed(2)}
                                 </span>
 
                                 <span>

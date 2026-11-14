@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar'
 import OfferBar from './components/OfferBar/OfferBar'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Home from './pages/Home/Home'
+import Profile from './pages/Profile/Profile'
 import Cart from './pages/Cart/Cart'
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
 import Footer from './components/Footer/Footer'
@@ -19,6 +20,11 @@ import Payment from './pages/Payment/Payment'
 import PaymentSuccess from './pages/PaymentSuccess/PaymentSuccess'
 import MyOrders from './pages/MyOrders/MyOrders'
 import TrackOrder from './pages/TrackOrder/TrackOrder'
+import DeliveryVerification from './pages/DeliveryVerification/DeliveryVerification'
+import Subscription from './pages/Subscription/Subscription'
+import MyAddresses from "./pages/MyAddresses/MyAddresses";
+import ProductDetails from "./pages/ProductDetails/ProductDetails";
+import SupportChat from './components/SupportChat/SupportChat'
 
 const App = () => {
 
@@ -47,6 +53,10 @@ const App = () => {
 
           <Route path="/" element={<Home/>}/>
 
+          <Route path="/profile" element={<Profile />} />
+
+          <Route path="/subscription" element={<Subscription/>}/>
+
           <Route path="/cart" element={
             <ProtectedRoute message="Please login to access your cart.">
               <Cart/>
@@ -61,7 +71,13 @@ const App = () => {
 
           <Route path="/my-orders" element={<MyOrders/>}/>
 
-          <Route path="/track-order/:id" element={<TrackOrder />} />
+          <Route path="/track-order/:id" element={<TrackOrder />}/>
+
+          <Route path="/delivery-verification/:orderId" element={
+            <ProtectedRoute message="Please login to verify your delivery.">
+              <DeliveryVerification/>
+            </ProtectedRoute>
+          }/>
           
           <Route path='/privacy-policy' element={<PrivacyPolicy setShowLogin={setShowLogin}/>}/>
 
@@ -73,8 +89,13 @@ const App = () => {
 
           <Route path="/terms-of-use" element={<TermsOfUse setShowLogin={setShowLogin}/>}/>
 
+          <Route path="/my-addresses" element={<MyAddresses />}/>
+
+          <Route path="/product/:id" element={<ProductDetails />} />
+
         </Routes>
       </div>
+      <SupportChat/>
       <Footer/>
     </>
   )

@@ -3,14 +3,16 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validator from "validator";
 import { OAuth2Client } from "google-auth-library";
+import fs from "fs";
+import path from "path";
 
 // Google OAuth Client
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 // Create Admin JWT Token
 const createAdminToken = (id) => {
-    return jwt.sign({id}, process.env.ADMIN_JWT_SECRET);
-}
+    return jwt.sign({id: id.toString()}, process.env.ADMIN_JWT_SECRET,{expiresIn: "7d"});
+};
 
 // Admin Register
 const registerAdmin = async (req,res) => {
@@ -76,7 +78,7 @@ const registerAdmin = async (req,res) => {
 }
 
 // Admin Login
-const loginAdmin = async (req, res) => {
+const loginAdmin = async (req,res) => {
     const {email, password} = req.body;
 
     try {
@@ -154,7 +156,6 @@ const googleAdminRegister = async (req,res) => {
     const { credential } = req.body;
 
     try {
-        
         const { name, email } = await verifyGoogleCredential(credential);
 
         // Check if admin already exists
@@ -200,7 +201,6 @@ const googleAdminLogin = async (req,res) => {
     const { credential } = req.body;
 
     try {
-
         const { email } = await verifyGoogleCredential(credential);
 
         // Find existing admin
@@ -243,4 +243,131 @@ const googleAdminLogin = async (req,res) => {
 
 }
 
-export {registerAdmin, loginAdmin, googleAdminRegister, googleAdminLogin};
+// Get Admin Profile
+const getAdminProfile = async (req,res) => {
+    try {
+        const admin = await adminModel.findById(req.adminId).select("-password");
+
+        if(!admin){
+            return res.status(404).json({
+                success: false,
+                message: "Admin not found."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            admin
+        });
+    } catch (error) {
+        console.error("Get Admin Profile Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to get admin profile."
+        });
+    }
+};
+
+// Upload Admin Profile Picture
+const uploadAdminProfilePicture = async (req,res) => {
+    try {
+        if(!req.file){
+            return res.status(400).json({
+                success: false,
+                message: "Please select an image."
+            });
+        }
+
+        const admin = await adminModel.findById(req.adminId);
+
+        if(!admin){
+            return res.status(404).json({
+                success: false,
+                message: "Admin not found."
+            });
+        }
+
+        // Delete previous image when changing the picture
+        if(admin.avatar){
+            const oldImagePath = path.join(
+                "uploads",
+                path.basename(admin.avatar)
+            );
+
+            if(fs.existsSync(oldImagePath)){
+                fs.unlinkSync(oldImagePath);
+            }
+        }
+
+        admin.avatar = req.file.filename;
+        await admin.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile picture updated successfully!",
+            admin: {
+                name: admin.name,
+                email: admin.email,
+                avatar: admin.avatar
+            }
+        });
+
+    } catch (error) {
+        console.error("Admin Profile Picture Upload Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to upload profile picture."
+        });
+    }
+};
+
+// Remove Admin Profile Picture
+const removeAdminProfilePicture = async (req,res) => {
+    try {
+        const admin = await adminModel.findById(req.adminId);
+
+        if(!admin){
+            return res.status(404).json({
+                success: false,
+                message: "Admin not found."
+            });
+        }
+
+        // Delete image from uploads folder
+        if(admin.avatar){
+            const imagePath = path.join(
+                "uploads",
+                path.basename(admin.avatar)
+            );
+
+            if(fs.existsSync(imagePath)){
+                fs.unlinkSync(imagePath);
+            }
+        }
+
+        admin.avatar = "";
+        await admin.save();
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile picture removed successfully!",
+            admin: {
+                name: admin.name,
+                email: admin.email,
+                avatar: admin.avatar
+            }
+        });
+
+    } catch (error) {
+        console.error("Remove Admin Profile Picture Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to remove profile picture."
+        });
+    }
+}
+
+export {registerAdmin, loginAdmin, googleAdminRegister, googleAdminLogin, getAdminProfile, uploadAdminProfilePicture, removeAdminProfilePicture};

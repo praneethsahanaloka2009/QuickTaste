@@ -1,61 +1,818 @@
-.list-table-format, .list-table-format-title {
-    display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 15px;
-    border: 1px solid #cacaca;
-    font-size: 13px;
+/* QuickTaste Admin - List Product Page */
+/* Main Page */
+.list {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+    color: #26332b;
+    background: #fafcfb;
+    font-family: inherit;
 }
 
+/* Page Heading */
+.list > p {
+    margin: 0 0 25px;
+    color: #26332b;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Product List Table */
+.list-table {
+    width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    border: 1px solid #e3ebe5;
+    border-radius: 12px;
+    background: #ffffff;
+    box-shadow: 0 3px 15px rgba(6, 93, 35, 0.03);
+    box-sizing: border-box;
+}
+
+/* Table Heading */
 .list-table-format-title {
-    background-color: #f9f9f9;
+    display: grid;
+    grid-template-columns: 90px minmax(180px, 2fr) minmax(125px, 1fr) minmax(100px, 1fr) 120px;
+    align-items: center;
+    gap: 15px;
+    min-width: 690px;
+    padding: 16px 22px;
+    background: #f0f7f2;
+    border-bottom: 1px solid #e1ebe4;
+    box-sizing: border-box;
+}
+
+/* Table Heading Text */
+.list-table-format-title b {
+    color: #425b49;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Product Row */
+.list-table-format {
+    display: grid;
+    grid-template-columns: 90px minmax(180px, 2fr) minmax(125px, 1fr) minmax(100px, 1fr) 120px;
+    align-items: center;
+    gap: 15px;
+    min-width: 690px;
+    min-height: 90px;
+    padding: 14px 22px;
+    border-bottom: 1px solid #edf1ee;
+    background: #ffffff;
+    box-sizing: border-box;
+    transition: background 0.2s ease;
+}
+
+.list-table-format:last-child {
+    border-bottom: none;
+}
+
+.list-table-format:hover {
+    background: #f8fcf9;
+}
+
+/* Product Image */
+.list-table-format > img {
+    width: 70px;
+    height: 65px;
+    border: 1px solid #e5eee7;
+    border-radius: 9px;
+    object-fit: cover;
+    background: #f3f8f4;
+}
+
+/* Product Text */
+.list-table-format > p {
+    margin: 0;
+    min-width: 0;
+    color: #3b4e40;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.list-table-format > p:nth-child(2) {
+    color: #26332b;
+    font-weight: 650;
+}
+
+.list-table-format > p:nth-child(4) {
+    color: #065d23;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Empty and Loading States */
+.list-product-empty {
+    min-width: 690px;
+    padding: 55px 20px;
+    color: #89978d;
+    font-size: 14px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Product Action Buttons */
+.list-product-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+/* Shared Action Button */
+.list-product-actions button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+/* Edit Button */
+.list-product-edit-btn {
+    background: #edf7ef;
+    border: 1px solid #cfe6d5;
+    color: #065d23;
+}
+
+.list-product-edit-btn:hover:not(:disabled) {
+    background: #d9efdf;
+    border-color: #065d23;
+    transform: translateY(-1px);
+}
+
+/* Delete Button */
+.list-product-delete-btn {
+    background: #fff1f1;
+    border: 1px solid #f5d2d2;
+    color: #dc2626;
+}
+
+.list-product-delete-btn:hover:not(:disabled) {
+    background: #ffe0e0;
+    border-color: #ef4444;
+    transform: translateY(-1px);
+}
+
+/* Delete Icon */
+.list-product-delete-btn .cross-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* Disabled Action Buttons */
+.list-product-actions button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Keyboard Focus */
+.list-product-actions button:focus-visible {
+    outline: 2px solid #065d23;
+    outline-offset: 3px;
+}
+
+/* Edit Product Modal Overlay */
+.list-edit-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(13, 30, 19, 0.58);
+    box-sizing: border-box;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+/* Edit Product Modal Container */
+.list-edit-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 760px;
+    max-height: 92vh;
+    overflow: hidden;
+    border: 1px solid #e3ece6;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+    box-sizing: border-box;
+    animation: list-edit-appear 0.22s ease-out;
+}
+
+@keyframes list-edit-appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Modal Header */
+.list-edit-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 23px 27px;
+    border-bottom: 1px solid #e8eee9;
+    background: #ffffff;
+    flex-shrink: 0;
+}
+
+.list-edit-header h2 {
+    margin: 0 0 6px;
+    color: #203b29;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.list-edit-header p {
+    margin: 0;
+    color: #829087;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Modal Close Button */
+.list-edit-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    padding: 0;
+    border: 1px solid #e5ece7;
+    border-radius: 9px;
+    background: #f7faf8;
+    color: #506456;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.list-edit-close:hover:not(:disabled) {
+    background: #fff0f0;
+    border-color: #f5d2d2;
+    color: #dc2626;
+}
+
+.list-edit-close:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Modal Form */
+.list-edit-modal form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* Scrollable Body */
+.list-edit-body {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 25px 27px;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #cbdacf transparent;
+}
+
+/* Scrollbar */
+.list-edit-body::-webkit-scrollbar {
+    width: 7px;
+}
+
+.list-edit-body::-webkit-scrollbar-thumb {
+    background: #cbdacf;
+    border-radius: 10px;
+}
+
+.list-edit-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Shared Labels */
+.list-edit-label, .list-edit-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #344b3b;
+    font-size: 13px;
     font-weight: 600;
 }
 
-.list-table-format img {
-    width: 50px;
-    height: 50px;
+/* Product Image Edit */
+.list-edit-image-section {
+    margin-bottom: 26px;
+}
+
+.list-edit-image-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Image Preview Container */
+.list-edit-image-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 115px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 1px solid #dfe9e2;
+    border-radius: 11px;
+    background: #f4f8f5;
+    color: #065d23;
+    box-sizing: border-box;
+}
+
+/* Image Preview */
+.list-edit-image-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border-radius: 5px;
 }
 
-.list-table-format p {
-    margin: 0;
+/* Image Upload Description */
+.list-edit-image-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    min-width: 0;
 }
 
-.list-table-format .cross-icon {
-    width:25px;
-    height: 25px;
-    object-fit: contain;
-    border-radius: 0;
+/* Change Image Button */
+.list-edit-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid #cce3d2;
+    border-radius: 8px;
+    background: #eaf6ed;
+    color: #065d23;
+    font-size: 12px;
+    font-weight: 700;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.list-table-format .delete-icon:hover {
-    transform: scale(1.1);
+.list-edit-upload-btn:hover {
+    background: #d8efdf;
+    border-color: #91cda3;
 }
 
-@media (max-width: 600px) {
+.list-edit-image-info p {
+    margin: 0;
+    color: #8b978e;
+    font-size: 11px;
+    line-height: 1.6;
+}
 
-    .list-table-format .list-table-format-title {
-        grid-template-columns: 1fr 3fr 1fr;
+/* Edit Product Form Grid */
+.list-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 20px;
+    row-gap: 20px;
+}
+
+/* Full Width Field */
+.list-edit-full {
+    grid-column: 1 / -1;
+}
+
+/* Form Field */
+.list-edit-field {
+    min-width: 0;
+}
+
+/* Input and Textarea */
+.list-edit-field input, .list-edit-field textarea {
+    display: block;
+    width: 100%;
+    padding: 12px 13px;
+    border: 1px solid #dfe7e1;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #26382c;
+    font-size: 13px;
+    font-family: inherit;
+    line-height: 1.5;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Input Hover */
+.list-edit-field input:hover:not(:disabled), .list-edit-field textarea:hover:not(:disabled) {
+    border-color: #a9cdb3;
+}
+
+/* Input Focus */
+.list-edit-field input:focus, .list-edit-field textarea:focus {
+    border-color: #065d23;
+    box-shadow: 0 0 0 3px rgba(6, 93, 35, 0.08);
+}
+
+/* Textarea */
+.list-edit-field textarea {
+    min-height: 105px;
+    resize: vertical;
+}
+
+/* Disabled Inputs */
+.list-edit-field input:disabled, .list-edit-field textarea:disabled {
+    background: #f5f7f5;
+    opacity: 0.75;
+    cursor: not-allowed;
+}
+
+/* Ingredients Editor */
+.list-edit-ingredients {
+    margin-top: 27px;
+    padding-top: 23px;
+    border-top: 1px solid #e8eee9;
+}
+
+/* Ingredients Header */
+.list-edit-ingredients-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.list-edit-ingredients-header h3 {
+    margin: 0;
+    color: #243c2b;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.list-edit-ingredients-header span {
+    color: #7b8c80;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Ingredient Input Row */
+.list-edit-ingredient-input {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+/* Ingredient Input */
+.list-edit-ingredient-input input {
+    flex: 1;
+    min-width: 0;
+    min-height: 43px;
+    padding: 11px 13px;
+    border: 1px solid #dfe7e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #26382c;
+    font-family: inherit;
+    font-size: 13px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-edit-ingredient-input input:focus {
+    border-color: #065d23;
+    box-shadow: 0 0 0 3px rgba(6, 93, 35, 0.08);
+}
+
+.list-edit-ingredient-input input:disabled {
+    background: #f5f7f5;
+    cursor: not-allowed;
+}
+
+/* Add Ingredient Button */
+.list-edit-ingredient-input > button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 43px;
+    padding: 10px 16px;
+    border: 1px solid #065d23;
+    border-radius: 8px;
+    background: #065d23;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.list-edit-ingredient-input > button:hover:not(:disabled) {
+    background: #04471b;
+    border-color: #04471b;
+}
+
+.list-edit-ingredient-input > button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Ingredients Tags Container */
+.list-edit-ingredient-tags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 16px;
+}
+
+/* Single Ingredient Tag */
+.list-edit-ingredient-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 9px;
+    max-width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #cce7d3;
+    border-radius: 20px;
+    background: #edf8f0;
+    color: #065d23;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    box-sizing: border-box;
+}
+
+/* Remove Ingredient */
+.list-edit-ingredient-tag button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: #065d23;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.list-edit-ingredient-tag button:hover:not(:disabled) {
+    background: #d2ead9;
+    color: #b91c1c;
+}
+
+.list-edit-ingredient-tag button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Empty Ingredients Text */
+.list-edit-no-ingredients {
+    margin: 0;
+    padding: 6px 0;
+    color: #8b978e;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Edit Modal Footer */
+.list-edit-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 19px 27px;
+    border-top: 1px solid #e8eee9;
+    background: #ffffff;
+    flex-shrink: 0;
+}
+
+/* Shared Footer Buttons */
+.list-edit-footer button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 43px;
+    padding: 11px 19px;
+    border-radius: 9px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* Cancel Button */
+.list-edit-cancel {
+    border: 1px solid #dfe7e1;
+    background: #ffffff;
+    color: #586a5d;
+}
+
+.list-edit-cancel:hover:not(:disabled) {
+    background: #f4f8f5;
+    border-color: #b9d1bf;
+}
+
+/* Save Button */
+.list-edit-save {
+    border: 1px solid #065d23;
+    background: #065d23;
+    color: #ffffff;
+}
+
+.list-edit-save:hover:not(:disabled) {
+    background: #04471b;
+    border-color: #04471b;
+}
+
+/* Disabled Footer Buttons */
+.list-edit-footer button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Keyboard Focus */
+.list-edit-close:focus-visible, .list-edit-upload-btn:focus-visible, .list-edit-ingredient-input button:focus-visible, .list-edit-ingredient-tag button:focus-visible, .list-edit-footer button:focus-visible {
+    outline: 2px solid #065d23;
+    outline-offset: 3px;
+}
+
+/* Save Changes Loading Animation */
+.list-edit-spin {
+    flex-shrink: 0;
+    transform-origin: center;
+    animation: list-edit-rotation 0.8s linear infinite;
+}
+
+@keyframes list-edit-rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive Design - Tablet */
+@media (max-width: 1100px) {
+
+    .list {
+        padding: 24px;
+    }
+
+    .list > p {
+        font-size: 25px;
+    }
+
+    .list-table-format-title, .list-table-format {
+        gap: 12px;
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+}
+
+/* Responsive Design - Mobile */
+@media (max-width: 650px) {
+
+    .list {
+        padding: 16px;
+    }
+
+    .list > p {
+        margin-bottom: 20px;
+        font-size: 23px;
+    }
+
+    .list-table-format-title, .list-table-format {
+        min-width: 690px;
+    }
+
+    .list-edit-overlay {
+        padding: 10px;
+    }
+
+    .list-edit-modal {
+        max-height: 95vh;
+        border-radius: 12px;
+    }
+
+    .list-edit-header, .list-edit-body, .list-edit-footer {
+        padding: 18px;
+    }
+
+    .list-edit-header h2 {
+        font-size: 20px;
+    }
+
+    .list-edit-image-row {
+        flex-direction: column;
+        align-items: flex-start;
         gap: 15px;
     }
 
-    .list-table-format-title {
-        display: none;
+    .list-edit-image-preview {
+        width: 150px;
+        height: 115px;
     }
 
-    .list-table-format img {
-        width: 45px;
-        height: 45px;
+    .list-edit-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
-    .list-table-format .cross-icon {
-        width: 27px;
-        height: 27px;
+    .list-edit-full {
+        grid-column: auto;
+    }
+
+    .list-edit-ingredient-input {
+        gap: 8px;
+    }
+
+    .list-edit-ingredient-input > button {
+        padding: 10px 12px;
+    }
+
+    .list-edit-footer button {
+        flex: 1;
+        padding: 11px 12px;
+    }
+
+}
+
+/* Small Mobile */
+@media (max-width: 380px) {
+
+    .list-edit-overlay {
+        padding: 6px;
+    }
+
+    .list-edit-header, .list-edit-body, .list-edit-footer {
+        padding: 14px;
+    }
+
+    .list-edit-ingredient-input {
+        flex-direction: column;
+    }
+
+    .list-edit-ingredient-input > button {
+        width: 100%;
+    }
+
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .list-edit-modal, .list-product-actions button, .list-table-format, .list-edit-close, .list-edit-upload-btn, .list-edit-field input, .list-edit-field textarea, .list-edit-ingredient-input input, .list-edit-ingredient-input button, .list-edit-ingredient-tag button, .list-edit-footer button {
+        animation: none; transition: none;
+    }
+
+    .list-edit-spin {
+        animation: none;
     }
 
 }

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { StoreContext } from '../../context/StoreContext'
 import './TrackOrder.css'
+import LiveRiderMap from "../../components/LiveRiderMap/LiveRiderMap.jsx";
 
 const TrackOrder = () => {
     const { token } = useContext(StoreContext)
@@ -365,6 +366,11 @@ const TrackOrder = () => {
 
                     </div>
 
+                    {/* Live Rider Tracking Map */}
+                    {order.orderStatus === "Out for Delivery" && !order.riderDeliveryConfirmedAt && (
+                        <LiveRiderMap key={order._id} orderId={order._id} token={token} deliveryLocation={order.deliveryLocation}/>
+                    )}
+
                     {/* Order Items */}
                     <div className="track-order-section">
                         
@@ -446,6 +452,11 @@ const TrackOrder = () => {
                     <span className='current-status'>{order.orderStatus}</span>
 
                 </div>
+
+                {/* Live Rider Tracking Map */}
+                {order.orderStatus === "Out for Delivery" && !order.riderDeliveryConfirmedAt && (
+                    <LiveRiderMap key={order._id} orderId={order._id} token={token} deliveryLocation={order.deliveryLocation}/>
+                )}
 
                 {/* Order progress */}
                 <div className="order-progress">

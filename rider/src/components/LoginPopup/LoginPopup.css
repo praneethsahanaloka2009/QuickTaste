@@ -1,0 +1,475 @@
+/* =========================================
+   QuickTaste Rider - Login & Register
+   File: components/LoginPopup/LoginPopup.css
+========================================= */
+
+/* Page */
+
+.rider-auth-page {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 35px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle at 8% 8%,
+            rgba(6, 93, 35, 0.10),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 95% 90%,
+            rgba(38, 145, 68, 0.08),
+            transparent 30%
+        ),
+        #f5f9f5;
+    font-family: "Outfit", sans-serif;
+    box-sizing: border-box;
+}
+
+.rider-auth-page *,
+.rider-auth-page *::before,
+.rider-auth-page *::after {
+    box-sizing: border-box;
+}
+
+/* Authentication Card */
+
+.rider-auth-card {
+    width: 100%;
+    max-width: 455px;
+    padding: 36px 38px 29px;
+    background: #ffffff;
+    border: 1px solid #e4ece5;
+    border-radius: 22px;
+    box-shadow:
+        0 18px 50px rgba(20, 61, 31, 0.08),
+        0 3px 10px rgba(20, 61, 31, 0.03);
+}
+
+/* Brand */
+
+.rider-auth-logo {
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 auto 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #173a22;
+    text-decoration: none;
+}
+
+.rider-logo-icon {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    background: #065d23;
+    border-radius: 16px;
+    box-shadow: 0 6px 15px rgba(6, 93, 35, 0.17);
+}
+
+.rider-logo-icon svg {
+    width: 29px;
+    height: 29px;
+    stroke-width: 2.2;
+}
+
+.rider-auth-logo > span:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.rider-auth-logo strong {
+    color: #183b23;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.7px;
+}
+
+.rider-auth-logo small {
+    color: #718273;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+/* Heading */
+
+.rider-auth-heading {
+    margin: 0 0 27px;
+    text-align: center;
+}
+
+.rider-auth-badge {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #065d23;
+    background: #eaf5ec;
+    border: 1px solid #d8ebdb;
+    border-radius: 17px;
+}
+
+.rider-auth-badge svg {
+    stroke-width: 2;
+}
+
+.rider-auth-heading h1 {
+    margin: 0 0 9px;
+    color: #1b3021;
+    font-size: 27px;
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: -0.7px;
+}
+
+.rider-auth-heading p {
+    max-width: 320px;
+    margin: 0 auto;
+    color: #7b867d;
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.75;
+}
+
+/* Form */
+
+.rider-auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.rider-auth-form label {
+    display: block;
+    margin: 0 0 9px;
+    color: #2a3c2e;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Input Wrapper */
+
+.rider-input-wrapper {
+    width: 100%;
+    min-height: 53px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #849187;
+    background: #fbfdfb;
+    border: 1px solid #dfe8e0;
+    border-radius: 11px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.rider-input-wrapper:focus-within {
+    background: #ffffff;
+    border-color: #16813a;
+    box-shadow: 0 0 0 3px rgba(6, 93, 35, 0.09);
+}
+
+.rider-input-wrapper > svg {
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    color: #819184;
+    stroke-width: 1.9;
+}
+
+.rider-input-wrapper input {
+    width: 100%;
+    min-width: 0;
+    height: 51px;
+    padding: 0;
+    color: #233729;
+    background: transparent;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.rider-input-wrapper input::placeholder {
+    color: #a0aaa2;
+    opacity: 1;
+}
+
+.rider-input-wrapper input:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.rider-input-wrapper input:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Submit Button */
+
+.rider-auth-submit {
+    width: 100%;
+    min-height: 53px;
+    margin-top: 2px;
+    padding: 13px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #ffffff;
+    background: #065d23;
+    border: 1px solid #065d23;
+    border-radius: 11px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 750;
+    cursor: pointer;
+    box-shadow: 0 5px 14px rgba(6, 93, 35, 0.15);
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.rider-auth-submit svg {
+    width: 19px;
+    height: 19px;
+    stroke-width: 2;
+}
+
+.rider-auth-submit:hover:not(:disabled) {
+    background: #04491b;
+    border-color: #04491b;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 19px rgba(6, 93, 35, 0.21);
+}
+
+.rider-auth-submit:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.rider-auth-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+/* OR Divider */
+
+.rider-auth-divider {
+    width: 100%;
+    margin: 25px 0 21px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rider-auth-divider span {
+    height: 1px;
+    flex: 1;
+    background: #e7ece7;
+}
+
+.rider-auth-divider p {
+    margin: 0;
+    color: #919b92;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 1.1px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Google Button */
+
+.rider-google-button {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rider-google-button > div {
+    max-width: 100%;
+}
+
+/* Login / Register Switch */
+
+.rider-auth-switch {
+    margin: 24px 0 0;
+    color: #778279;
+    font-size: 12.5px;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.rider-auth-switch a {
+    margin-left: 3px;
+    color: #065d23;
+    font-weight: 750;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.rider-auth-switch a:hover {
+    color: #16813a;
+    text-decoration: underline;
+}
+
+/* Security Message */
+
+.rider-auth-security {
+    margin-top: 25px;
+    padding-top: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #7a877d;
+    border-top: 1px solid #edf1ed;
+    font-size: 11px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.rider-auth-security svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #16813a;
+}
+
+/* Footer */
+
+.rider-auth-footer {
+    width: 100%;
+    margin-top: 23px;
+    text-align: center;
+}
+
+.rider-auth-footer p {
+    margin: 0;
+    color: #879188;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+/* Tablet and Mobile */
+
+@media (max-width: 600px) {
+    .rider-auth-page {
+        padding: 25px 16px 18px;
+    }
+
+    .rider-auth-card {
+        max-width: 430px;
+        padding: 30px 25px 26px;
+        border-radius: 19px;
+    }
+
+    .rider-auth-logo {
+        margin-bottom: 28px;
+    }
+
+    .rider-logo-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 14px;
+    }
+
+    .rider-auth-logo strong {
+        font-size: 23px;
+    }
+
+    .rider-auth-heading h1 {
+        font-size: 24px;
+    }
+
+    .rider-auth-heading p {
+        font-size: 13px;
+    }
+}
+
+/* Small Phones */
+
+@media (max-width: 380px) {
+    .rider-auth-page {
+        padding: 18px 11px;
+    }
+
+    .rider-auth-card {
+        padding: 25px 17px 22px;
+        border-radius: 16px;
+    }
+
+    .rider-logo-icon {
+        width: 46px;
+        height: 46px;
+    }
+
+    .rider-auth-logo strong {
+        font-size: 21px;
+    }
+
+    .rider-auth-logo small {
+        font-size: 10px;
+        letter-spacing: 1.4px;
+    }
+
+    .rider-auth-heading h1 {
+        font-size: 22px;
+    }
+
+    .rider-auth-heading p {
+        font-size: 12.5px;
+    }
+
+    .rider-auth-divider {
+        gap: 8px;
+    }
+
+    .rider-auth-divider p {
+        font-size: 9px;
+        letter-spacing: 0.6px;
+    }
+
+    .rider-auth-card {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+    .rider-auth-page *,
+    .rider-auth-page *::before,
+    .rider-auth-page *::after {
+        transition: none !important;
+        animation: none !important;
+    }
+}

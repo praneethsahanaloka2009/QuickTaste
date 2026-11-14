@@ -56,7 +56,7 @@
 }
 
 /* Orders List */
-.orders-list {
+.order-list {
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -184,11 +184,29 @@
     text-align: right;
 }
 
+.order-total h4 {
+    margin-bottom: 12px;
+}
+
 .order-total p {
-    margin: 0;
-    font-size: 18px;
+    margin: 0 0 10px;
+    font-size: 12px;
     font-weight: 600;
     color: #262626;
+    line-height: 1.6;
+}
+
+.order-total p:last-child {
+    margin-bottom: 0;
+}
+
+/* Refund Information */
+.order-total .refund-status,
+.order-total .refunded-amount {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666666;
+    margin-top: 5px;
 }
 
 /* Order status controls */
@@ -254,6 +272,442 @@
     color: #b91c1c;
 }
 
+
+.order-final-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.refund-order-btn {
+    padding: 9px 15px;
+    border: none;
+    border-radius: 6px;
+    background: #e74c3c;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.refund-order-btn:hover:not(:disabled) {
+    background: #c0392b;
+}
+
+.refund-order-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.refund-completed {
+    color: #218838;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Refund Reason Modal */
+.refund-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.refund-modal {
+    width: 100%;
+    max-width: 460px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+.refund-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.refund-modal-header h2 {
+    margin: 0;
+    font-size: 23px;
+    color: #222;
+}
+
+.refund-modal-close {
+    border: none;
+    background: transparent;
+    font-size: 29px;
+    cursor: pointer;
+    color: #666;
+    line-height: 1;
+}
+
+.refund-modal-description {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 12px 0 20px;
+}
+
+.refund-modal-amount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    background: #f5f6f8;
+    border-radius: 9px;
+    padding: 16px;
+    margin-bottom: 22px;
+}
+
+.refund-modal-amount span {
+    color: #555;
+    font-size: 14px;
+}
+
+.refund-modal-amount strong {
+    color: #198754;
+    font-size: 23px;
+}
+
+.refund-reason-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.refund-reason-input {
+    display: block;
+    width: 100%;
+    min-height: 110px;
+    resize: vertical;
+    box-sizing: border-box;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+    padding: 12px;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+}
+
+.refund-reason-input:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+}
+
+.refund-reason-hint {
+    text-align: right;
+    font-size: 12px;
+    color: #888;
+    margin: 6px 0 0;
+}
+
+.refund-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+}
+
+.refund-modal-actions button {
+    border: none;
+    border-radius: 7px;
+    padding: 11px 17px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.refund-cancel-btn {
+    background: #eeeeee;
+    color: #333;
+}
+
+.refund-confirm-btn {
+    background: #198754;
+    color: #fff;
+}
+
+.refund-confirm-btn:hover:not(:disabled) {
+    background: #146c43;
+}
+
+.refund-modal-actions button:disabled,
+.refund-modal-close:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.cancellation-reason {
+    margin-top: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* Rider Assignment Section */
+.rider-assignment {
+    margin: 20px 20px 0;
+    padding: 20px;
+    background: #f7fbf8;
+    border: 1px solid #dcece1;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.rider-assignment h4 {
+    margin: 0 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #065d23;
+}
+
+.rider-assignment p {
+    margin: 0 0 16px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #475569;
+    overflow-wrap: anywhere;
+}
+
+.rider-assignment p strong {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+/* Dropdown and Button Layout */
+.rider-assignment-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Rider Dropdown */
+.rider-assignment-controls select {
+    flex: 1 1 240px;
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px 14px;
+    border: 1px solid #d4e2d8;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #26352b;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rider-assignment-controls select:hover:not(:disabled) {
+    border-color: #065d23;
+}
+
+.rider-assignment-controls select:focus-visible {
+    border-color: #065d23;
+    box-shadow: 0 0 0 3px rgba(6, 93, 35, 0.12);
+}
+
+/* Assign Rider Button */
+.rider-assignment-controls button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 44px;
+    padding: 10px 22px;
+    border: 1px solid #065d23;
+    border-radius: 8px;
+    background: #065d23;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.rider-assignment-controls button:hover:not(:disabled) {
+    background: #044719;
+    border-color: #044719;
+    transform: translateY(-1px);
+}
+
+.rider-assignment-controls button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+/* Disabled States */
+.rider-assignment-controls select:disabled, .rider-assignment-controls button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.rider-assignment-controls button:disabled {
+    transform: none;
+}
+
+/* Customer Location Approval */
+.location-approval {
+    margin: 18px 0;
+    padding: 20px;
+    background: #f7fbf8;
+    border: 1px solid #dcece1;
+    border-radius: 10px;
+}
+
+.location-approval h4 {
+    margin: 0 0 12px;
+    font-size: 17px;
+    font-weight: 600;
+    color: #065d23;
+}
+
+.location-approval p {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #333;
+    overflow-wrap: anywhere;
+}
+
+.location-approval-details {
+    margin-top: 12px;
+}
+
+.location-approval-details a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #065d23;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.location-approval-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.approve-location-btn, .reject-location-btn {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.approve-location-btn {
+    background: #065d23;
+    color: #fff;
+}
+
+.approve-location-btn:hover:not(:disabled) {
+    background: #044619;
+}
+
+.reject-location-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.reject-location-btn:hover:not(:disabled) {
+    background: #fecaca;
+}
+
+.approve-location-btn:disabled, .reject-location-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* Branch Information Card */
+.branch-information {
+    width: 100%;
+    margin: 20px 0;
+    padding: 22px;
+    background: #f5faf6;
+    border: 1px solid #d5e9da;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.branch-information h4 {
+    margin: 0 0 16px;
+    color: #065d23;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.branch-information p {
+    margin: 10px 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.branch-information p:last-child {
+    margin-bottom: 0;
+}
+
+.branch-information strong {
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.order-card .rider-assignment, .order-card .branch-information {
+    width: auto;
+    margin-left: 20px;
+    margin-right: 20px;
+    box-sizing: border-box;
+}
+
+
+/* Premium Priority Order */
+.order-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.order-priority-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1px solid #b7dfc1;
+    border-radius: 100px;
+    background: #e8f6ec;
+    color: #087c31;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
 /* 1050px */
 @media (max-width: 1050px) {
 
@@ -276,8 +730,25 @@
 
 }
 
-/* 750px */
+/* 768px */
+@media (max-width: 768px){
+    
+    .branch-information {
+        padding: 16px;
+        margin: 16px 0;
+    }
 
+    .branch-information h4 {
+        font-size: 15px;
+    }
+
+    .branch-information p {
+        font-size: 13px;
+    }
+
+}
+
+/* 750px */
 @media (max-width: 750px) {
 
     .orders-page {
@@ -295,7 +766,6 @@
     .orders-header p {
         font-size: 13px;
     }
-
 
     .order-card-top {
         padding: 15px;
@@ -324,9 +794,7 @@
         padding: 15px;
     }
 
-    .order-customer,
-    .order-items,
-    .order-total {
+    .order-customer, .order-items, .order-total {
         width: 100%;
     }
 
@@ -348,6 +816,21 @@
         font-size: 17px;
     }
 
+    /* Rider Assignment */
+    .rider-assignment {
+        margin: 15px 15px 0;
+        padding: 16px;
+    }
+
+    .rider-assignment-controls {
+        gap: 10px;
+    }
+
+    .order-card .rider-assignment, .order-card .branch-information {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
 }
 
 /* 600px */
@@ -366,6 +849,19 @@
     .accept-order-btn,
     .dispatch-order-btn {
         width: 100%;
+    }
+}
+
+/* 560px */
+@media (max-width: 560px) {
+    .order-title-row {
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .order-priority-badge {
+        font-size: 10px;
+        padding: 6px 10px;
     }
 }
 
@@ -425,6 +921,73 @@
     /* Total */
     .order-total p {
         font-size: 16px;
+    }
+
+    /* Rider Assignment */
+    .rider-assignment {
+        margin: 14px 14px 0;
+        padding: 14px;
+        border-radius: 8px;
+    }
+
+    .rider-assignment h4 {
+        font-size: 14px;
+    }
+
+    .rider-assignment p {
+        font-size: 12px;
+    }
+
+    .rider-assignment-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .rider-assignment-controls select {
+        flex: none;
+        width: 100%;
+    }
+
+    .rider-assignment-controls button {
+        width: 100%;
+    }
+
+    .location-approval {
+        padding: 15px;
+    }
+
+    .location-approval-actions {
+        flex-direction: column;
+    }
+
+    .approve-location-btn, .reject-location-btn {
+        width: 100%;
+    }
+
+    .order-card .rider-assignment, .order-card .branch-information {
+        margin-left: 14px;
+        margin-right: 14px;
+    }
+
+}
+
+/* 480px */
+@media (max-width: 480px) {
+
+    .refund-modal {
+        padding: 20px;
+    }
+
+    .refund-modal-header h2 {
+        font-size: 21px;
+    }
+
+    .refund-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .refund-modal-actions button {
+        width: 100%;
     }
 
 }

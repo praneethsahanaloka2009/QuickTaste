@@ -8,12 +8,15 @@ import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 import AddProduct from './pages/AddProduct/AddProduct'
 import ListProduct from './pages/ListProduct/ListProduct'
 import Orders from './pages/Orders/Orders'
-import Messages from './pages/Messages/Messages'
+import MessagesHub from './pages/Messages/MessagesHub'
 import PromoCodes from './pages/PromoCodes/PromoCodes'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import AdminProtectedRoute from './components/AdminProtectedRoute/AdminProtectedRoute'
 import Dashboard from './pages/Dashboard/Dashboard'
+import Branches from './pages/Branches/Branches'
+import CODSettlements from './pages/CODSettlements/CODSettlements'
+import RiderPayouts from './pages/RiderPayouts/RiderPayouts'
+import Analytics from './pages/Analytics/Analytics'
 
 const App = () => {
 
@@ -31,7 +34,7 @@ const App = () => {
   return (
     <div>
       {showAuth && (<Auth setShowAuth={setShowAuth} setIsLoggedIn={setIsLoggedIn}/>)}
-      <ToastContainer/>
+      <ToastContainer position="top-right" autoClose={3000} toastClassName="quicktaste-admin-toast" bodyClassName="quicktaste-admin-toast-body"/>
       <Navbar setShowAuth={setShowAuth} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
       <hr />
       <div className='app-content'>
@@ -46,11 +49,15 @@ const App = () => {
           </Route>
 
           <Route path="/dashboard" element={<AdminProtectedRoute><Dashboard/></AdminProtectedRoute>}/>
+          <Route path="/analytics" element={<AdminProtectedRoute><Analytics/></AdminProtectedRoute>}/>
           <Route path="/add-product" element={<AdminProtectedRoute><AddProduct url={url}/></AdminProtectedRoute>}/>
           <Route path="/list-product" element={<AdminProtectedRoute><ListProduct url={url}/></AdminProtectedRoute>}/>
           <Route path="/orders" element={<AdminProtectedRoute><Orders url={url}/></AdminProtectedRoute>}/>
-          <Route path="/messages" element={<AdminProtectedRoute><Messages url={url}/></AdminProtectedRoute>}/>
+          <Route path="/messages" element={<AdminProtectedRoute><MessagesHub/></AdminProtectedRoute>}/>
           <Route path="/promo-codes" element={<AdminProtectedRoute><PromoCodes/></AdminProtectedRoute>}/>
+          <Route path="/branches" element={<AdminProtectedRoute><Branches/></AdminProtectedRoute>}/>
+          <Route path="/cod-settlements" element={<AdminProtectedRoute><CODSettlements/></AdminProtectedRoute>}/>
+          <Route path="/rider-payouts" element={<AdminProtectedRoute><RiderPayouts/></AdminProtectedRoute>}/>
           <Route path="/terms-of-use" element={<TermsOfUse/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy/>}/>
         </Routes>

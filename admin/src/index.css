@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
+/* Global Styles */
 * {
   padding: 0;
   margin: 0;
@@ -37,11 +38,7 @@ hr {
   cursor: pointer;
 }
 
-
-/* =========================
-   Admin Home
-========================= */
-
+/* Admin Home */
 .admin-panel {
   flex: 1;
   min-height: calc(100vh - 75px);
@@ -80,4 +77,81 @@ hr {
 
 .admin-panel button:hover {
   background-color: #054a1c;
+}
+
+/* QuickTaste Admin Toast Notifications */
+/* Toast Box */
+.Toastify__toast-container .Toastify__toast, .Toastify__toast-container .quicktaste-admin-toast {
+  min-height: 88px !important;
+  padding: 16px 18px !important;
+  border-radius: 12px !important;
+  box-sizing: border-box;
+}
+
+/* Toast Icon and Message Alignment */
+.Toastify__toast-container .Toastify__toast-body, .Toastify__toast-container .quicktaste-admin-toast-body {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  margin: 0 !important;
+  padding: 6px 0 !important;
+  font-family: "Outfit", sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.9 !important;
+}
+
+/* Toast Message Line Spacing */
+.Toastify__toast-container .Toastify__toast-body > div:last-child, .Toastify__toast-container .quicktaste-admin-toast-body > div:last-child {
+  line-height: 1.9 !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* Toast Icon */
+.Toastify__toast-container .Toastify__toast-icon {
+  flex-shrink: 0;
+  margin-inline-end: 0;
+}
+
+/* Close Button */
+.Toastify__toast-container .Toastify__close-button {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+
+/* Admin Toast - Icon & Text Spacing Fix */
+.Toastify__toast-container .Toastify__toast-body, .Toastify__toast-container .quicktaste-admin-toast-body {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+}
+
+.Toastify__toast-container .Toastify__toast-icon {
+  flex-shrink: 0 !important;
+  margin-inline-end: 14px !important;
+}
+
+.Toastify__toast-container .Toastify__toast-body > div:last-child, .Toastify__toast-container .quicktaste-admin-toast-body > div:last-child {
+  line-height: 1.9 !important;
+  overflow-wrap: anywhere;
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+
+  .Toastify__toast-container .Toastify__toast, .Toastify__toast-container .quicktaste-admin-toast {
+    min-height: 76px !important;
+    padding: 14px 16px !important;
+  }
+
+  .Toastify__toast-container .Toastify__toast-body, .Toastify__toast-container .quicktaste-admin-toast-body {
+    font-size: 13px !important;
+    line-height: 1.75 !important;
+  }
+
+  .Toastify__toast-container .Toastify__toast-body > div:last-child, .Toastify__toast-container .quicktaste-admin-toast-body > div:last-child {
+    line-height: 1.75 !important;
+  }
+
 }
