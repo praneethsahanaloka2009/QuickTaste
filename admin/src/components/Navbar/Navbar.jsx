@@ -3,8 +3,7 @@ import "./Navbar.css";
 import { assets } from "../../assets/assets";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const API_URL = "http://localhost:4911";
+import { API_URL, getImageUrl } from "../../config/api";
 
 const Navbar = ({ setShowAuth, isLoggedIn, setIsLoggedIn }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -211,14 +210,16 @@ const Navbar = ({ setShowAuth, isLoggedIn, setIsLoggedIn }) => {
   };
 
   // Profile image URL
-  const imageUrl = profileImage ? profileImage.startsWith("http") ? profileImage : `${API_URL}/images/${profileImage}` : "";
+  const imageUrl = getImageUrl(profileImage);
 
   // First letter of admin name
   const adminInitial = adminName.trim().charAt(0).toUpperCase() || "A";
 
   return (
     <div className="navbar">
-      <Link to="/dashboard"><img src={assets.logo} alt="QuickTaste" className="logo"/></Link>
+      <Link to="/dashboard">
+        <img src={assets.logo} alt="QuickTaste" className="logo"/>
+      </Link>
 
       {!isLoggedIn ? (
         <button type="button" className="login-button" onClick={() => setShowAuth(true)}>

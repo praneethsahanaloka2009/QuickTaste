@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { Wallet, Clock3, CheckCircle2, RefreshCw, Plus, X, CalendarDays, Banknote } from "lucide-react";
+import { API_URL } from "../../config/api";
 import "./CODSettlements.css";
-
-const API_URL = "http://localhost:4911";
 
 const getId = (value) => {
     if(!value){

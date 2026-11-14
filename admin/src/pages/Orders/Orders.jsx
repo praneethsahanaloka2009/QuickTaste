@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Orders.css'
 import { toast } from 'react-toastify'
+import { API_URL } from '../../config/api'
 
 const sortOrdersByPriority = (orders) => {
     return [...orders].sort((a, b) => {
@@ -54,7 +55,7 @@ const Orders = () => {
             }
 
             const response = await fetch(
-                "http://localhost:4911/api/order/admin/orders",
+                `${API_URL}/api/order/admin/orders`,
                 {
                     method: "GET",
                     headers: {
@@ -66,7 +67,7 @@ const Orders = () => {
 
             const data = await response.json()
 
-            if (data.success) {
+            if(data.success){
                 setOrders(data.orders || [])
             } else {
                 toast.error(data.message || "Failed to fetch orders")
@@ -95,7 +96,7 @@ const Orders = () => {
             }
 
             const response = await fetch(
-                "http://localhost:4911/api/admin/riders",
+                `${API_URL}/api/admin/riders`,
                 {
                     method: "GET",
                     headers: {
@@ -142,7 +143,7 @@ const Orders = () => {
             setUpdatingOrderId(orderId);
 
             const response = await fetch(
-                `http://localhost:4911/api/admin/orders/${orderId}/assign-rider`,
+                `${API_URL}/api/admin/orders/${orderId}/assign-rider`,
                 {
                     method: "PUT",
                     headers: {
@@ -193,7 +194,7 @@ const Orders = () => {
             setUpdatingOrderId(orderId);
 
             const response = await fetch(
-                `http://localhost:4911/api/admin/orders/${orderId}/${action}-location`,
+                `${API_URL}/api/admin/orders/${orderId}/${action}-location`,
                 {
                     method: "PUT",
                     headers: {
@@ -296,7 +297,7 @@ const Orders = () => {
             setUpdatingOrderId(orderId)
 
             const response = await fetch(
-                `http://localhost:4911/api/order/admin/update-status/${orderId}`,
+                `${API_URL}/api/order/admin/update-status/${orderId}`,
                 {
                     method: 'PUT',
                     headers: {
@@ -389,7 +390,7 @@ const Orders = () => {
             setUpdatingOrderId(orderId);
 
             const response = await fetch(
-                `http://localhost:4911/api/payment/stripe/refund/${orderId}`,
+                `${API_URL}/api/payment/stripe/refund/${orderId}`,
                 {
                     method: "POST",
                     headers: {

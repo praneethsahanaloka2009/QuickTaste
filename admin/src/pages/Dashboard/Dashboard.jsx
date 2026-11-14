@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { API_URL } from "../../config/api";
 import "./Dashboard.css";
 
 const Dashboard = () => {
@@ -14,7 +15,7 @@ const Dashboard = () => {
             const token = localStorage.getItem("adminToken");
 
             const response = await fetch(
-                "http://localhost:4911/api/dashboard",
+                `${API_URL}/api/dashboard`,
                 {
                     method: "GET",
                     headers: {
@@ -50,25 +51,24 @@ const Dashboard = () => {
         const fetchActiveOffers = async () => {
             
             try {
-                
-                const response = await fetch("http://localhost:4911/api/promo/list");
+                const token = localStorage.getItem("adminToken");
+
+                const response = await fetch(`${API_URL}/api/promo/list`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
                 const data = await response.json();
 
                 if(data.success){
-                    
                     const now = new Date();
-
                     const active = data.promos.filter((promo) => promo.isActive === true && new Date(promo.expiryDate) >= now);
-
                     setActiveOffers(active);
-
                 }
-
             } catch (error) {
-                
                 console.log("Offers Fetch Error:", error);
-
             }
 
         };
@@ -380,10 +380,7 @@ const Dashboard = () => {
 
                         dashboardData.recentOrders.map((order) => (
 
-                            <div
-                                className="recent-order-row"
-                                key={order._id}
-                            >
+                            <div className="recent-order-row" key={order._id}>
 
                                 <span>
                                     #{order._id.slice(-6)}
@@ -398,16 +395,9 @@ const Dashboard = () => {
                                 </span>
 
                                 <span>
-
-                                    <span
-                                        className={`order-status ${order.orderStatus
-                                            .toLowerCase()
-                                            .replace(/\s+/g, "-")
-                                            }`}
-                                    >
+                                    <span className={`order-status ${order.orderStatus.toLowerCase().replace(/\s+/g, "-")}`}>
                                         {order.orderStatus}
                                     </span>
-
                                 </span>
 
                             </div>
@@ -450,12 +440,10 @@ const Dashboard = () => {
                                         {promo.code}
                                     </div>
 
-                                    <h3>{promo.discountType === "percentage" ? `${promo.discountValue}% OFF` : `$${Number(promo.discountValue).toFixed(2)} OFF`}</h3>
+                                    <h3>{promo.discountType === "freeDelivery" ? "Free Delivery" : promo.discountType === "percentage" ? `${promo.discountValue}% OFF` : `$${Number(promo.discountValue).toFixed(2)} OFF`}</h3>
 
                                     {promo.offerText && (
-                                        
                                         <p>{promo.offerText}</p>
-
                                     )}
 
                                 </div>
@@ -467,11 +455,9 @@ const Dashboard = () => {
                                     <span>Expires:{" "}{new Date(promo.expiryDate).toLocaleDateString()}</span>
 
                                     {promo.showOnOfferBar && (
-                                        
                                         <span className="offer-bar-active">
                                             Showing on Offer Bar
                                         </span>
-
                                     )}
 
                                 </div>

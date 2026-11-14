@@ -8,14 +8,21 @@ import { registerTrackingSocket } from "../sockets/trackingSocket.js";
 let io = null;
 
 export const initializeSocket = (httpServer) => {
+    const allowedOrigins = ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.RIDER_URL].filter(Boolean);
+
     io = new Server(httpServer, {
         cors: {
-            origin: [
-                "http://localhost:5173",
-                "http://localhost:5174",
-                "http://localhost:5175"
-            ],
+            origin: allowedOrigins,
             methods: ["GET", "POST"]
+        },
+        allowRequest: (req, callback) => {
+            const origin = req.headers.origin;
+
+            if(!origin || allowedOrigins.includes(origin)){
+                return callback(null, true);
+            }
+
+            return callback("Origin not allowed", false);
         }
     });
 

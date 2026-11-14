@@ -570,5 +570,42 @@ const validatePromoCode = async (req, res) => {
     }
 };
 
+// Get active public offers for the Customer Offer Bar
+const getPublicOffers = async (req, res) => {
+    try {
+        const now = new Date();
 
-export {createPromoCode, getAllPromoCodes, getPromoCodeById, updatePromoCode, deletePromoCode, validatePromoCode};
+        const promos = await promoCodeModel.find({
+            isActive: true,
+            showOnOfferBar: true,
+            expiryDate: { $gt: now },
+            $or: [
+                {
+                    usageLimit: null
+                },
+                {
+                    $expr: {
+                        $lt: [
+                            "$usedCount", "$usageLimit"
+                        ]
+                    }
+                }
+            ]
+        }).select("code discountType discountValue maxDiscountAmount discountType2 discountValue2 maxDiscountAmount2 minOrderAmount expiryDate offerText showOnOfferBar").sort({ createdAt: -1 }).lean();
+
+        return res.status(200).json({
+            success: true,
+            promos
+        });
+
+    } catch (error) {
+        console.error("Get Public Offers Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to load public offers"
+        });
+    }
+};
+
+export {createPromoCode, getAllPromoCodes, getPromoCodeById, updatePromoCode, deletePromoCode, validatePromoCode, getPublicOffers};

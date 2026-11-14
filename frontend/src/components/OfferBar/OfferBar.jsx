@@ -14,19 +14,16 @@ const OfferBar = () => {
 
             try {
                 const response = await fetch(
-                    `${API_URL}/api/promo/list`
+                    `${API_URL}/api/promo/public-offers`
                 );
 
                 const data = await response.json();
 
                 if(data.success){
-                    const now = new Date();
-                    const activePromo = data.promos.find((item) => {
-                        return (
-                            item.isActive === true && item.showOnOfferBar === true && new Date(item.expiryDate) >= now
-                        );
-                    });
+                    const activePromo = Array.isArray(data.promos) ? data.promos[0] : null;
                     setPromo(activePromo || null);
+                } else {
+                    setPromo(null);
                 }
 
             } catch (error) {

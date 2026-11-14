@@ -1,6 +1,6 @@
-
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { API_URL } from "../../config/api";
 import './PromoCodes.css'
 
 const initialFormData = {
@@ -20,6 +20,11 @@ const initialFormData = {
 }
 
 const PromoCodes = () => {
+    const getAdminHeaders = () => ({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("adminToken")}`
+    });
+
     const [promos, setPromos] = useState([])
     const [loading, setLoading] = useState(true)
     const [showForm, setShowForm] = useState(false)
@@ -29,7 +34,10 @@ const PromoCodes = () => {
 
     const fetchPromos = async () => {
         try{
-            const response = await fetch("http://localhost:4911/api/promo/list")
+            const response = await fetch(`${API_URL}/api/promo/list`, {
+                headers: getAdminHeaders()
+            });
+
             const data = await response.json()
 
             if(data.success){
@@ -88,7 +96,7 @@ const PromoCodes = () => {
         }
 
         try {
-            const url = editingPromo ? `http://localhost:4911/api/promo/${editingPromo._id}` : "http://localhost:4911/api/promo/create"
+            const url = editingPromo ? `${API_URL}/api/promo/${editingPromo._id}` : `${API_URL}/api/promo/create`;
 
             const method = editingPromo ? "PUT" : "POST"
 
@@ -116,9 +124,7 @@ const PromoCodes = () => {
 
             const response = await fetch(url, {
                 method,
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                headers: getAdminHeaders(),
                 body: JSON.stringify(payload)
             })
 
@@ -182,11 +188,12 @@ const PromoCodes = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:4911/api/promo/${deletingPromo._id}`,
+                `${API_URL}/api/promo/${deletingPromo._id}`,
                 {
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: getAdminHeaders()
                 }
-            )
+            );
 
             const data = await response.json()
 

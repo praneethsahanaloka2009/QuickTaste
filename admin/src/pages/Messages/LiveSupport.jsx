@@ -3,9 +3,8 @@ import { io } from "socket.io-client";
 import { Headset, Send, RefreshCw, UserRound, Bot, MessageCircle, LoaderCircle, Bell, Search } from "lucide-react";
 import { toast } from "react-toastify";
 import ReactMarkdown from "react-markdown";
+import { API_URL, SOCKET_URL } from "../../config/api";
 import "./LiveSupport.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4911";
 
 const SUPPORT_URL = `${API_URL}/api/support-chat`;
 
@@ -139,7 +138,7 @@ const LiveSupport = () => {
     const apiRequest = useCallback(async (path, options = {}) => {
         const token = getToken();
 
-        if (!token) {
+        if(!token){
             throw new Error("Please login as an admin.");
         }
 
@@ -154,7 +153,7 @@ const LiveSupport = () => {
 
         const data = await response.json();
 
-        if (!response.ok || !data.success){
+        if(!response.ok || !data.success){
             throw new Error(data.message || "Request failed.");
         }
 
@@ -268,7 +267,7 @@ const LiveSupport = () => {
             return;
         }
 
-        const socket = io(API_URL, {
+        const socket = io(SOCKET_URL, {
             auth: {
                 token,
                 role: "admin"

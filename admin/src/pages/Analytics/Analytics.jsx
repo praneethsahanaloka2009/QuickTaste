@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { BarChart3, TrendingUp, ShoppingBag, CheckCircle2, RefreshCw, DollarSign, RotateCcw, AlertCircle, UtensilsCrossed, Layers3 } from "lucide-react";
 import { ResponsiveContainer, LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from "recharts";
 import { toast } from "react-toastify";
+import { API_URL, getImageUrl } from "../../config/api";
 import "./Analytics.css";
-
-const API_URL = "http://localhost:4911";
 
 const STATUS_COLORS = {
     Pending: "#a3c9ae",
@@ -583,7 +582,7 @@ const Analytics = () => {
                                                         <div className="analytics-food-product">
                                                             
                                                             {food.image ? (
-                                                                <img src={`${API_URL}/images/${encodeURIComponent(food.image)}`} alt={food.name} loading="lazy"/>
+                                                                <img src={getImageUrl(food.image)} alt={food.name} loading="lazy"/>
                                                             ) : (
                                                                 <div className="analytics-food-placeholder">
                                                                     <UtensilsCrossed size={18}/>

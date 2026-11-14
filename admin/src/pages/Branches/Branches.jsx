@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {Store, Search, Plus, Pencil, Power, RefreshCw, MapPin, X, Save, AlertCircle, CheckCircle2, Clock3, Ban, Trash2} from "lucide-react";
 import { toast } from "react-toastify";
+import { API_URL as BASE_API_URL } from "../../config/api";
 import "./Branches.css";
 
-const API_URL = "http://localhost:4911/api/branch";
+const API_URL = `${BASE_API_URL}/api/branch`;
 const PROVINCES = ["Western", "Central", "Southern", "Northern", "Eastern", "North Western", "North Central", "Uva", "Sabaragamuwa"];
 const STATUSES = ["Planned", "Operational", "Temporarily Closed"];
 const emptyForm = {name: "", code: "", province: "Western", city: "", address: "", phone: "", email: "", latitude: "", longitude: "", deliveryRadiusKm: "10", status: "Planned", isActive: false};

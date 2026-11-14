@@ -17,10 +17,11 @@ import Branches from './pages/Branches/Branches'
 import CODSettlements from './pages/CODSettlements/CODSettlements'
 import RiderPayouts from './pages/RiderPayouts/RiderPayouts'
 import Analytics from './pages/Analytics/Analytics'
+import { API_URL } from './config/api'
 
 const App = () => {
 
-  const url = "http://localhost:4911";
+  const url = API_URL;
 
   const [showAuth, setShowAuth] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("adminToken"))

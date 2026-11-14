@@ -34,7 +34,19 @@ const app = express();
 const port = Number(process.env.PORT) || 4911;
 
 // Middleware
-app.use(cors());
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174", "http://localhost:5175", process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.RIDER_URL].filter(Boolean);
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if(!origin || allowedOrigins.includes(origin)){
+            return callback(null, true);
+        }
+
+        return callback(new Error("Not allowed by CORS"));
+    },
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // IMPORTANT: Stripe webhook must receive the raw body.
 // This route must be registered before express.json().

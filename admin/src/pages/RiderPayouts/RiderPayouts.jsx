@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Wallet, CircleCheck, Clock3, HandCoins, RefreshCw, Plus, X, Search, AlertCircle } from "lucide-react";
 import { toast } from "react-toastify";
+import { API_URL } from "../../config/api";
 import "./RiderPayouts.css";
-
-const API_URL = "http://localhost:4911";
 
 const money = (value) => `$${Number(value || 0).toFixed(2)}`;
 
