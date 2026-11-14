@@ -31,7 +31,7 @@ import { subscriptionStripeWebhook } from "./controllers/subscriptionWebhookCont
 
 // App config
 const app = express();
-const port = 4911;
+const port = Number(process.env.PORT) || 4911;
 
 // Middleware
 app.use(cors());
