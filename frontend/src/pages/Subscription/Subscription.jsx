@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, BadgeCheck, Check, ChevronDown, Crown, Gift, Headphones, Leaf, LoaderCircle, LockKeyhole, ShieldCheck, Sparkles, Truck, Wallet } from "lucide-react";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
+import { API_URL } from "../../config/api";
 import "./Subscription.css";
-
-const API_URL = "http://localhost:4911";
 
 const planDetails = {
     Basic: {

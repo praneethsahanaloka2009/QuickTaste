@@ -4,9 +4,8 @@ import { ArrowLeft, Clock3, ShoppingCart, Plus, Minus, Star, ChefHat, Share2, Ch
 import { toast } from "react-toastify";
 import { StoreContext } from "../../context/StoreContext";
 import ProductReviews from "../../components/ProductReviews/ProductReviews";
+import { getImageUrl } from "../../config/api";
 import "./ProductDetails.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4911";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -362,7 +361,7 @@ const ProductDetails = () => {
                     {/* Product Image */}
                     <div className="qt-product-image-section">
                         
-                        <img src={`${API_URL}/images/${product.image}`} alt={product.name} className="qt-product-main-image"/>
+                        <img src={getImageUrl(product.image)} alt={product.name} className="qt-product-main-image"/>
 
                         <div className="qt-product-image-caption">
                             <ChefHat size={18}/>
@@ -750,7 +749,7 @@ const ProductDetails = () => {
                                 
                                 <Link key={item._id} to={`/product/${item._id}`} className="qt-product-related-card">
                                     
-                                    <img src={`${API_URL}/images/${item.image}`} alt={item.name}/>
+                                    <img src={getImageUrl(item.image)} alt={item.name}/>
 
                                     <div>
                                         <h3>{item.name}</h3>

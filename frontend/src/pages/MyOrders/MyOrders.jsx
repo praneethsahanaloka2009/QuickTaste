@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { StoreContext } from '../../context/StoreContext'
 import { toast } from "react-toastify";
 import "./MyOrders.css";
+import { API_URL } from "../../config/api";
 
 const MyOrders = () => {
 
@@ -26,7 +27,7 @@ const MyOrders = () => {
     const fetchOrders = async () => {
         
         try {
-            const response = await fetch("http://localhost:4911/api/order/my-orders",
+            const response = await fetch(`${API_URL}/api/order/my-orders`,
                 {
                     method : "GET",
                     headers : {
@@ -121,7 +122,7 @@ const MyOrders = () => {
         try {
             setCancelling(true);
 
-            const response = await fetch(`http://localhost:4911/api/order/cancel/${selectedOrder._id}`,{
+            const response = await fetch(`${API_URL}/api/order/cancel/${selectedOrder._id}`,{
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -139,7 +140,11 @@ const MyOrders = () => {
                 // Update order in the current list
                 setOrders((prevOrders) => prevOrders.map((order) => order._id === selectedOrder._id ? data.order : order));
                 toast.success("Order cancelled successfully.");
-                closeCancelPopup();
+                
+                setShowCancelPopup(false);
+                setSelectedOrder(null);
+                setCancelReason("");
+                setCustomReason("");
 
             } else {
                 

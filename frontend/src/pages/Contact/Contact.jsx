@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Contact.css'
 import { toast } from 'react-toastify'
+import { API_URL } from "../../config/api";
 
 const Contact = () => {
 
@@ -16,7 +17,7 @@ const Contact = () => {
 
     try {
       
-      const endpoint = "http://localhost:4911/api/message/add"
+      const endpoint = `${API_URL}/api/message/add`;
       const response = await fetch(endpoint, {
         method : "POST",
         headers : {

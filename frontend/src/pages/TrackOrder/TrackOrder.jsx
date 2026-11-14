@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import { StoreContext } from '../../context/StoreContext'
 import './TrackOrder.css'
 import LiveRiderMap from "../../components/LiveRiderMap/LiveRiderMap.jsx";
+import { API_URL } from "../../config/api";
 
 const TrackOrder = () => {
     const { token } = useContext(StoreContext)
@@ -96,7 +97,7 @@ const TrackOrder = () => {
 
         try {
             
-            const response = await fetch(`http://localhost:4911/api/order/${id}`,
+            const response = await fetch(`${API_URL}/api/order/${id}`,
                 {
                     method : "GET",
                     headers : {

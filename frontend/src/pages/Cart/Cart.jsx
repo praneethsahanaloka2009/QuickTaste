@@ -3,6 +3,7 @@ import './Cart.css'
 import { StoreContext } from '../../context/StoreContext'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import { API_URL, getImageUrl } from '../../config/api'
 
 const Cart = () => {
   const { cartItems, food_list, removeFromCart, getTotalCartAmount, token, customizedCartItems, customizedCartLoading, removeCustomizedFromCart, getCustomizedCartTotal } = useContext(StoreContext)
@@ -62,7 +63,7 @@ const Cart = () => {
 
       try {
         const response = await fetch(
-          "http://localhost:4911/api/payment/checkout/summary",
+          `${API_URL}/api/payment/checkout/summary`,
           {
             method: "POST",
             headers: {
@@ -205,7 +206,7 @@ const Cart = () => {
       setPromoLoading(true)
 
       const response = await fetch(
-        'http://localhost:4911/api/promo/validate',
+        `${API_URL}/api/promo/validate`,
         {
           method: 'POST',
           headers: {
@@ -335,7 +336,7 @@ const Cart = () => {
             return (
               <div key={item._id}>
                 <div className="cart-items-title cart-items-item">
-                  <img src={`http://localhost:4911/images/${item.image}`} alt={item.name}/>
+                  <img src={getImageUrl(item.image)} alt={item.name}/>
 
                   <p>{item.name}</p>
 
@@ -389,7 +390,7 @@ const Cart = () => {
                 <div className="cart-custom-image">
                   
                   {imageName ? (
-                    <img src={`http://localhost:4911/images/${imageName}`} alt={foodName}/>
+                    <img src={getImageUrl(imageName)} alt={foodName}/>
                   ) : (
                     <span>🍽️</span>
                   )}

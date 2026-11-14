@@ -4,8 +4,7 @@ import { ArrowLeft, CheckCircle2, Clock3, Mail, RefreshCw, ShieldCheck, Truck, A
 import { toast } from "react-toastify";
 import { StoreContext } from "../../context/StoreContext";
 import "./DeliveryVerification.css";
-
-const API_URL = "http://localhost:4911";
+import { API_URL } from "../../config/api";
 
 const DeliveryVerification = () => {
     const { orderId } = useParams();

@@ -3,9 +3,8 @@ import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import LocationPicker from "../../components/LocationPicker/LocationPicker";
+import { API_URL } from "../../config/api";
 import "./PlaceOrder.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4911";
 
 const EMPTY_FORM = {
   firstName: "",

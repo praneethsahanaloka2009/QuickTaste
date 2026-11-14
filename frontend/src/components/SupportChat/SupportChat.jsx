@@ -3,9 +3,9 @@ import { io } from "socket.io-client";
 import { BotMessageSquare, X, Send, Bot, Headset, LoaderCircle } from "lucide-react";
 import { StoreContext } from "../../context/StoreContext";
 import ReactMarkdown from "react-markdown";
+import { API_URL, SOCKET_URL } from "../../config/api";
 import "./SupportChat.css";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4911";
 const CHAT_URL = `${API_URL}/api/support-chat`;
 
 const SupportChat = () => {
@@ -170,7 +170,7 @@ const SupportChat = () => {
             return;
         }
 
-        const socket = io(API_URL, {
+        const socket = io(SOCKET_URL, {
             auth: {
                 token,
                 role: "customer"

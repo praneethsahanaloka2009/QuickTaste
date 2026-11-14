@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Star, MessageSquareText, Send, Pencil, Trash2, UserRound, RefreshCw } from "lucide-react";
 import { toast } from "react-toastify";
+import { API_URL } from "../../config/api";
 import "./ProductReviews.css";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4911";
 
 const ProductReviews = ({foodId, token, rating, refreshKey = 0}) => {
     const [comment, setComment] = useState("");

@@ -5,8 +5,9 @@ import { toast } from "react-toastify";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MyAddresses.css";
+import { API_URL as BASE_API_URL } from "../../config/api";
 
-const API_URL = "http://localhost:4911/api/user/addresses";
+const API_URL = `${BASE_API_URL}/api/user/addresses`;
 
 const EMPTY_FORM = {
     label: "Home",

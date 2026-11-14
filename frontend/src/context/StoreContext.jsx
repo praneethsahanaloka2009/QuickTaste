@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
+const API_URL = (import.meta.env.VITE_API_URL || "http://localhost:4911").replace(/\/$/, "");
+
 export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
@@ -32,7 +34,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/food/list"
+                `${API_URL}/api/food/list`
             );
 
             const data = await response.json();
@@ -61,7 +63,7 @@ const StoreContextProvider = (props) => {
             setCustomizedCartLoading(true);
 
             const response = await fetch(
-                "http://localhost:4911/api/user/custom-cart",
+                `${API_URL}/api/user/custom-cart`,
                 {
                     method: "GET",
                     headers: {
@@ -96,7 +98,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/user/cart",
+                `${API_URL}/api/user/cart`,
                 {
                     method : "GET",
                     headers : {
@@ -125,7 +127,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/user/profile",
+                `${API_URL}/api/user/profile`,
                 {
                     method : "GET",
                     headers : {
@@ -211,7 +213,7 @@ const StoreContextProvider = (props) => {
 
         try {
             const response = await fetch(
-                "http://localhost:4911/api/user/cart/add",
+                `${API_URL}/api/user/cart/add`,
                 {
                     method: "POST",
                     headers: {
@@ -275,7 +277,7 @@ const StoreContextProvider = (props) => {
 
         try {
             const response = await fetch(
-                "http://localhost:4911/api/user/custom-cart/add",
+                `${API_URL}/api/user/custom-cart/add`,
                 {
                     method: "POST",
                     headers: {
@@ -327,7 +329,7 @@ const StoreContextProvider = (props) => {
 
         try {
             const response = await fetch(
-                "http://localhost:4911/api/user/cart/remove",
+                `${API_URL}/api/user/cart/remove`,
                 {
                     method : "POST",
 
@@ -383,7 +385,7 @@ const StoreContextProvider = (props) => {
 
         try {
             const response = await fetch(
-                "http://localhost:4911/api/user/custom-cart/remove",
+                `${API_URL}/api/user/custom-cart/remove`,
                 {
                     method: "POST",
                     headers: {
@@ -463,7 +465,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                `http://localhost:4911/api/rating/user/${foodId}`,
+                `${API_URL}/api/rating/user/${foodId}`,
                 {
                     method : "GET",
 
@@ -509,7 +511,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                "http://localhost:4911/api/rating/add",
+                `${API_URL}/api/rating/add`,
                 {
                     method : "POST",
 
@@ -578,7 +580,7 @@ const StoreContextProvider = (props) => {
         try {
 
             const response = await fetch(
-                `http://localhost:4911/api/rating/remove/${foodId}`,
+                `${API_URL}/api/rating/remove/${foodId}`,
                 {
                     method : "DELETE",
 

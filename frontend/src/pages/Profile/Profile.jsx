@@ -2,9 +2,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { StoreContext } from "../../context/StoreContext";
 import { toast } from "react-toastify";
+import { API_URL, getImageUrl } from "../../config/api";
 import "./Profile.css";
-
-const API_URL = "http://localhost:4911";
 
 const Profile = () => {
     const { user, setUser, token, fetchUserProfile } = useContext(StoreContext);
@@ -580,7 +579,7 @@ const Profile = () => {
 
                     <div className="customer-avatar-section">
                         {user?.avatar ? (
-                            <img className="customer-profile-avatar" src={`${API_URL}/images/${user.avatar}`} alt="Customer profile"/>
+                            <img className="customer-profile-avatar" src={getImageUrl(user.avatar)} alt="Customer profile"/>
                         ) : (
                             <div className="customer-profile-avatar customer-avatar-letter">
                                 {user?.name?.trim()?.charAt(0)?.toUpperCase() || "U"}

@@ -6,6 +6,9 @@ import { GoogleLogin } from '@react-oauth/google';
 import { toast } from 'react-toastify';
 import { StoreContext } from '../../context/StoreContext'
 
+// Backend API Configuration
+import { API_URL } from "../../config/api";
+
 const LoginPopup = ({setShowLogin}) => {
 
     const [currentState, setCurrentState] = useState("Login")
@@ -33,7 +36,7 @@ const LoginPopup = ({setShowLogin}) => {
 
         try {
             
-            const endpoint = currentState === "Login" ? "http://localhost:4911/api/user/login" : "http://localhost:4911/api/user/register"
+            const endpoint = currentState === "Login" ? `${API_URL}/api/user/login` : `${API_URL}/api/user/register`;
             const body = currentState === "Login" ? {email, password} : {name, email, password}
             const response = await fetch(endpoint, {
                 method : "POST",
@@ -76,7 +79,7 @@ const LoginPopup = ({setShowLogin}) => {
 
         try {
             //  Select endpoint based on Login / Sign Up
-            const endpoint = currentState === "Login" ? "http://localhost:4911/api/user/google-login" : "http://localhost:4911/api/user/google-register"
+            const endpoint = currentState === "Login" ? `${API_URL}/api/user/google-login` : `${API_URL}/api/user/google-register`;
             const response = await fetch(endpoint, {
                 method : "POST",
                 headers : {
